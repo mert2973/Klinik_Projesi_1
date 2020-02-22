@@ -9,7 +9,7 @@
     <div class="page-body"><div class="page-title">
             <div class="row align-items-center">
                 <div class="col-sm-6">
-                    <h2 class="page-title-text d-inline-block">Appointments</h2>
+                    <h2 class="page-title-text d-inline-block">Appointments mert</h2>
                     <div class="breadcrumbs d-inline-block">
                         <ul>
                             <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
