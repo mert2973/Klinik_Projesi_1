@@ -16,8 +16,10 @@
                         <div class="breadcrumbs">
                             <ul>
                                 <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
-                                <li><a href="{{url('/Appointments')}}">Appointments</a></li>
-                                <li>Edit Appointment</li>
+                                <i class="fa fa-angle-right font-13 ml-2" ></i>
+                                <a href="{{url('/Appointments')}}" class="ml-2">Appointments</a>
+                                <i class="fa fa-angle-right font-12 ml-2" ></i>
+                                <span class="ml-2">Edit Appointment</span>
                             </ul>
                         </div>
                     </div>

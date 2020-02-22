@@ -12,8 +12,9 @@
                     <h2 class="page-title-text d-inline-block">Appointments</h2>
                     <div class="breadcrumbs d-inline-block">
                         <ul>
-                            <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
-                            <li>Appointments</li>
+                            <li><a href="{{url('/Dashboard')}}" >Dashboard</a></li>
+                            <i class="fa fa-angle-right font-12 ml-2" ></i>
+                            <span class="ml-2">Appointments</span>
                         </ul>
                     </div>
                 </div>

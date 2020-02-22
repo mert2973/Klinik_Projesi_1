@@ -13,8 +13,11 @@
                         <h2 class="page-title-text d-inline-block">System Info</h2>
                         <div class="breadcrumbs d-inline-block">
                             <ul>
-                                <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
-                                <li>System Info</li>
+                                <li>
+                                    <a href="{{url('/Dashboard')}}">Dashboard</a>
+                                    <i class="fa fa-angle-right font-13 ml-2" ></i>
+                                    <span class="ml-2">System Info</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
