@@ -8,7 +8,8 @@
                     <div class="breadcrumbs d-inline-block">
                         <ul>
                             <li><a href="http://pepdev.com/theme-preview/klinikal/admin/">Dashboard</a></li>
-                            <li>My Profile</li>
+                            <i class="fa fa-angle-right font-12 ml-2" ></i>
+                            <span class="ml-2">My Profile</span>
                         </ul>
                     </div>
                 </div>

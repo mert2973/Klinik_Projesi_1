@@ -14,8 +14,10 @@
                         <div class="breadcrumbs d-inline-block">
                             <ul>
                                 <li><a href="http://pepdev.com/theme-preview/klinikal/admin/">Dashboard</a></li>
-                                <li><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=expenses">Expenses</a></li>
-                                <li>Add Expense</li>
+                                <i class="fa fa-angle-right font-12 ml-2" ></i>
+                                <span class="ml-2"><a href="{{url('/Expenses')}}">Expenses</a></span>
+                                <i class="fa fa-angle-right font-12 ml-2" ></i>
+                                <span class="ml-2">Add Expense</span>
                             </ul>
                         </div>
                     </div>

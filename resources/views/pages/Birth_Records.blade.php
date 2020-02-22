@@ -14,7 +14,8 @@
                         <div class="breadcrumbs d-inline-block">
                             <ul>
                                 <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
-                                <li>Birth Records</li>
+                                <i class="fa fa-angle-right font-12 ml-2" ></i>
+                                <span class="ml-2">Birth Records</span>
                             </ul>
                         </div>
                     </div>

@@ -11,7 +11,7 @@
                 </div>
                 <div class="logo">
                     <a href="#">
-                        <img src="{{asset('css_js_img/logo/logo3.png')}}" width="95%" alt="Logo"> {{--asset('css_js_img/media-13067443605e049cf2882b1.png')--}}
+                        <img src="{{asset('css_js_img/logo/logo4.png')}}" width="80%" alt="Logo"> {{--asset('css_js_img/media-13067443605e049cf2882b1.png')--}}
                     </a>
                 </div>
             </div>

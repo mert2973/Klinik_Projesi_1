@@ -19,7 +19,7 @@
     <div class="lgn-wrapper">
         <div class="lgn-logo text-center">
             <a href="http://pepdev.com/theme-preview/klinikal/admin/">
-                <img src="{{asset('css_js_img/logo/logo4.png')}}" width="70%" alt="Klinikal Hospital">
+                <img src="{{asset('css_js_img/logo/logo4.png')}}" width="50%" alt="Klinikal Hospital">
             </a>
         </div>
         <div class="lgn-title">Sign In</div>

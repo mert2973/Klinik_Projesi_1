@@ -17,8 +17,10 @@
                         <div class="breadcrumbs d-inline-block">
                             <ul>
                                 <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
-                                <li><a href="{{url('/Patient')}}">Patients</a></li>
-                                <li>PepDev Team</li>
+                                <i class="fa fa-angle-right font-12 ml-2" ></i>
+                                <span class="ml-2 text-linkedin"><a href="{{url('/Patient')}}">Patients</a></span>
+                                <i class="fa fa-angle-right font-12 ml-2" ></i>
+                                <span class="ml-2">PepDev Team</span>
                             </ul>
                         </div>
                     </div>

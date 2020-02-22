@@ -14,8 +14,9 @@
                         <h2 class="page-title-text d-inline-block">Send Email</h2>
                         <div class="breadcrumbs d-inline-block">
                             <ul>
-                                <li><a href="http://pepdev.com/theme-preview/klinikal/admin/">Dashboard</a></li>
-                                <li>Send Email</li>
+                                <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
+                                <i class="fa fa-angle-right font-12 ml-2" ></i>
+                                <span class="ml-2">Send Email</span>
                             </ul>
                         </div>
                     </div>

@@ -12,9 +12,10 @@
                     <h2 class="page-title-text d-inline-block">Invoice View</h2>
                     <div class="breadcrumbs d-inline-block">
                         <ul>
-                            <li><a href="http://pepdev.com/theme-preview/klinikal/admin/">Dashboard</a></li>
-                            <li><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=invoices">Invoices</a></li>
-                            <li>Invoice View</li>
+                            <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
+                            <i class="fa fa-angle-right font-12 ml-2" ></i>
+                            <span class="ml-2"><a href="{{url('/Invoices')}}">Invoices</a></span>
+                            <span class="ml-2">Invoice View</span>
                         </ul>
                     </div>
                 </div>

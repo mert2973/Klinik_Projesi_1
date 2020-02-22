@@ -15,8 +15,10 @@
                         <div class="breadcrumbs d-inline-block">
                             <ul>
                                 <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
-                                <li><a href="{{url('/Invoices')}}">Invoices</a></li>
-                                <li>Invoice Add</li>
+                                <i class="fa fa-angle-right font-12 ml-2" ></i>
+                                <span class="ml-2 text-linkedin"><a href="{{url('/Invoices')}}" >Invoices</a></span>
+                                <i class="fa fa-angle-right font-12 ml-2" ></i>
+                                <span class="ml-2">Invoice Add</span>
                             </ul>
                         </div>
                     </div>

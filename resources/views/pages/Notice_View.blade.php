@@ -14,9 +14,11 @@
                     <h2 class="page-title-text d-inline-block">Notice View</h2>
                     <div class="breadcrumbs d-inline-block">
                         <ul>
-                            <li><a href="http://pepdev.com/theme-preview/klinikal/admin/">Dashboard</a></li>
-                            <li><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=noticeboard">Noticeboard</a></li>
-                            <li>Notice View</li>
+                            <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
+                            <i class="fa fa-angle-right font-12 ml-2" ></i>
+                            <span class="ml-2 text-linkedin"><a href="{{url('Noticeboard')}}">Noticeboard</a></span>
+                            <i class="fa fa-angle-right font-12 ml-2" ></i>
+                            <span class="ml-2">Notice View</span>
                         </ul>
                     </div>
                 </div>
