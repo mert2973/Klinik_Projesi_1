@@ -225,7 +225,7 @@
         ><div class="sidebar sidebar-right appointmet-sidebar" style="right: -450px;">
             <div class="sidebar-hdr">
                 <div class="sidebar-close"><i class="ti-close"></i></div>
-                <h3 class="title">Appointment deneme</h3>
+                <h3 class="title">Appointment</h3>
             </div>
             <form class="sidebar-bdy" action="" method="" siq_id="autopick_5007">
                 <input type="hidden" name="_token" value="">
