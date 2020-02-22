@@ -12,7 +12,7 @@
                     <h2 class="page-title-text d-inline-block">Appointments mert</h2>
                     <div class="breadcrumbs d-inline-block">
                         <ul>
-                            <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
+                            <li><a href="{{url('/Dashboard')}}">Dashboard hatay</a></li>
                             <li>Appointments</li>
                         </ul>
                     </div>
