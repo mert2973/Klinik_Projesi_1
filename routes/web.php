@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* Route::get('/', function () {
+ Route::get('/welcome', function () {
     return view('welcome');
-}); */
+});
 
 
 
@@ -137,3 +137,7 @@ Route::prefix('/')->group(function () {
 Route::get('/no_page', function () {
     return view('pages.No_Page');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
