@@ -1,3 +1,8 @@
+@guest
+    <?php $chk_role=""; ?>
+@else
+    <?php  $chk_role=Auth::user()->the_role();       ?>
+@endguest
 <!--Header bölümü with logo -->
 <div class="page-hdr ">
     <div class="row align-items-center">
@@ -75,8 +80,15 @@
                                     <img src="{{asset('css_js_img/media-1771205195e049ca8ee997.jpg')}}" alt="Klinikal">
                                 </div>
                                 <div class="tbl-cell pl-2 text-left">
-                                    <p class="m-0 font-18">Daniel Barnes</p>
-                                    <p class="m-0 font-14">Doctor</p>
+                                    @auth()
+                                    <p class="m-0 font-18">
+                                       
+                                           <span class="text-uppercase"> {{ Auth::user()->name }} {{ Auth::user()->surname }}</span> <span class="caret"></span>
+                                    </p>
+                                     <p class="m-0 font-14">{{$chk_role}}</p>
+                                    @else
+                                    <p>{{'lütfen üye olunuz'}}</p>
+                                    @endauth
                                 </div>
                             </div>
                             <div class="menu-dropdown-body">
@@ -87,7 +99,15 @@
                                 </ul>
                             </div>
                             <div class="menu-dropdown-footer text-right">
-                                <a href="{{url('/')}}" class="btn btn-outline btn-primary btn-pill btn-outline-2x font-12 btn-sm">Logout</a>
+                                <!--<a href="{{--url('/')--}}" class="btn btn-outline btn-primary btn-pill btn-outline-2x font-12 btn-sm">Logout</a>-->
+                                <a  class="btn btn-outline btn-primary btn-pill btn-outline-2x font-12 btn-sm" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                   document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                             </div>
                         </div>
                     </div>

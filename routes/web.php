@@ -1,6 +1,10 @@
 <?php
 use App\Http\Controllers\Genel_Controller;
+use App\Http\Controllers\Hesabim;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use function foo\func;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,19 +29,24 @@ Route::get('/', function () {
 });
 */
 
+Route::get('kayit',function (){
+    return "kayıt oldunuz";
+});
+
 
 Route::prefix('/')->group(function () {
     Route::get('/',function (){
-        return view('pages.Login');
+        if(Auth::check()){
+            return view('pages.Dashboard');
+        }else{
+            return view('pages.Login');
+        }
+
     });
 
-   Route::get('/My_Profile',function (){
-       return view('pages.My_Profile');
-   });
+   Route::get('/My_Profile','Hesabim@my_profile');
+   Route::get('/Dashboard','HomeController@Dashboard');
 
-   Route::get('/Dashboard',function (){
-       return view('pages.Dashboard');
-   });
    Route::get('/Patient',function (){
        return view('pages.Patient');
    });
@@ -133,6 +142,7 @@ Route::prefix('/')->group(function () {
    });
 });
 
+Route::match(array('POST','GET'),'sifre_yenile','Hesabim@Sifreyi_Yenile');
 
 Route::get('/no_page', function () {
     return view('pages.No_Page');

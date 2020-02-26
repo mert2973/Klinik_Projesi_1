@@ -6,13 +6,18 @@
     <title>Klinikal Hospital | Login</title>
     <link rel="icon" type="image/x-icon" href="http://pepdev.com/theme-preview/klinikal/public/uploads/media-16557374875e049cf2688e3.png">
     <link rel="stylesheet" href="{{asset('css_js_img/style.min.css')}}">
-    <script async="" src="./Klinikal_Hospital _ Login_files/analytics.js"></script>
-    <script type="text/javascript" id="zsiqscript" defer="" src="./Klinikal_Hospital _ Login_files/widget"></script>
-    <script src="./Klinikal_Hospital _ Login_files/vendor.min.js"></script>
-    <script src="./Klinikal_Hospital _ Login_files/custom.js"></script>
-    <link rel="stylesheet" href="./Klinikal_Hospital _ Login_files/floatbutton_b7558_.css">
-    <script src="./Klinikal_Hospital _ Login_files/floatbutton_889b9_.js"></script>
-
+    
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="{{asset('css_js_img/login_register/login_register.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('css_js_img/login_register/login_register.css')}}">
+    
+    <!-- icons--->
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="{{asset('themify-icons/themify-icons.css')}}">
+    <!--End. icons--->
 </head>
 <body>
 <div class="lgn-background" style="background-image: url('{{asset('css_js_img/login_resim/login_resim.jpg')}}');">
@@ -22,44 +27,135 @@
                 <img src="{{asset('css_js_img/logo/logo4.png')}}" width="50%" alt="Klinikal Hospital">
             </a>
         </div>
-        <div class="lgn-title">Sign In</div>
-        <div class="lgn-form">
-            <form class="form-vertical" action="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=login" method="post" siq_id="autopick_1604">
-                <input type="hidden" name="_token" value="a37c23e576049c2e86e5b09056b820f5a205da8c448f38e15ab09d2fa1edf3b588681a537df8abc56c1ff242dbef8129443905deb043c1d1166301b083bf52e8">
+        <div class="lgn-title">Oturum Aç</div>
+        <div class="lgn-form " id="login_form">
+            <form class="form-vertical" action="{{route('login')}}" method="POST">
+                @csrf
                 <div class="lgn-input form-group">
-                    <label class="control-label">Username</label>
-                    <input class="form-control" type="text" name="username" id="lgn-mail" placeholder="Enter your Username" autocomplete="off" required="">
+                    <label class="control-label" style="line-height: 1.6">E-posta</label>
+                   <!-- <input class="form-control" type="text" name="email"  placeholder="Email" autocomplete="on" required=""> -->
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+    
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
                 </div>
                 <div class="lgn-input form-group">
-                    <label class="control-label">Password</label>
-                    <input type="password" name="password" id="lgn-pass" class="form-control" placeholder="Enter your Password" autocomplete="off" required="">
+                    <label class="control-label" style="line-height: 1.6">Şifre</label>
+                   <!-- <input type="password" name="password"  class="form-control" placeholder="Şifre" autocomplete="off" required="">-->
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+    
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
                     <div class="lgn-forgot text-right">
-                        <a href="" class="text-primary">Forgot Password?</a>
+                        <a href="" class="text-primary">Hesabını mı unuttun?</a>
                     </div>
                 </div>
-                <div class="lgn-input form-group">
-                    <label class="control-label">What is 10 plus 1 =</label>
-                    <input type="text" id="lgn-bot" class="form-control" placeholder="Answer" autocomplete="off" required="">
-                </div>
+                
                 <div class="lgn-submit text-center">
-                    <a type="submit" href="{{url('/Dashboard')}}" id="lgn-submit" class="btn btn-primary" name="login">Login</a>
+                    <button type="submit"   class="btn btn-primary" >Giriş Yap</button>
+                    <button type="button" class="btn btn-info " id="register_form_btn">Yeni Hesap Aç</button>
                 </div>
+        
             </form>
         </div>
-        <div class="pl-3 pr-3 pb-5 text-center login-autocomplete">
-            <p>Please click on these buttons for autofill credentials.</p>
-            <div class="btn-group pb-2">
-                <a class="btn btn-primary btn-sm" data-username="admin" data-password="Test@123">Admin</a>
-                <a class="btn btn-success btn-sm" data-username="sheldon" data-password="Test@123">Dean</a>
-                <a class="btn btn-danger btn-sm" data-username="daniel" data-password="Test@123">Doctor</a>
-                <a class="btn btn-warning btn-sm" data-username="penny" data-password="Test@123">Nurse</a>
-                <a class="btn btn-info btn-sm" data-username="koothrappali" data-password="Test@123">Accountant</a>
-            </div>
-            <div class="btn-group">
-                <a class="btn btn-secondary btn-sm" data-username="walter" data-password="Test@123">Pharmacist</a>
-                <a class="btn btn-white btn-sm" data-username="donna" data-password="Test@123">Receptionist</a>
-            </div>
+        <div class="lgn-form collapse " id="register_form">
+            <form class="form-vertical" action="{{route('register')}}" method="POST">
+                @csrf
+                <div class="lgn-input form-group">
+                    <label class="control-label">Ad <i class="ti ti-star text-red"></i></label>
+                    <!--<input class="form-control form-control-sm" type="text" name="ad"  placeholder="Ad" autocomplete="on"   required="">-->
+                    <input id="name" type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                    @error('name')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>
+                         {{ $message }}</strong>
+                      </span>
+                    @enderror
+                </div>
+                <div class="lgn-input form-group ">
+                    <label class="control-label">Soyad <i class="ti ti-star text-red"></i></label>
+                   <!-- <input class="form-control form-control-sm" type="text" name="Soyad"  placeholder="Adınızı Giriniz"  autocomplete="on" required="">-->
+                    <input id="surname" type="text" class="form-control form-control-sm @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" required autocomplete="name" autofocus>
+                    @error('surname')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>
+                         {{ $message }}</strong>
+                      </span>
+                    @enderror
+                </div>
+                <div class="lgn-input form-group">
+                    <label class="control-label">Kullanıcı Adı <i class="ti ti-star text-red"></i></label>
+                    <!--<input class="form-control form-control-sm" type="text" name="username" placeholder="Kullanıcı Adı" autocomplete="on" required="">-->
+                    <input id="usr_name" type="text" class="form-control form-control-sm @error('usr_name') is-invalid @enderror" name="usr_name" value="{{ old('usr_name') }}" required autocomplete="name" autofocus>
+                    @error('usr_name')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>
+                         {{ $message }}</strong>
+                      </span>
+                    @enderror
+                </div>
+                <div class="lgn-input form-group">
+                    <label class="control-label">E-Mail <i class="ti ti-star text-red"></i></label>
+                    <!--<input class="form-control form-control-sm" type="email" name="email"  placeholder="Email" autocomplete="on" required=""> -->
+                    <input id="email" type="email" class="form-control form-control-sm @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>
+                       {{ $message }}</strong>
+                      </span>
+                    @enderror
+                </div>
+                <div class="lgn-input form-group">
+                    <label class="control-label">Şifre <i class="ti ti-star text-red"></i></label>
+                   <!-- <input class="form-control form-control-sm" type="password" name="email"  placeholder="Şifre" autocomplete="on" required="">-->
+                    <input id="password" type="password" class="form-control form-control-sm @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>
+                          {{ $message }}
+                      </strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="lgn-input form-group">
+                    <label class="control-label">Şifre Tekrar <i class="ti ti-star text-red"></i></label>
+                   <!-- <input class="form-control form-control-sm" type="password" name="email"  placeholder="Şifre" autocomplete="on" required=""> -->
+                    <input id="password-confirm" type="password" class="form-control form-control-sm" name="password_confirmation" required autocomplete="new-password">
+                </div>
+                <div class="lgn-input form-group">
+                    <label class="control-label">Üyelik Türü <i class="ti ti-star text-red"></i></label>
+                    <select class="form-control form-control-sm" required="required" name="uyelik_turu">
+                         <option value="">Seçiniz</option>
+                        @foreach(\App\Role::get() as $list )
+                         @if($list->id!=1 && $list->id!=3 && $list->id!=4)
+                          <option value="{{$list->id}}">{{$list->name}}</option>
+                         @endif
+                        @endforeach
+                        
+                    </select>
+                </div>
+               
+                <div class="lgn-submit text-center">
+                    <a type="button" href="/"   class="btn btn-primary" name="login">Üye Girişi</a> <!--id="log_in_btn" -->
+                    <button type="submit"  id="lgn-submit" class="btn btn-primary " name="login">Kayıt Ol</button>
+                </div>
+        
+            </form>
+            @if ($errors->has('password') || $errors->has('email'))
+                <script>
+                    $(document).ready(function () {
+                        $('#register_form_btn').click();
+                    });
+                </script>
+            @endif
         </div>
+        
     </div>
 </div>
 <script>
@@ -102,21 +198,7 @@
         </div>
     </div>
 </div>
-<style id="zsiqcustomcss">
-       .zsiq_flt_rel{
-           background-color:#45a4ec !important;
-       }
-       .zsiq_seasonal .st2 {
-           fill: #45a4ec !important;
-        }
-</style>
 
-<!--
-<div class="zls-sptwndw  siqembed siqtrans siqhide zsiq-mobhgt siq_rht zsiq_size2" embedtheme="1" style="visibility: hidden; top: -10000px; display: block;">
-    <div id="siqcht" class="zls-prelative"><iframe id="siqiframe" seamless="seamless" height="460" width="100%" scrolling="no" src="./Klinikal_Hospital _ Login_files/saved_resource.html">
-        
-        </iframe>
-    </div>
-</div>  -->
+
 </body>
 </html>

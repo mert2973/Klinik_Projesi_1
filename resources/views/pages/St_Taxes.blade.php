@@ -6,6 +6,8 @@
             $('#St_Taxes_text').addClass('text-white') ;
         });
     </script>
+   
+    
     <div class="page-wrapper">
         <div class="page-body"><div class="page-title">
                 <div class="row align-items-center">
