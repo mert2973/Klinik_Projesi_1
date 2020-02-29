@@ -16,20 +16,20 @@ class CreateMedicalHistoriesTable extends Migration
         Schema::create('medical_histories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('patient_id');
-            $table->tinyInteger('diabetes',1)->default(0);
-            $table->tinyInteger('heart_problems',1)->default(0);
-            $table->tinyInteger('kidney_stones',1)->default(0);
-            $table->tinyInteger('cancer',1)->default(0);
-            $table->tinyInteger('pregnancy',1)->default(0);
-            $table->tinyInteger('high_blood_pressure',1)->default(0);
-            $table->tinyInteger('asthma',1)->default(0);
-            $table->tinyInteger('jaundice',1)->default(0);
-            $table->tinyInteger('hiv_aids',1)->default(0);
-            $table->tinyInteger('blood_thinners',1)->default(0);
-            $table->tinyInteger('high_cholesterol',1)->default(0);
-            $table->tinyInteger('kidney_disease',1)->default(0);
-            $table->tinyInteger('rheumatic_fever',1)->default(0);
-            $table->tinyInteger('epilepsy',1)->default(0);
+            $table->tinyInteger('diabetes');
+            $table->tinyInteger('heart_problems');
+            $table->tinyInteger('kidney_stones');
+            $table->tinyInteger('cancer');
+            $table->tinyInteger('pregnancy');
+            $table->tinyInteger('high_blood_pressure');
+            $table->tinyInteger('asthma');
+            $table->tinyInteger('jaundice');
+            $table->tinyInteger('hiv_aids');
+            $table->tinyInteger('blood_thinners');
+            $table->tinyInteger('high_cholesterol');
+            $table->tinyInteger('kidney_disease');
+            $table->tinyInteger('rheumatic_fever');
+            $table->tinyInteger('epilepsy');
 
             $table->timestamps();
         });

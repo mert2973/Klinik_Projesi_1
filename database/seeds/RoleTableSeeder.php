@@ -1,6 +1,7 @@
 <?php
 
 use App\Role;
+use App\roles;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -18,16 +19,14 @@ class RoleTableSeeder extends Seeder
             array("name"=>"Doktor(Master)"), // 2
             array("name"=>"Doktor"), // 3
             array("name"=>"Resepsiyonist"), // 4
-
-
         );
         foreach ($roles as $role){
-            Role::create($role);// role tablosuna Admin, Doctor(Master),Doctor,Resepsiyonist rolllerini oluştur
+            roles::create($role);// role tablosuna Admin, Doctor(Master),Doctor,Resepsiyonist rolllerini oluştur
         }
-        DB::table('Role_User')->insert(['user_id'=>1,'role_id'=>1]);
-        DB::table('Role_User')->insert(['user_id'=>2,'role_id'=>2]);
-        DB::table('Role_User')->insert(['user_id'=>3,'role_id'=>3]);
-        DB::table('Role_User')->insert(['user_id'=>4,'role_id'=>4]);
+        DB::table('role_user')->insert(['user_id'=>1,'role_id'=>1]);
+        DB::table('role_user')->insert(['user_id'=>2,'role_id'=>2]);
+        DB::table('role_user')->insert(['user_id'=>3,'role_id'=>3]);
+        DB::table('role_user')->insert(['user_id'=>4,'role_id'=>4]);
 
     }
 }

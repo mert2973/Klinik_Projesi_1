@@ -24,11 +24,11 @@ class CreateGeneralInfosTable extends Migration
             $table->string('department')->varchar(50);
             $table->string('specility')->varchar(20);
             $table->integer('priority');
-            $table->tinyInteger('status',1);
+            $table->tinyInteger('status');
             $table->string('postal_zip')->varchar(12);
             $table->string('blood_drup')->varchar(10);
-            $table->tinyInteger('expr_year',2);
-            $table->integer('awards_count',4);
+            $table->tinyInteger('expr_year');
+            $table->integer('awards_count');
 
             $table->timestamps();
         });
