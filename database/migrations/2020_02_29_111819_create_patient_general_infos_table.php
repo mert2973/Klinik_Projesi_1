@@ -15,7 +15,9 @@ class CreatePatientGeneralInfosTable extends Migration
     {
         Schema::create('patient_general_infos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->integer('patient_id');
+            $table->integer('general_info_id');
+           // $table->timestamps();
         });
     }
 

@@ -36,11 +36,11 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-    ];
+    ];  public $timestamps=false;
 
 
     public  function get_roles(){
-        return  $this->belongsToMany('App\Role','role_user','user_id','role_id');
+        return  $this->belongsToMany('App\roles','role_user','user_id','role_id');
     }
 
     public  function the_role() {

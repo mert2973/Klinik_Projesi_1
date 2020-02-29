@@ -132,7 +132,7 @@
                     <label class="control-label">Üyelik Türü <i class="ti ti-star text-red"></i></label>
                     <select class="form-control form-control-sm" required="required" name="uyelik_turu">
                          <option value="">Seçiniz</option>
-                        @foreach(\App\Role::get() as $list )
+                        @foreach(\App\roles::get() as $list )
                          @if($list->id!=1 && $list->id!=3 && $list->id!=4)
                           <option value="{{$list->id}}">{{$list->name}}</option>
                          @endif
