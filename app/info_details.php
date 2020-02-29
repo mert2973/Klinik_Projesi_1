@@ -4,8 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class info_details extends Model
 {
     //
-    public $timestamps=false;
 }
