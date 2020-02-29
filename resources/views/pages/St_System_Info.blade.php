@@ -31,29 +31,32 @@
                     <div class="panel-body">
                         <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-primary">
                             <li class="nav-item">
-                                <a class="nav-link active show" href="#setting-info" data-toggle="tab">Basic Info</a>
+                                <a class="nav-link active show" href="#setting-info" data-toggle="tab">Bilgiler</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#setting-address" data-toggle="tab">Address</a>
+                                <a class="nav-link" href="#setting-address" data-toggle="tab">Adres</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#settings-sociallink" data-toggle="tab">Social Link</a>
+                                <a class="nav-link" href="#settings-sociallink" data-toggle="tab">Sosyal Medya Linkleri</a>
                             </li>
                         </ul>
+                        
                         <div class="tab-content pt-4">
+                            <!--Bilgiler --->
                             <div class="tab-pane active show" id="setting-info">
                                 <div class="row">
                                     <div class="col-md-6">
+                                        <!--logo-->
                                         <div class="row pb-2">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="d-block">Logo</label>
                                                     <div class="image-upload" style="display: none">
-                                                        <a>Upload</a>
+                                                        <a>Yükle</a>
                                                     </div>
                                                     <div class="saved-picture">
                                                         <img class="img-thumbnail" src="{{asset('css_js_img/setting/media-13067443605e049cf2882b1.png')}}" alt="">
-                                                        <input type="hidden" name="info[logo]" value="media-13067443605e049cf2882b1.png">
+                                                        <input type="hidden" name="logo" value="media-13067443605e049cf2882b1.png">
                                                     </div>
                                                     <div class="saved-picture-delete" data-toggle="tooltip" data-placement="right" title="" data-original-title="Remove">
                                                         <a class="fa fa-times"></a>
@@ -62,13 +65,13 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="d-block">Favicon</label>
+                                                    <label class="d-block">İcon</label>
                                                     <div class="image-upload" style="display: none">
-                                                        <a>Upload</a>
+                                                        <a>Yükle</a>
                                                     </div>
                                                     <div class="saved-picture">
                                                         <img class="img-thumbnail" src="{{asset('css_js_img/setting/media-16557374875e049cf2688e3.png')}}" alt="">
-                                                        <input type="hidden" name="info[favicon]" value="media-16557374875e049cf2688e3.png">
+                                                        <input type="hidden" name="favicon" value="media-16557374875e049cf2688e3.png">
                                                     </div>
                                                     <div class="saved-picture-delete" data-toggle="tooltip" data-placement="right" title="" data-original-title="Remove">
                                                         <a class="fa fa-times"></a>
@@ -76,60 +79,73 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!--End logo-->
+                                        <!-- klinik adı-->
                                         <div class="form-group">
-                                            <label>Clinic Name <span class="form-required">*</span></label>
+                                            <label>Klinik Adı <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-tag"></i></span>
                                                 </div>
-                                                <input type="text" name="info[name]" class="form-control" value="Klinikal Hospital" placeholder="Enter Clinic Name . . ." required="">
+                                                <input type="text" name="clinic_name" class="form-control" value="" placeholder="Klinik Adını Giriniz . . ." required="">
                                             </div>
                                         </div>
+                                        <!--end  klinik adı-->
+                                        <!-- klinik adı-->
                                         <div class="form-group">
-                                            <label>Clinic Legal Name <span class="form-required">*</span></label>
+                                            <label>Klinik Resmi Adı <span class="form-required">*</span></label><!--Clinic Legal Name-->
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-id-badge"></i></span>
                                                 </div>
-                                                <input type="text" name="info[legal_name]" class="form-control" value="Klinikal Pvt Ltd" placeholder="Enter Clinic Legal Name . . ." required="">
+                                                <input type="text" name="legal_name" class="form-control" value="" placeholder="Klinik Resmi Adını Giriniz (Klinik Pvt Ltd) . . ." required="">
                                             </div>
                                         </div>
+                                        <!--End klinik adı-->
+                                        <!-- email-->
                                         <div class="form-group">
-                                            <label>Email Address <span class="form-required">*</span></label>
+                                            <label>E-mail Adresi <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-email"></i></span>
                                                 </div>
-                                                <input type="email" name="info[mail]" class="form-control" value="support@pepdev.com" placeholder="Enter Email Address . . ." required="">
+                                                <input type="email" name="email" class="form-control" value="support@pepdev.com" placeholder="Email Adresi Giriniz . . ." required="">
                                             </div>
                                         </div>
+                                        <!--End email-->
+                                        <!-- telefon-->
+                                        <!-- telefon-->
                                         <div class="form-group">
-                                            <label>Phone Number <span class="form-required">*</span></label>
+                                            <label>Telefon <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-mobile"></i></span>
                                                 </div>
-                                                <input type="text" name="info[phone]" class="form-control" value="1234567890" placeholder="Enter Phone Number . . ." required="">
+                                                <input type="text" name="phone_1" class="form-control" value="" placeholder="Telefon numarası giriniz . . ." required="">
                                             </div>
                                         </div>
+                                        <!--End telefon-->
+                                        <!--Acil telefon-->
                                         <div class="form-group">
-                                            <label>Emergency Number</label>
+                                            <label>Acil Telefon</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-headphone-alt"></i></span>
                                                 </div>
-                                                <input type="text" name="info[emergency]" class="form-control" value="1800000001" placeholder="Enter Emergency Number . . .">
+                                                <input type="text" name="phone_2" class="form-control" value="" placeholder="Acil telefon numarası giriniz . . .">
                                             </div>
                                         </div>
+                                        <!--End Acil telefon-->
                                     </div>
                                     <div class="col-md-6">
                                         <div class="row">
+                                            <!--Site modu-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Site Mode <span class="form-required">*</span></label>
+                                                    <label>Site Modu<span class="form-required">*</span></label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text"><i class="ti-settings"></i></span></div>
-                                                        <select name="info[mode]" class="custom-select" required="">
+                                                        <select name="site_mode" class="custom-select" required="">
                                                             <option value="1" selected="">Live</option>
                                                             <option value="2">Comming Soon</option>
                                                             <option value="3">Maintenance mode</option>
@@ -137,51 +153,60 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!--End Site modu-->
+                                            
+                                            <!--Tema Rengi-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Theme Color</label>
+                                                    <label>Tema Rengi</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="ti-paint-bucket"></i></span>
                                                         </div>
-                                                        <select name="info[color]" class="custom-select">
-                                                            <option value="blue" selected="">Blue</option>
-                                                            <option value="green">Green</option>
-                                                            <option value="orange">Orange</option>
-                                                            <option value="purple">Purple</option>
+                                                        <select name="theme_color" class="custom-select">
+                                                            <option value="blue" selected="">Mavi</option>
+                                                            <option value="green">Yeşil</option>
+                                                            <option value="orange">Turuncu</option>
+                                                            <option value="purple">Mor</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!--End Tema Rengi-->
                                         </div>
+                                        <!--Dil-->
                                         <div class="form-group">
-                                            <label>Language</label>
+                                            <label>Dil</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-world"></i></span>
                                                 </div>
-                                                <select name="info[language]" class="custom-select">
-                                                    <option value="en" selected="">English</option>
-                                                    <option value="custom">Local Language</option>
+                                                <select name="language" class="custom-select">
+                                                    <option value="tr" >Türkçe</option>
+                                                    <option value="en" >İngilizce</option>
                                                 </select>
                                             </div>
                                         </div>
+                                        <!--End dil -->
+                                        <!--Google Analytics ID --->
                                         <div class="form-group">
                                             <label>Google Analytics ID</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-world"></i></span>
                                                 </div>
-                                                <input type="text" name="info[ga]" class="form-control" value="UA-93901876-1" placeholder="Tracking ID (UA-XXXXX-Y)">
+                                                <input type="text" name="google_anlytc_id" class="form-control" value="UA-93901876-1" placeholder="Tracking ID (UA-XXXXX-Y)">
                                             </div>
                                         </div>
+                                        <!--Google Analytics ID --->
+                                        <!--saat dilim --->
                                         <div class="form-group">
-                                            <label>Timezone</label>
+                                            <label>Saat Dilimi</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-calendar"></i></span>
                                                 </div>
-                                                <select name="info[timezone]" class="custom-select">
+                                                <select name="timezone" class="custom-select">
                                                     <option value="Pacific/Niue">(GMT-11:00) Niue</option>
                                                     <option value="Pacific/Pago_Pago">(GMT-11:00) Pago Pago</option>
                                                     <option value="Pacific/Honolulu">(GMT-10:00) Hawaii Time</option>
@@ -325,7 +350,7 @@
                                                     <option value="Europe/Bucharest">(GMT+02:00) Bucharest</option>
                                                     <option value="Europe/Chisinau">(GMT+02:00) Chisinau</option>
                                                     <option value="Europe/Helsinki">(GMT+02:00) Helsinki</option>
-                                                    <option value="Europe/Istanbul">(GMT+02:00) Istanbul</option>
+                                                    <option value="Europe/Istanbul" selected="">(GMT+02:00) Istanbul</option>
                                                     <option value="Europe/Kaliningrad">(GMT+02:00) Moscow-01 - Kaliningrad</option>
                                                     <option value="Europe/Kiev">(GMT+02:00) Kiev</option>
                                                     <option value="Europe/Riga">(GMT+02:00) Riga</option>
@@ -360,7 +385,7 @@
                                                     <option value="Asia/Yekaterinburg">(GMT+05:00) Moscow+02 - Yekaterinburg</option>
                                                     <option value="Indian/Kerguelen">(GMT+05:00) Kerguelen</option>
                                                     <option value="Indian/Maldives">(GMT+05:00) Maldives</option>
-                                                    <option value="Asia/Calcutta" selected="">(GMT+05:30) India Standard Time</option>
+                                                    <option value="Asia/Calcutta" >(GMT+05:30) India Standard Time</option>
                                                     <option value="Asia/Colombo">(GMT+05:30) Colombo</option>
                                                     <option value="Asia/Katmandu">(GMT+05:45) Katmandu</option>
                                                     <option value="Antarctica/Vostok">(GMT+06:00) Vostok</option>
@@ -436,8 +461,10 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <!--End saat dilim --->
+                                        <!--tarih formatı --->
                                         <div class="form-group">
-                                            <label>Date Format</label>
+                                            <label>Tarih Formatı</label>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="input-group">
@@ -460,7 +487,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="ti-timer"></i></span>
                                                         </div>
-                                                        <select name="info[date_my_format]" class="custom-select">
+                                                        <select name="date_my_format" class="custom-select">
                                                             <option value="m-Y" selected="">m-Y ( 02-2020 ) </option>
                                                             <option value="m/Y">m/Y ( 02/2020 ) </option>
                                                             <option value="Y/m">Y/m ( 2020/02 ) </option>
@@ -470,95 +497,103 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    
+                                        <!--End tarih formatı --->
+                                        <!--para birimleri --->
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Currency Code</label>
+                                                    <label>Para Birimi</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="ti-timer"></i></span>
                                                         </div>
-                                                        <input type="text" name="info[currency]" class="form-control" value="USD" placeholder="Currency Code . . .">
+                                                        <input type="text" name="info[currency]" class="form-control" value="" placeholder="Para birimi (TL) . . .">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Currency Abbreviation</label>
+                                                    <label>Para Birimi Kısaltması</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="ti-timer"></i></span>
                                                         </div>
-                                                        <input type="text" name="info[currency_abbr]" class="form-control" value="$" placeholder="Currency Abbreviation . . .">
+                                                                                  <!-- currency_abbreviation--->
+                                                        <input type="text" name="currency_abbr" class="form-control" value="" placeholder="Para birimi kısaltması ($) . . .">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!--End para birimleri --->
                                     </div>
                                 </div>
                                 <div class="dotted-seprator mt-3 mb-4"></div>
+                                <!--Randevu Öneki --->
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Appointment Prefix</label>
+                                            <label>Randevu Öneki</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-flag"></i></span>
                                                 </div>
-                                                <input type="text" name="info[appointment_prefix]" class="form-control" value="APNT-" placeholder="Enter Appointment Prefix . . .">
+                                                <input type="text" name="appointment_prefix" class="form-control" value="APNT-" placeholder="Enter Appointment Prefix . . .">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!--End Randevu Öneki --->
                                 <div class="dotted-seprator mt-3 mb-4"></div>
+                                <!-- fatura tanımlamaları--->
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Invoice Prefix</label>
+                                            <label>Fatura Öneki</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-flag"></i></span>
                                                 </div>
-                                                <input type="text" name="info[invoice_prefix]" class="form-control" value="INV-" placeholder="Enter Invoice Prefix . . .">
+                                                <input type="text" name="invoice_prefix" class="form-control" value="INV-" placeholder="Enter Invoice Prefix . . .">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label>Predefined Customer Note</label>
+                                            <label>Tanımlı Müşteri Notu</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-flag"></i></span>
                                                 </div>
-                                                <textarea name="info[invoice_cnote]" class="form-control" placeholder="Invoice Predefined Customer Note">It's great to work with you. </textarea>
+                                                <textarea name="invoice_cus_note" class="form-control" placeholder="Invoice Predefined Customer Note">It's great to work with you. </textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label>Predefined Terms &amp; Conditions</label>
+                                            <label>Tanımlı Terim Koşulları</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-flag"></i></span>
                                                 </div>
-                                                <textarea name="info[invoice_tc]" class="form-control" placeholder="Invoice Terms &amp; Conditions">Please pay us your amount in 15 days. Otherwise 12% interest will be applied.  </textarea>
+                                                <textarea name="invoice_trm_cnd" class="form-control" placeholder="Invoice Terms &amp; Conditions">Please pay us your amount in 15 days. Otherwise 12% interest will be applied.  </textarea>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- fatura tanımlamaları--->
                                 <div class="dotted-seprator mt-3 mb-4"></div>
+                                <!-- fatura reçete şablonları--->
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group invoice-template-img">
-                                            <label>Prescription Template</label>
+                                            <label>Reçete Şablonu</label>
                                             <div>
                                                 <div class="custom-control custom-radio custom-radio-1 d-inline-block">
-                                                    <input type="radio" name="info[prescription_template]" class="custom-control-input" value="1" id="prescription_template-template-1">
+                                                    <input type="radio" name="prescription_template" class="custom-control-input" value="1" id="prescription_template-template-1">
                                                     <label class="custom-control-label" for="prescription_template-template-1"><img src="{{asset('css_js_img/setting/invoice-1.png')}}" alt="Invoice Template 1"></label>
                                                 </div>
                                                 <div class="custom-control custom-radio custom-radio-1 d-inline-block">
-                                                    <input type="radio" name="info[prescription_template]" class="custom-control-input" value="2" id="prescription_template-template-2" checked="">
+                                                    <input type="radio" name="prescription_template" class="custom-control-input" value="2" id="prescription_template-template-2" checked="">
                                                     <label class="custom-control-label" for="prescription_template-template-2"><img src="{{asset('css_js_img/setting/invoice-2.png')}}" alt="Invoice Template 1"></label>
                                                 </div>
                                             </div>
@@ -566,54 +601,59 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group invoice-template-img">
-                                            <label>Invoice Template</label>
+                                            <label>Fatura Şablonu</label>
                                             <div>
                                                 <div class="custom-control custom-radio custom-radio-1 d-inline-block">
-                                                    <input type="radio" name="info[invoice_template]" class="custom-control-input" value="1" id="invoice-template-1">
+                                                    <input type="radio" name="invoice_template" class="custom-control-input" value="1" id="invoice-template-1">
                                                     <label class="custom-control-label" for="invoice-template-1"><img src="{{asset('css_js_img/setting/invoice-1.png')}}" alt="Invoice Template 1"></label>
                                                 </div>
                                                 <div class="custom-control custom-radio custom-radio-1 d-inline-block">
-                                                    <input type="radio" name="info[invoice_template]" class="custom-control-input" value="2" id="invoice-template-2" checked="">
+                                                    <input type="radio" name="invoice_template" class="custom-control-input" value="2" id="invoice-template-2" checked="">
                                                     <label class="custom-control-label" for="invoice-template-2"><img src="{{asset('css_js_img/setting/invoice-2.png')}}" alt="Invoice Template 1"></label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!--End fatura reçete şablonları--->
                                 <div class="dotted-seprator mt-3 mb-4"></div>
+                                <!-- Doktor Erişimi--->
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <label class="col-form-label mr-3 mb-0">Doctor Access</label>
+                                        <label class="col-form-label mr-3 mb-0">Doktor Erişimi</label>
                                         <div class="custom-control custom-checkbox custom-checkbox-1 d-inline-block">
-                                            <input type="checkbox" name="info[doctor_access]" class="custom-control-input" value="1" id="doctor_access" checked="">
-                                            <label class="custom-control-label" for="doctor_access">Doctor can see only their data like Patient, Appointment, Invoice and Prescription.</label>
+                                            <input type="checkbox" name="doctor_access" class="custom-control-input" value="2" id="doctor_access" checked="">
+                                            <label class="custom-control-label" for="doctor_access">Doktor sadece Hasta, Randevu, Fatura ve Reçete gibi verilerini görebilir.</label>
                                         </div>
                                         <span class="form-text">By Enabling this option. doctor can see only their own data which is created by doctor or doctor have their name in. For example, One appointment is made by patient or admin staff for one doctor then that doctor can see that appointment and patient history (All history).</span>
                                         <span class="form-text">By Disabling this, Doctor can see all Patient, Appointment, Invoice and Prescription.</span>
                                     </div>
                                 </div>
+                                <!--End Doktor Erişimi--->
                             </div>
+                            <!--End Bilgiler --->
+                            <!-- Adres bilgileri --->
                             <div class="tab-pane" id="setting-address">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Address Line 1</label>
+                                            <label>Adres 1</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-location-pin"></i></span>
                                                 </div>
-                                                <input type="text" name="info[address][address1]" class="form-control" value="Address Line 11" placeholder="Enter Address Line 1 . . .">
+                                                <input type="text" name="adress_1" class="form-control" value="" placeholder="Adres giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Address Line 2</label>
+                                            <label>Adres 2</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-location-pin"></i></span>
                                                 </div>
-                                                <input type="text" name="info[address][address2]" class="form-control" value="Address Line 2" placeholder="Enter Address Line 2 . . .">
+                                                <input type="text" name="adress_2" class="form-control" value="" placeholder="Adres giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
@@ -624,34 +664,36 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-map-alt"></i></span>
                                                 </div>
-                                                <input type="text" name="info[address][city]" class="form-control" value="City" placeholder="Enter City . . .">
+                                                <input type="text" name="city" class="form-control" value="" placeholder="Şehir adını giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Country</label>
+                                            <label>Ülke</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-map"></i></span>
                                                 </div>
-                                                <input type="text" name="info[address][country]" class="form-control" value="Country" placeholder="Enter Country . . .">
+                                                <input type="text" name="country" class="form-control" value="" placeholder="Ülke adını giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Postal/ZIP Code</label>
+                                            <label>Posta/Zip Kodu</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-pin"></i></span>
                                                 </div>
-                                                <input type="text" name="info[address][postal]" class="form-control" value="0123456" placeholder="Enter Postal/ZIP Code . . .">
+                                                <input type="text" name="postal_zip" class="form-control" value="" placeholder="Posta/Zip kodunu giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!--End Adres bilgileri --->
+                            <!-- Sosyal medya adresleri --->
                             <div class="tab-pane" id="settings-sociallink">
                                 <div class="row">
                                     <div class="col-md-6 col-lg-4">
@@ -698,10 +740,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Sosyal medya adresleri --->
                         </div>
                     </div>
                     <div class="panel-footer text-center">
-                        <button type="submit" name="submit" class="btn btn-primary"><i class="ti-save-alt pr-2"></i> Save</button>
+                        <button type="submit" name="submit" class="btn btn-primary"><i class="ti-save-alt pr-2"></i> Kaydet</button>
                     </div>
                 </div>
             </form>

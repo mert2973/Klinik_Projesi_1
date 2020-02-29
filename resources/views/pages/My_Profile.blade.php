@@ -20,7 +20,7 @@
         
         <div class="content">
             <div class="row">
-                <form class="col-sm-7" action="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=profile" method="post" siq_id="autopick_8732">
+                <form class="col-sm-7" action="" method="" siq_id="autopick_8732">
                     <div class="panel panel-default">
                         <div class="panel-head">
                             <div class="panel-title">Bilgilerim</div>

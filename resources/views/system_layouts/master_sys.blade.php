@@ -22,10 +22,12 @@
     <script type="text/javascript" id="zsiqscript" defer="" src="{{asset('css_js_img/widget')}}"></script>
     <script type="text/javascript" src="{{asset('css_js_img/vendor.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('css_js_img/admin.js')}}"></script>
-    
-    
+    <script type="text/javascript" src="{{asset('css_js_img/jquery-ui.multidatespicker.min.js')}}"></script>
+
     <script type="text/javascript" src="{{asset('css_js_img/summernote/summernote-bs4.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('css_js_img/summernote/klinikal.summernote.js')}}"></script>
+    
+   
     
     <script type="text/javascript" src="{{--asset('css_js_img/floatbutton_8a683_.js')--}}"></script> <!-- invoice için eklenmişti-->
     
@@ -58,7 +60,8 @@
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <link rel="stylesheet" href="{{asset('themify-icons/themify-icons.css')}}">
     <!--End. icons--->
-    
+    <link rel="stylesheet" href="{{asset('css_js_img/my_css_js/my_style.css')}}">
+    <script type="text/javascript" src="{{asset('css_js_img/my_css_js/my_js.js')}}"></script>
 </head>
 
 <body style="">

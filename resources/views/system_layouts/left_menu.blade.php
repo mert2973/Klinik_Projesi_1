@@ -12,13 +12,13 @@
             <li class="" id="Patient_active">
                 <a href="{{url('Patient')}}">
                     <i class="ti-heart-broken"></i>
-                    <span>Patient</span>
+                    <span>Hastalar</span>
                 </a>
             </li>
             <li class="" id="Appointment_active">
                 <a href="{{url('Appointments')}}">
                     <i class="ti-calendar"></i>
-                    <span>Appointments</span>
+                    <span>Randevular</span>
                 </a>
             </li>
             <li class="" id="Invoices_active">
@@ -82,7 +82,7 @@
             <li class="" id="Doctors_active">
                 <a href="{{url('Doctors')}}" id="Doctors_text">
                     <i class="ti-id-badge"></i>
-                    <span>Doctors</span>
+                    <span>Doktorlar</span>
                 </a>
             </li>
             <li class="has-sub" id="Email_active">
@@ -96,6 +96,25 @@
                     <li>
                         <a href="{{url('Send_Email')}}" id="Send_Email_text">
                             <span>Send Email</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-sub" id="User">
+                <a>
+                    <i class="ti-clipboard"></i>
+                    <span>Kullanıcı</span>
+                    <i class="arrow"></i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="{{url('/Users')}}" id="Users">
+                            <span>Kullanıcılar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url('/User_Roles')}}" id="Roles">
+                            <span>Roller</span>
                         </a>
                     </li>
                 </ul>

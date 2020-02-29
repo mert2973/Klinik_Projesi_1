@@ -107,6 +107,9 @@ Route::prefix('/')->group(function () {
    Route::get('/Doctors',function (){
        return view('pages.Doctors');
    });
+   Route::get('/Doctor_Add',function (){
+       return view('pages.Doctor_Add');
+   });
    Route::get('/Doctor_Edit',function (){
        return view('pages.Doctor_Edit');
    });
@@ -115,6 +118,24 @@ Route::prefix('/')->group(function () {
    });
    Route::get('/Notice_View',function (){
        return view('pages.Notice_View');
+   });
+   Route::get('/Users',function (){
+       return view('pages.Users');
+   });
+   Route::get('/Users_Add',function (){
+       return view('pages.Users_Add');
+   });
+   Route::get('/Users_Edit',function (){
+       return view('pages.Users_Edit');
+   });
+   Route::get('/User_Roles',function (){
+       return view('pages.User_Roles');
+   });
+   Route::get('/User_Role_Add',function (){
+       return view('pages.User_Role_Add');
+   });
+   Route::get('/User_Role_Edit',function (){
+       return view('pages.User_Role_Edit');
    });
    Route::get('/St_Clinical_Notes',function (){
        return view('pages.St_Clinical_Notes');
