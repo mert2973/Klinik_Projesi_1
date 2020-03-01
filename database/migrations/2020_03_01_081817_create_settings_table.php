@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMertdenemeTable extends Migration
+class CreateSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateMertdenemeTable extends Migration
      */
     public function up()
     {
-        Schema::create('mertdeneme', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->bigIncrements('id');
-
+            $table->string('name');
+            $table->string('value');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateMertdenemeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mertdeneme');
+        Schema::dropIfExists('settings');
     }
 }
