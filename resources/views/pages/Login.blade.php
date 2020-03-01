@@ -3,7 +3,8 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>Klinikal Hospital | Login</title>
+   <!-- <title>Klinikal Hospital | Login</title> -->
+    <title name="" content="">{{ config('ayar.title') }} </title>
     <link rel="icon" type="image/x-icon" href="http://pepdev.com/theme-preview/klinikal/public/uploads/media-16557374875e049cf2688e3.png">
     <link rel="stylesheet" href="{{asset('css_js_img/style.min.css')}}">
     
@@ -132,7 +133,7 @@
                     <label class="control-label">Üyelik Türü <i class="ti ti-star text-red"></i></label>
                     <select class="form-control form-control-sm" required="required" name="uyelik_turu">
                          <option value="">Seçiniz</option>
-                        @foreach(\App\roles::get() as $list )
+                        @foreach(\App\Roles::get() as $list )
                          @if($list->id!=1 && $list->id!=3 && $list->id!=4)
                           <option value="{{$list->id}}">{{$list->name}}</option>
                          @endif

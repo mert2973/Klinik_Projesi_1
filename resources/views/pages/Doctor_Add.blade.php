@@ -28,7 +28,8 @@
                     <div class="col-sm-6 text-right"></div>
                 </div>
             </div>
-            <form action="" method="" enctype="multipart/form-data" siq_id="autopick_8689">
+            <form action="{{url('/Doctor_Create')}}" method="POST" enctype="multipart/form-data" ><!-- siq_id="autopick_8689" -->
+                @csrf
                 <input type="hidden" name="" value="">
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -83,7 +84,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-email"></i></span>
                                                 </div>
-                                                <input type="text" name="doctor[mail]" class="form-control" value="" placeholder="E-Mail adresini giriniz . . ." required="">
+                                                <input type="text" name="mail" class="form-control" value="" placeholder="E-Mail adresini giriniz . . ." required="">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -101,7 +102,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-user"></i></span>
                                                 </div>
-                                                <select name="doctor[bloodgroup]" class="custom-select">
+                                                <select name="bloodgroup" class="custom-select">
                                                     <option value="A+">A+</option>
                                                     <option value="A-">A-</option>
                                                     <option value="B+">B+</option>
@@ -119,7 +120,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-user"></i></span>
                                                 </div>
-                                                <select name="doctor[gender]" class="custom-select">
+                                                <select name="gender" class="custom-select">
                                                     <option value="Male">Erkek</option>
                                                     <option value="Female">Kadın</option>
                                                     <option value="Other">Diğer</option>
@@ -175,6 +176,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="dotted-seprator mt-4 mb-5"></div>
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -202,7 +204,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-key"></i></span>
                                                 </div>
-                                                <input type="password" name="crm_password" class="form-control" placeholder="Şifreyi doğrula . . ." required="">
+                                                <input type="password" name="password_confirmation" class="form-control" placeholder="Şifreyi doğrula . . ." required="">
                                             </div>
                                         </div>
                                     </div>
@@ -217,7 +219,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-location-pin"></i></span>
                                                 </div>
-                                                <input type="text" name="address1" class="form-control" value="" placeholder="Adres 1 . . .">
+                                                <input type="text" name="adress1" class="form-control" value="" placeholder="Adres 1 . . .">
                                             </div>
                                         </div>
                                     </div>
@@ -228,7 +230,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-location-pin"></i></span>
                                                 </div>
-                                                <input type="text" name="address2" class="form-control" value="" placeholder="Adres 2 . . .">
+                                                <input type="text" name="adress2" class="form-control" value="" placeholder="Adres 2 . . .">
                                             </div>
                                         </div>
                                     </div>
@@ -379,7 +381,7 @@
                             <div class="tab-pane" id="doctor-appointment">
                                 <div class="form-group">
                                     <label>Doktor randevu alabilir mi? <span class="form-required">*</span></label>
-                                    <select name="doctor[appointment_status]" class="custom-select">
+                                    <select name="appointment_status" class="custom-select">
                                         <option value="1">Evet</option>
                                         <option value="0">Hayır</option>
                                     </select>

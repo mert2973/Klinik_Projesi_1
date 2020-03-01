@@ -104,12 +104,10 @@ Route::prefix('/')->group(function () {
    Route::get('/Noticeboard',function (){
        return view('pages.Noticeboard');
    });
-   Route::get('/Doctors',function (){
-       return view('pages.Doctors');
-   });
-   Route::get('/Doctor_Add',function (){
-       return view('pages.Doctor_Add');
-   });
+   Route::get('/Doctors','Doctor@doctors');
+   Route::get('/Doctor_Add',"Doctor@doctor_add");
+   Route::post('/Doctor_Create','Doctor@doctor_create');
+
    Route::get('/Doctor_Edit',function (){
        return view('pages.Doctor_Edit');
    });

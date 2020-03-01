@@ -55,9 +55,8 @@ class Handler extends ExceptionHandler
             return redirect('/no_page');
         }
         if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
-
-            return redirect('/');
-
+            return redirect('/'); //session silinmişse veya süresi bitmişse, yenilenmemiş sayfa üzerinde
+            //... logut yapılmaya çalışıldığında karşılanabilecek olası hataları önelmek içindir...
         }
 
         return parent::render($request, $exception);
