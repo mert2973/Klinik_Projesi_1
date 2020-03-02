@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRelationshipsTable extends Migration
+class CreateUserGeneralInfoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateRelationshipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('relationships', function (Blueprint $table) {
+        Schema::create('user_general_info', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_master_dr_id');
-            $table->integer('clinic_id');
-            $table->integer('staff_usr_id');
+            $table->integer('users_clinics_id');
+            $table->integer('general_info_id');
            // $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateRelationshipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('relationships');
+        Schema::dropIfExists('user_general_info');
     }
 }

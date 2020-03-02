@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserGeneralInfoTable extends Migration
+class CreatemasterDRandClinicsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateUserGeneralInfoTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_general_info', function (Blueprint $table) {
+        Schema::create('masterDR_and_clinics', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
-            $table->integer('general_info_id');
+            $table->integer('user_master_dr_id');
+            $table->integer('clinic_id');
+           // $table->integer('staff_usr_id');
            // $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateUserGeneralInfoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_general_info');
+        Schema::dropIfExists('masterDR_and_clinics');
     }
 }
