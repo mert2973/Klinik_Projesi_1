@@ -153,9 +153,8 @@ Route::prefix('/')->group(function () {
    Route::get('/St_Suppliers',function (){
        return view('pages.St_Suppliers');
    });
-   Route::get('/St_System_Info',function (){
-       return view('pages.St_System_Info');
-   });
+   Route::get('/St_System_Info','Clinic@st_system_info');
+   Route::post('Clinic_Add','Clinic@clinic_add');
    Route::get('/St_Taxes',function (){
        return view('pages.St_Taxes');
    });

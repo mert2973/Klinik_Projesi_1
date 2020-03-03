@@ -15,20 +15,23 @@ class CreateGeneralInfosTable extends Migration
     {
         Schema::create('general_infos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('city')->varchar(15);
-            $table->string('country')->varchar(20);
-            $table->string('adress_1')->varchar(100);
-            $table->string('adress_2')->varchar(100);
-            $table->string('gender')->varchar(10);
-            $table->string('date_of_birth')->varchar(20);
-            $table->string('department')->varchar(50);
-            $table->string('specility')->varchar(20);
-            $table->integer('priority');
-            $table->tinyInteger('status');
-            $table->string('postal_zip')->varchar(12);
-            $table->string('blood_drup')->varchar(10);
-            $table->tinyInteger('expr_year');
-            $table->integer('awards_count');
+            //$table->integer('masterDR_and_clinics_id');
+            $table->string('city')->varchar(15)->nullable();
+            $table->string('country')->varchar(20)->nullable();
+            $table->string('adress_1')->varchar(100)->nullable();
+            $table->string('adress_2')->varchar(100)->nullable();
+            $table->string('gender')->varchar(10)->nullable();
+            $table->string('date_of_birth')->varchar(20)->nullable();
+            $table->string('department')->varchar(50)->nullable();
+            $table->string('position')->varchar(50)->nullable();
+            $table->string('specility')->varchar(20)->nullable();
+            $table->integer('priority')->nullable();
+            $table->tinyInteger('status')->nullable();
+            $table->string('postal_zip')->varchar(12)->nullable();
+            $table->string('blood_group')->varchar(10)->nullable();
+            $table->tinyInteger('expr_year')->nullable();
+            $table->tinyInteger('degree')->nullable();
+            $table->integer('awards_count')->nullable();
 
             $table->timestamps();
         });

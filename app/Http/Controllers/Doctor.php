@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\General_Infos;
+use App\Info_Details;
 use App\User;
+use App\User_General_Infos;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class Doctor extends Controller
 {
@@ -22,40 +28,54 @@ class Doctor extends Controller
         return view('pages.Doctor_Add');
     }
     public function doctor_create(Request $request){
-        User::create([
-            // 'name','surname','usr_name', 'email', 'password'
+        $masterDR_id=Auth::user()->id;
+       $user= User::create([ // person of dr,resepsiyonist etc..
            "name" => $request->name ,
            "surname" => $request-> surname,
            "email" => $request-> mail,
-           "usr_name" => $request-> usur_name,
-           "name" => $request-> password,
-            "name" => $request-> phone,
-
-
+           "usr_name" => $request-> user_name,
+           "password" => Hash::make($request-> password),
+           "phone" => $request-> phone,
         ]);
-        General_Infos::create([
-            //'city','country','adress_1','adress_2','gender','date_of_birth',
-            //       'department','specility','priority','status','postal_zip','blood_drup','expr_year','awards_count'
 
-            "name" => $request-> blood_group,
-            "name" => $request-> gender,
-            "name" => $request-> adress1,
-            "name" => $request-> adress2,
-            "name" => $request-> city,
-            "name" => $request-> country,
-            "name" => $request-> posta_zip_kodu,
-            "name" => $request-> web_status,
-            "name" => $request-> priority,
-            "name" => $request-> position,
-            "name" => $request-> degree,
-            "name" => $request-> specility,
-            "name" => $request-> experience,
-            "name" => $request-> awards,
-            "name" => $request-> facebook_link,
-            "name" => $request-> twitter_link,
-            "name" => $request-> google_plus_link,
-            "name" => $request-> instegram_link,
+
+       $general_infos_id= General_Infos::create([ // the general info table
+          // 'masterDR_and_clinics_id'=>$the_table_of_masterDR_and_clinics_id,
+            "blood_group" => $request-> bloodgroup,
+            "gender" => $request-> gender,
+            "adress_1" => $request-> adress1,
+            "adress_2" => $request-> adress2,
+            "city" => $request-> city,
+            "country" => $request-> country,
+            "postal_zip" => $request-> posta_zip_kodu,
+            "status" => $request-> web_status,
+            "priority" => $request-> priority,
+            "position" => $request-> position,
+            "degree" => $request-> degree,
+            "specility" => $request-> specility,
+            "expr_year" => $request-> experience,
+            "awards_count" => $request-> awards,
         ]);
+
+       Info_Details::create([ //general info's details part
+            "facebook_link" => $request-> facebook_link,
+            "twitter_link" => $request-> twitter_link,
+            "instegram_link" => $request-> instegram_link,
+            'general_infos_id'=>$general_infos_id->id,
+        ]);
+        /*---------relationships weak entities---------*/
+        $find_table_of_masterDR_and_clinics_id= DB::table('masterDR_and_clinics')->where(['master_dr_id'=>$masterDR_id])->get();
+        $the_table_of_masterDR_and_clinics_id="";
+        foreach ( $find_table_of_masterDR_and_clinics_id as  $item ) {
+            $the_table_of_masterDR_and_clinics_id=$item->id;
+        }
+        DB::table('UsersGenInfo_of_SubMasterDr')->insert([
+            'user_id'=>$user->id,
+            'masterDr_and_clinic_id'=>$the_table_of_masterDR_and_clinics_id,
+            'general_info_id'=> $general_infos_id->id
+        ]);
+        DB::table('role_user')->insert(['role_id'=>3,'user_id'=>$user->id]);
+        /*---------End relationships weak entities---------*/
         return redirect()->to('/Doctors');
     }
 }

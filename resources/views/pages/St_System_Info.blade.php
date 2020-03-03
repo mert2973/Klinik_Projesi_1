@@ -25,8 +25,8 @@
                     </div>
                 </div>
             </div>
-            <form action="" method="" enctype="multipart/form-data" siq_id="autopick_1811">
-                <input type="hidden" name="_token" value="">
+            <form action="{{url('/Clinic_Add')}}" method="POST" enctype="multipart/form-data" ><!-- siq_id="autopick_1811" -->
+                @csrf
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-primary">
@@ -40,6 +40,14 @@
                                 <a class="nav-link" href="#settings-sociallink" data-toggle="tab">Sosyal Medya Linkleri</a>
                             </li>
                         </ul>
+                        @php
+                            function clean_charecters($string){
+                                 $string2 = str_replace(']', '', $string );
+                                // $string=preg_replace('/[^A-Za-z0-9\-]/', ' ', $string2);
+                                 $string3=preg_replace('/[["]/', '', $string2);
+                                 return $string3;
+                            }
+                        @endphp
                         
                         <div class="tab-content pt-4">
                             <!--Bilgiler --->
@@ -81,15 +89,17 @@
                                         </div>
                                         <!--End logo-->
                                         <!-- klinik adı-->
+                        
                                         <div class="form-group">
                                             <label>Klinik Adı <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-tag"></i></span>
                                                 </div>
-                                                <input type="text" name="clinic_name" class="form-control" value="" placeholder="Klinik Adını Giriniz . . ." required="">
+                                                <input type="text" name="clinic_name" class="form-control" value="{{clean_charecters($clinic->pluck('c_name')) }}" placeholder="Klinik Adını Giriniz . . ." required="">
                                             </div>
                                         </div>
+                                  
                                         <!--end  klinik adı-->
                                         <!-- klinik adı-->
                                         <div class="form-group">
@@ -98,7 +108,8 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-id-badge"></i></span>
                                                 </div>
-                                                <input type="text" name="legal_name" class="form-control" value="" placeholder="Klinik Resmi Adını Giriniz (Klinik Pvt Ltd) . . ." required="">
+                                              
+                                                <input type="text" name="legal_name" class="form-control" value="{{clean_charecters($clinic->pluck('c_legal_name'))}}" placeholder="Klinik Resmi Adını Giriniz (Klinik Pvt Ltd) . . ." required="">
                                             </div>
                                         </div>
                                         <!--End klinik adı-->
@@ -109,7 +120,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-email"></i></span>
                                                 </div>
-                                                <input type="email" name="email" class="form-control" value="support@pepdev.com" placeholder="Email Adresi Giriniz . . ." required="">
+                                                <input type="email" name="email" class="form-control" value="{{clean_charecters($clinic->pluck('c_email'))}}" placeholder="Email Adresi Giriniz . . ." required="">
                                             </div>
                                         </div>
                                         <!--End email-->
@@ -121,7 +132,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-mobile"></i></span>
                                                 </div>
-                                                <input type="text" name="phone_1" class="form-control" value="" placeholder="Telefon numarası giriniz . . ." required="">
+                                                <input type="text" name="phone_1" class="form-control" value="{{clean_charecters($clinic->pluck('c_phone'))}}" placeholder="Telefon numarası giriniz . . ." required="">
                                             </div>
                                         </div>
                                         <!--End telefon-->
@@ -132,7 +143,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-headphone-alt"></i></span>
                                                 </div>
-                                                <input type="text" name="phone_2" class="form-control" value="" placeholder="Acil telefon numarası giriniz . . .">
+                                                <input type="text" name="phone_2" class="form-control" value="{{clean_charecters($clinic->pluck('c_phone_2'))}}" placeholder="Acil telefon numarası giriniz . . .">
                                             </div>
                                         </div>
                                         <!--End Acil telefon-->

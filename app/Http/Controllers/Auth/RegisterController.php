@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Clinics;
+use App\General_Infos;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
@@ -75,6 +77,12 @@ class RegisterController extends Controller
                         'password' => Hash::make($data['password']),
                     ]);
         DB::table('role_user')->insert(['user_id'=>$user->id,'role_id'=>$data['uyelik_turu']]);
+
+        $genral_info_id=General_Infos::create(['status'=>1]);
+        DB::table('masterDr_and_GenInfo')->insert(['masterDR_id'=>$user->id,'general_info_id'=>$genral_info_id->id]);
+
+        $get_clinic_id=Clinics::create(['status'=>1]);
+        DB::table('masterDR_and_clinics')->insert(['master_dr_id'=>$user->id,'clinic_id'=>$get_clinic_id->id]);
 
     return $user;
     }

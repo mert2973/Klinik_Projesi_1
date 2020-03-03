@@ -24,26 +24,26 @@
             <li class="" id="Invoices_active">
                 <a href="{{url('Invoices')}}">
                     <i class="ti-receipt"></i>
-                    <span>Invoices</span>
+                    <span>Faturalar</span>
                 </a>
             </li>
             <li class="" id="Prescription_active">
                 <a href="{{url('Prescription')}}">
                     <i class="ti-agenda"></i>
-                    <span>Prescriptions</span>
+                    <span>Reçeteler</span>
                 </a>
             </li>
             <li class="has-sub " id="Pharmacy_active">
                 <a>
                     <i class="ti-shopping-cart-full"></i>
-                    <span>Pharmacy</span>
+                    <span>Eczane</span>
                     <i class="arrow " id="Pharmacy_Rotate"></i>
                 </a>
                 
                 <ul class="sub-menu " >
                     <li>
                         <a href="{{url('Inventory_Medicines')}}" id="Inventory_Medicines_text">
-                            <span>Inventory/Medicines</span>
+                            <span>Stok/İlaçlar</span>
                         </a>
                     </li>
                 </ul>
@@ -51,24 +51,24 @@
             <li class="" id="Expenses_active">
                 <a href="{{url('Expenses')}}" id="Expenses_text">
                     <i class="ti-unlink"></i>
-                    <span>Expenses</span>
+                    <span>Masraflar</span>
                 </a>
             </li>
             <li class="has-sub" id="Birth_Death_active">
                 <a>
                     <i class="ti-bookmark-alt"></i>
-                    <span>Birth &amp; Death Record</span>
+                    <span>Doğum & Ölüm Kayıtları</span>
                     <i class="arrow"></i>
                 </a>
                 <ul class="sub-menu">
                     <li>
                         <a href="{{url('Birth_Records')}}" id="Birth_text">
-                            <span>Birth Records</span>
+                            <span>Doğum Kayıtları</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{url('Death_Records')}}" id="Death_text">
-                            <span>Death Records</span>
+                            <span>Ölüm Kayıtları</span>
                         </a>
                     </li>
                 </ul>
@@ -76,7 +76,7 @@
             <li class="" id="Noticeboard_active">
                 <a href="{{url('Noticeboard')}}" id="Noticeboard_text">
                     <i class="ti-announcement">
-                    </i><span>Noticeboard</span>
+                    </i><span>Duyuru Panosu</span>
                 </a>
             </li>
             <li class="" id="Doctors_active">
@@ -95,7 +95,7 @@
                 <ul class="sub-menu">
                     <li>
                         <a href="{{url('Send_Email')}}" id="Send_Email_text">
-                            <span>Send Email</span>
+                            <span>Email Gönder</span>
                         </a>
                     </li>
                 </ul>
@@ -127,27 +127,27 @@
                 <ul class="sub-menu">
                     <li>
                         <a href="{{url('St_System_Info')}}" id="St_System_Info_text">
-                            <span>System Info</span>
+                            <span>Sistem Bilgisi</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{url('St_Taxes')}}" id="St_Taxes_text">
-                            <span>Taxes</span>
+                            <span>Vergiler</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{url('St_Payment_Methods')}}" id="St_Payment_Methods_text">
-                            <span>Payment Methods</span>
+                            <span>Ödeme Metodları</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{url('St_Payment_Gateway')}}" id="St_Payment_Gateway_text">
-                            <span>Payment Gateway</span>
+                            <span>Ödeme Sağlayıcısı</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{url('St_Clinical_Notes')}}" id="St_Clinical_Notes_text">
-                            <span>Clinical Notes</span>
+                            <span>Klinik Notlar</span>
                         </a>
                     </li>
                     <li>
@@ -157,12 +157,12 @@
                     </li>
                     <li>
                         <a href="{{url('/St_Expense_Type')}}" id="St_Expense_type_text">
-                            <span>Expense Type</span>
+                            <span>Gider Türü</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{url('/St_Suppliers')}}" id="St_Suppliers_text">
-                            <span>Suppliers</span>
+                            <span>Tedarikçiler/Satıcılar</span>
                         </a>
                     </li>
                     

@@ -15,10 +15,10 @@ class CreateInfoDetailsTable extends Migration
     {
         Schema::create('info_details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('facebook_link')->varchar(100);
-            $table->string('instegram_link')->varchar(100);
-            $table->string('twitter_link')->varchar(100);
-            $table->integer('general_infos_id');
+            $table->string('facebook_link')->varchar(100)->nullable();
+            $table->string('instegram_link')->varchar(100)->nullable();
+            $table->string('twitter_link')->varchar(100)->nullable();
+            $table->integer('general_infos_id')->nullable();
             $table->timestamps();
         });
     }

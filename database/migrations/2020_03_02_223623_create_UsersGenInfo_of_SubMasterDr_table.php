@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatemasterDRandClinicsTable extends Migration
+class CreateUsersGenInfoofSubMasterDrTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreatemasterDRandClinicsTable extends Migration
      */
     public function up()
     {
-        Schema::create('masterDR_and_clinics', function (Blueprint $table) {
+        Schema::create('UsersGenInfo_of_SubMasterDr', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('master_dr_id');
-            $table->integer('clinic_id');
-           // $table->integer('staff_usr_id');
-           // $table->timestamps();
+            $table->integer('user_id');
+            $table->integer('masterDr_and_clinic_id');
+            $table->integer('general_info_id');
+
+          //  $table->timestamps();
         });
     }
 
@@ -29,6 +30,6 @@ class CreatemasterDRandClinicsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('masterDR_and_clinics');
+        Schema::dropIfExists('UsersGenInfo_of_SubMasterDr');
     }
 }

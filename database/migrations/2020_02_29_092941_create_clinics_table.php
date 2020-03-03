@@ -15,11 +15,12 @@ class CreateClinicsTable extends Migration
     {
         Schema::create('clinics', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('c_legal_name')->nullable()->varchar(100)->nullable();
-            $table->string('c_name')->nullable()->varchar(100)->nullable();
-            $table->string('c_phone')->nullable()->varchar(20)->nullable();
-            $table->string('c_phone_2')->nullable()->varchar(20)->nullable();
-            $table->string('c_email')->nullable()->varchar(30)->nullable();
+            $table->string('c_legal_name')->varchar(100)->nullable();
+            $table->string('c_name')->varchar(100)->nullable();
+            $table->string('c_phone')->varchar(20)->nullable();
+            $table->string('c_phone_2')->varchar(20)->nullable();
+            $table->string('c_email')->varchar(30)->unique()->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }
