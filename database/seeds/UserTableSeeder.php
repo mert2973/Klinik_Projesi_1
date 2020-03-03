@@ -23,6 +23,6 @@ class UserTableSeeder extends Seeder
         DB::table('masterDr_and_GenInfo')->insert(['general_info_id'=>$gen_info_id->id,'masterDR_id'=>$masterDR_id->id]);
 
         $get_clinic_id=Clinics::create(['status'=>1]);
-        DB::table('masterDR_and_clinics')->insert(['master_dr_id'=>$masterDR_id->id,'clinic_id'=>$get_clinic_id->id]);
+        DB::table('masterDr_and_Clinics')->insert(['master_dr_id'=>$masterDR_id->id,'clinic_id'=>$get_clinic_id->id]);
     }
 }

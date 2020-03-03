@@ -16,7 +16,7 @@ class Clinic extends Controller
     public function st_system_info(){
         $master_dr_id=Auth::user()->id;
         $the_clinic_id="";
-        $find_the_attribute_clinic_id=DB::table('masterDR_and_clinics')->where(['master_dr_id'=>$master_dr_id])->get();
+        $find_the_attribute_clinic_id=DB::table('masterDr_and_Clinics')->where(['master_dr_id'=>$master_dr_id])->get();
         foreach ($find_the_attribute_clinic_id as $data){
             $the_clinic_id=$data->clinic_id;
         }
@@ -26,7 +26,7 @@ class Clinic extends Controller
     public function clinic_add(Request $request){
         $master_dr_id=Auth::user()->id;
         $the_clinic_id="";
-        $find_the_attribute_clinic_id=DB::table('masterDR_and_clinics')->where(['master_dr_id'=>$master_dr_id ])->get();
+        $find_the_attribute_clinic_id=DB::table('masterDr_and_Clinics')->where(['master_dr_id'=>$master_dr_id ])->get();
         foreach ($find_the_attribute_clinic_id as $data){
            // $master_id=$data->master_dr_id;
             $the_clinic_id=$data->clinic_id;
@@ -50,7 +50,7 @@ class Clinic extends Controller
              'c_email'=>$request-> email,
              'status'=> 1,
          ]);
-         DB::table('masterDR_and_clinics')->insert([
+         DB::table('masterDr_and_Clinics')->insert([
              'master_dr_id'=>$new_master_dr_id,
              'clinic_id'=>$new_clinic_id->id,
          ]);

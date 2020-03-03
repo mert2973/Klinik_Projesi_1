@@ -40,7 +40,7 @@ class Doctor extends Controller
 
 
        $general_infos_id= General_Infos::create([ // the general info table
-          // 'masterDR_and_clinics_id'=>$the_table_of_masterDR_and_clinics_id,
+
             "blood_group" => $request-> bloodgroup,
             "gender" => $request-> gender,
             "adress_1" => $request-> adress1,
@@ -64,7 +64,7 @@ class Doctor extends Controller
             'general_infos_id'=>$general_infos_id->id,
         ]);
         /*---------relationships weak entities---------*/
-        $find_table_of_masterDR_and_clinics_id= DB::table('masterDR_and_clinics')->where(['master_dr_id'=>$masterDR_id])->get();
+        $find_table_of_masterDR_and_clinics_id= DB::table('masterDr_and_Clinics')->where(['master_dr_id'=>$masterDR_id])->get();
         $the_table_of_masterDR_and_clinics_id="";
         foreach ( $find_table_of_masterDR_and_clinics_id as  $item ) {
             $the_table_of_masterDR_and_clinics_id=$item->id;
