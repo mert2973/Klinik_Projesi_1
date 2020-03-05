@@ -92,7 +92,7 @@
                                                 <div class="dropdown d-inline-block">
                                                     <a class="text-primary edit dropdown-toggle" data-toggle="dropdown"><i class="ti-more"></i></a>
                                                     <ul class="dropdown-menu dropdown-menu-right export-button">
-                                                        <form action="{{route('Patient.show',$list->patient_id)}}" method="post">
+                                                        <form action="{{route('Patient.show',$list->id)}}" method="post">
                                                             @csrf
                                                             @method('get')
                                                             <li>
@@ -101,7 +101,7 @@
                                                                 </button>
                                                             </li>
                                                         </form>
-                                                        <form action="{{route('Patient.edit',$list->patient_id)}}" method="post">
+                                                        <form action="{{route('Patient.edit',$list->id)}}" method="post">
                                                             @csrf
                                                             @method('get')
                                                             <li>

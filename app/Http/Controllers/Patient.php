@@ -26,14 +26,17 @@ class Patient extends Controller
      */
    /* public  function patient_infos(){
        $a= DB::table('patient_and_patient_infos as pgi')
-           ->join('patients','patients.id','=','pgi.patient_id')
-           ->join('patient_infos','patient_infos.id','=','pgi.patient_info_id')->get();
+           ->join('patients','patients.id','=','pgi.patients_id')
+           ->join('patient_infos','patient_infos.id','=','pgi.patient_infos_id')->get();
         return $a;
     } */
 
-    public function index()
+    public function index( Patients $a)
     {
-        $the_patients = Auth::user()->patients_list();
+       //$the_patients= $a->all_patients_list()->paginate(3);
+        $the_patients= Patients::with('all_patients_list')->paginate(2); // all patients
+
+       // $the_patients = Auth::user()->patients_list(); // patients of the belong to user
         return view('pages.Patient',compact('the_patients'));
     }
 
@@ -59,7 +62,7 @@ class Patient extends Controller
     public function store(Request $request)
     {
         $doctor_id=Auth::user()->id;
-        $patient_id=Patients::create([
+        $patients_id=Patients::create([
             'the_dr_id'=>$doctor_id,
             'p_name'=>$request->name,
             'p_surname'=>$request->surname,
@@ -67,7 +70,7 @@ class Patient extends Controller
             'p_phone'=>$request->phone,
         ]);
         //city','country','adress_1','adress_2','gender','date_of_birth','postal_zip','blood_group
-       $patient_info_id= Patient_Infos::create([
+       $patient_infos_id= Patient_Infos::create([
             'city'=>$request-> city,
             'country'=>$request-> country,
             'adress_1'=>$request-> adres_1,
@@ -79,7 +82,7 @@ class Patient extends Controller
 
         ]);
        /*--weak entity relationship--*/
-        DB::table('patient_and_patient_infos')->insert(['patient_id'=>$patient_id->id,'patient_info_id'=>$patient_info_id->id]);
+        DB::table('patient_and_patient_infos')->insert(['patients_id'=>$patients_id->id,'patient_infos_id'=>$patient_infos_id->id]);
        return redirect()->to('/Patient');
     }
 
@@ -90,8 +93,8 @@ class Patient extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-       $the_patient_infos= Auth::user()->patients_list()->where('patient_id',$id);
+    {//Patient_View
+       $the_patient_infos= Auth::user()->patients_list()->where('patients_id',$id);
         return view('pages.Patient_View',compact('the_patient_infos'));
     }
 

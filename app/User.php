@@ -40,10 +40,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];  public $timestamps=false;
 
-    public function patients_list(){//this method can access by the doctor only
+    public function patients_list(){
       $aa=  $this->hasMany('App\Patients','the_dr_id')
-            ->join('patient_and_patient_infos','patient_and_patient_infos.patient_id','=','patients.id')
-            ->join('patient_infos','patient_infos.id','=','patient_and_patient_infos.patient_info_id')
+            ->join('patient_and_patient_infos','patient_and_patient_infos.patients_id','=','patients.id')
+            ->join('patient_infos','patient_infos.id','=','patient_and_patient_infos.patient_infos_id')
             ->paginate(4);
       return $aa;
     }
