@@ -46,5 +46,6 @@ class AppServiceProvider extends ServiceProvider
         config()->set('clinic_c_phone_2',$list_clinic->pluck('c_phone_2'));
         config()->set('clinic_c_email',$list_clinic->pluck('c_email')); */
         /* ******End system info sayfasında  clinic bilgilerini listeleme ***/
+
     }
 }

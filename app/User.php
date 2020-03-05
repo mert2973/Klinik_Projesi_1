@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Patient;
 
 class User extends Authenticatable
 {
@@ -38,6 +40,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];  public $timestamps=false;
 
+    public function patients_list(){//this method can access by the doctor only
+      $aa=  $this->hasMany('App\Patients','the_dr_id')
+            ->join('patient_and_patient_infos','patient_and_patient_infos.patient_id','=','patients.id')
+            ->join('patient_infos','patient_infos.id','=','patient_and_patient_infos.patient_info_id')
+            ->paginate(4);
+      return $aa;
+    }
 
     public  function get_roles(){
         return  $this->belongsToMany('App\Roles','role_user','user_id','role_id');
@@ -47,5 +56,12 @@ class User extends Authenticatable
         foreach ( $this->get_roles()->get() as $ytk ) {
             return $ytk->name;
         }
+    }
+    public function yetkili_kisi_doktor(){
+       if($this->the_role()=="Doktor" ){
+           return true;
+       }else{
+           return false;
+       }
     }
 }

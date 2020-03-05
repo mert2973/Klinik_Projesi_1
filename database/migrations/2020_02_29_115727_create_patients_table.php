@@ -20,6 +20,7 @@ class CreatePatientsTable extends Migration
             $table->string('p_surname')->varchar(20);
             $table->string('p_email')->varchar(30);
             $table->string('p_phone')->varchar(15);
+            $table->tinyInteger('status')->default(1);
 
             $table->timestamps();
         });

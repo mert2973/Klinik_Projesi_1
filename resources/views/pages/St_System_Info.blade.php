@@ -10,13 +10,13 @@
         <div class="page-body"><div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h2 class="page-title-text d-inline-block">System Info</h2>
+                        <h2 class="page-title-text d-inline-block">Sistem Bilgisi</h2>
                         <div class="breadcrumbs d-inline-block">
                             <ul>
                                 <li>
                                     <a href="{{url('/Dashboard')}}">Dashboard</a>
                                     <i class="fa fa-angle-right font-13 ml-2" ></i>
-                                    <span class="ml-2">System Info</span>
+                                    <span class="ml-2">Sistem Bilgisi</span>
                                 </li>
                             </ul>
                         </div>

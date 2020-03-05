@@ -22,7 +22,7 @@ class CreatePatientInfosTable extends Migration
             $table->string('gender')->varchar(10)->nullable();
             $table->string('date_of_birth')->varchar(20)->nullable();
             $table->string('postal_zip')->varchar(12)->nullable();
-            $table->string('blood_drup')->varchar(10)->nullable();
+            $table->string('blood_group')->varchar(10)->nullable();
             $table->timestamps();
         });
     }

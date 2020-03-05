@@ -13,21 +13,21 @@
             <div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h2 class="page-title-text d-inline-block">Patient View</h2>
+                        <h2 class="page-title-text d-inline-block">Hasta durumunu incele</h2>
                         <div class="breadcrumbs d-inline-block">
                             <ul>
                                 <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
                                 <i class="fa fa-angle-right font-12 ml-2" ></i>
-                                <span class="ml-2 text-linkedin"><a href="{{url('/Patient')}}">Patients</a></span>
+                                <span class="ml-2 text-linkedin"><a href="{{url('/Patient')}}">Hastalar</a></span>
                                 <i class="fa fa-angle-right font-12 ml-2" ></i>
-                                <span class="ml-2">PepDev Team</span>
+                                <span class="ml-2">Hasta Durumunu İncele</span>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-6 text-right"></div>
                 </div>
             </div>
-        
+           
             <div class="row">
                 <div class="col-md-4">
                     <div class="panel panel-default">
@@ -35,18 +35,22 @@
                             <div class="user-avtar">
                                 <span>P</span>
                             </div>
+                           
                             <div class="user-details text-center pt-3">
-                                <h3>Patient Name</h3><!--PepDev Team --->
+                                <h3> @foreach($the_patient_infos as $list)
+                                        <span class="text-capitalize">
+                                        {{$list->p_name}} {{$list->p_surname}}</span>
+                                    @endforeach</h3><!--PepDev Team --->
                                 <ul class="v-menu text-left pt-3 nav d-block">
-                                    <li><a href="#patient-info" class="active show" data-toggle="tab"><i class="ti-info-alt"></i> <span>Patient Info</span></a></li>
-                                    <li><a href="#patient-notes" data-toggle="tab" class=""><i class="ti-files"></i> <span>Clinical Notes</span></a></li>
-                                    <li><a href="#patient-documents" data-toggle="tab" class=""><i class="ti-archive"></i> <span>Documents</span></a></li>
-                                    <li><a href="#patient-prescription" data-toggle="tab" class=""><i class="ti-notepad"></i> <span>Prescription</span></a></li>
-                                    <li><a href="#patient-appointment" data-toggle="tab" class=""><i class="ti-calendar"></i> <span>Appointments</span></a></li>
-                                    <li><a href="#patient-invoice" data-toggle="tab"><i class="ti-receipt"></i> <span>Invoices</span></a></li>
+                                    <li><a href="#patient-info" class="active show" data-toggle="tab"><i class="ti-info-alt"></i> <span>Hasta Bilgileri</span></a></li>
+                                    <li><a href="#patient-notes" data-toggle="tab" class=""><i class="ti-files"></i> <span>Klinik Notlar</span></a></li>
+                                    <li><a href="#patient-documents" data-toggle="tab" class=""><i class="ti-archive"></i> <span>Dökümanlar</span></a></li>
+                                    <li><a href="#patient-prescription" data-toggle="tab" class=""><i class="ti-notepad"></i> <span>Reçete</span></a></li>
+                                    <li><a href="#patient-appointment" data-toggle="tab" class=""><i class="ti-calendar"></i> <span>Randevular</span></a></li>
+                                    <li><a href="#patient-invoice" data-toggle="tab"><i class="ti-receipt"></i> <span>Faturalar</span></a></li>
                                 
-                                    <li><a href="{{url('/Patient_Edit')}}"><i class="ti-pencil-alt"></i> <span>Edit Patient</span></a></li>
-                                    <li><a href="#patient-sendmail" data-toggle="tab"><i class="ti-email"></i> <span>Send Email</span></a></li>
+                                    <li><a href="{{url('/Patient_Edit')}}"><i class="ti-pencil-alt"></i> <span>Hasta Bilgilerini Düzenle</span></a></li>
+                                    <li><a href="#patient-sendmail" data-toggle="tab"><i class="ti-email"></i> <span>Email Gönder</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -57,55 +61,74 @@
                         <div class="tab-pane fade active show" id="patient-info">
                             <div class="panel panel-default">
                                 <div class="panel-head">
-                                    <div class="panel-title">Patient Info</div>
+                                    <div class="panel-title">Hasta Bilgileri</div>
                                 </div>
                                 <div class="panel-body">
                                     <table class="table table-striped patient-table">
                                         <tbody>
+                                        @php $list=""; @endphp
+                                        @foreach($the_patient_infos as $list)
                                         <tr>
-                                            <td>Email Address</td>
-                                            <td>support@pepdev.com</td>
+                                            <td>Email Adresi</td>
+                                            <td>{{$list->p_email}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Mobile Number</td>
-                                            <td>1234567890</td>
+                                            <td>Telefon Numarası</td>
+                                            <td>{{$list->p_phone}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Date of Birth</td>
-                                            <td>03-01-2020(0 years) </td>
+                                            @php
+                                                $t=strtotime($list->date_of_birth);
+                                                $date=Carbon\Carbon::createFromTimestamp($t);
+                                                $birth_day=$date->format('d / m / Y');
+                                               
+                                            @endphp
+                                            <td>Doğum Günü</td>
+                                            <td>{{$birth_day}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Gender</td>
-                                            <td>Male</td>
+                                            <td>Cinsiyet</td>
+                                            <td>{{$list->gender}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Blood Group</td>
-                                            <td>A-</td>
+                                            <td>Kan Grubu</td>
+                                            <td>{{$list->blood_group}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Address</td>
-                                            <td>Address Line 1, Address Line 2, City, Country, 123456</td>
+                                            <td>Adres 1</td>
+                                            <td>{{$list->adress_1}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Medical History</td>
-                                            <td>Diabetes, High Blood Pressure, Heart Problems, Jaundice</td>
+                                            <td>Adres 2</td>
+                                            <td>{{$list->adress_2}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Other History</td>
-                                            <td>I had Septoplasty. </td>
+                                            <td>Tıbbi Geçmişi</td>
+                                            <td>Diyabet, Yüksek Tansiyon, Kalp Sorunları, Sarılık</td>
                                         </tr>
                                         <tr>
-                                            <td>Email Confirmation</td>
-                                            <td class="text-danger">Unconfirmed</td>
+                                            <td>Ek Açıklama</td>
+                                            <td>Kalp Rahatsızlığı </td>
                                         </tr>
                                         <tr>
-                                            <td>Status</td>
-                                            <td class="text-success">Active</td>
+                                            <td>Email Doğrulaması</td>
+                                            <td class="text-danger">Henüz Doğrulanmadı</td>
                                         </tr>
                                         <tr>
-                                            <td>Created Date</td>
-                                            <td>03-01-2020</td>
+                                            <td>Durum</td>
+                                            <td class="text-success">
+                                                @if($list->status==1)
+                                                    {{"Aktif"}}
+                                                @else
+                                                {{"Pasif"}}
+                                                @endif
+                                            </td>
                                         </tr>
+                                        <tr>
+                                            <td>Oluşturulma Tarihi</td>
+                                            <td>{{$list->created_at}}/td>
+                                        </tr>
+                                       @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -120,32 +143,38 @@
                                     </div>
                                 </div>
                                 <div class="panel-body">
-                                    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="row align-items-center pb-3"><div class="col-sm-6 text-left"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="75">75</option><option value="-1">All</option></select> entries</label></div></div><div class="col-sm-6 text-right"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0"></label></div></div></div><div class="row"><div class="col-sm-12">
+                                    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                        <div class="row align-items-center pb-3"><div class="col-sm-6 text-left">
+                                                <div class="dataTables_length" id="DataTables_Table_0_length">
+                                                    <label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm">
+                                                            <option value="10">10</option>
+                                                            <option value="25">25</option>
+                                                            <option value="50">50</option>
+                                                            <option value="75">75</option>
+                                                            <option value="-1">All</option>
+                                                        </select> entries</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 text-right">
+                                                <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                                    <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
                                                <!-- datatable-table dataTable ---->
                                                 <table class="table table-middle table-bordered table-striped  no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                                     <thead>
-                                                    <tr class="table-heading" role="row"><th class="table-srno sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column ascending" style="width: 0px;">#</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="DoctorInfo: activate to sort column ascending" style="width: 0px;">DoctorInfo</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="DateTime: activate to sort column ascending" style="width: 0px;">DateTime</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 0px;">Status</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label=": activate to sort column ascending" style="width: 0px;"></th></tr>
+                                                        <tr class="table-heading" role="row">
+                                                            <th class="table-srno sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column ascending" style="width: 0px;">#</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="DoctorInfo: activate to sort column ascending" style="width: 0px;">DoctorInfo</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="DateTime: activate to sort column ascending" style="width: 0px;">DateTime</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 0px;">Status</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label=": activate to sort column ascending" style="width: 0px;"></th>
+                                                        </tr>
                                                     </thead>
                                                     <tbody>
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
                                                 
                                                     <tr role="row" class="odd">
                                                         <td>1</td>

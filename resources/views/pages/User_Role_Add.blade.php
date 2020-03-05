@@ -12,43 +12,44 @@
         <div class="page-body"><div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h2 class="page-title-text d-inline-block">New User Role</h2>
+                        <h2 class="page-title-text d-inline-block">Yeni Kullanıcı Rolü Ekle</h2>
                         <div class="breadcrumbs d-inline-block">
                             <ul>
-                                <li><a href="http://pepdev.com/theme-preview/klinikal/admin/">Dashboard</a></li>
-                                <li><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=role">User Roles</a></li>
-                                <li>New User Role</li>
+                                <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
+                                <i class="fa fa-angle-right font-13 ml-2" ></i>
+                                <span class="ml-2"><a href="{{url('/User_Roles')}}">Kullanıcı Rolleri</a></span>
+                                <i class="fa fa-angle-right font-13 ml-2" ></i>
+                                <span class="ml-2">Yeni Kullanıcı Rolü Ekle</span>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-6 text-right"></div>
                 </div>
             </div>
-            <form action="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=role/add" method="post" enctype="multipart/form-data" siq_id="autopick_8489">
+            <form action="{{url('/Add_The_User_Role')}}" method="POST" enctype="multipart/form-data">
+               {!! csrf_field() !!}
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <input type="hidden" name="_token" value="a37c23e576049c2e86e5b09056b820f5a205da8c448f38e15ab09d2fa1edf3b588681a537df8abc56c1ff242dbef8129443905deb043c1d1166301b083bf52e8">
-                        <input type="hidden" name="id" value="">
                         <div class="form-group">
-                            <label class="col-form-label">User Role Name</label>
+                            <label class="col-form-label">Kullanıcı Rolü Adı</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ti-tag"></i></span>
                                 </div>
-                                <input type="text" name="name" class="form-control" value="" placeholder="Enter User Role Name . . .">
+                                <input type="text" name="role_name" class="form-control" value="" placeholder="Rol adını giriniz . . .">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-form-label">Description</label>
+                            <label class="col-form-label">Açıklama</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ti-paragraph"></i></span>
                                 </div>
-                                <textarea name="description" class="form-control" rows="3"></textarea>
+                                <textarea name="role_description" class="form-control" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="mb-2">
-                            <label class="col-form-label">Permission</label>
+                            <label class="col-form-label">İzinler</label>
                             <table class="table table-bordered table-striped userrole-table table-middle">
                                 <tbody>
                                 <tr>
@@ -1451,7 +1452,7 @@
                         </div>
                     </div>
                     <div class="panel-footer text-center">
-                        <button type="submit" name="submit" class="btn btn-primary"><i class="ti-save-alt pr-2"></i> Save</button>
+                        <button type="submit"  class="btn btn-primary"><i class="ti-save-alt pr-2"></i> Kaydet</button>
                     </div>
                 </div>
             </form>

@@ -12,11 +12,12 @@
         <div class="page-body"><div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h2 class="page-title-text d-inline-block">Users</h2>
+                        <h2 class="page-title-text d-inline-block">Kullanıcılar</h2>
                         <div class="breadcrumbs d-inline-block">
                             <ul>
                                 <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
-                                <li>Users</li>
+                                <i class="fa fa-angle-right font-13 ml-2" ></i>
+                                <span class="ml-2">Kullanıcılar</span>
                             </ul>
                         </div>
                     </div>
@@ -31,7 +32,7 @@
                                 <li><a href="#" class="copy"><i class="ti-layers pr-2"></i>Copy</a></li>
                             </ul>
                         </div>
-                        <a href="{{url('/Users_Add')}}" class="btn btn-primary btn-sm"><i class="ti-plus pr-2"></i> New User</a>
+                        <a href="{{url('/Users_Add')}}" class="btn btn-primary btn-sm"><i class="ti-plus pr-2"></i> Yeni Kullanıcı Ekle</a>
                     </div>
                 </div>
             </div>
@@ -42,7 +43,14 @@
                                 <!--datatable-table dataTable -->
                                     <table class="table table-middle table-bordered table-striped  no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                         <thead>
-                                        <tr role="row"><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column ascending" style="width: 34px;">#</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Person Info: activate to sort column ascending" style="width: 238px;">Person Info</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="User Name: activate to sort column ascending" style="width: 117px;">User Name</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="User Role: activate to sort column ascending" style="width: 102px;">User Role</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 78px;">Status</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Created Date: activate to sort column ascending" style="width: 142px;">Created Date</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label=": activate to sort column ascending" style="width: 52px;"></th></tr>
+                                        <tr role="row"><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column ascending" style="width: 34px;">#</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Person Info: activate to sort column ascending" style="width: 238px;">Kullanıcı Bilgileri</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="User Name: activate to sort column ascending" style="width: 117px;">Kullanıcı Adı</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="User Role: activate to sort column ascending" style="width: 102px;">Kullanıcı Rolü</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 78px;">Durum</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Created Date: activate to sort column ascending" style="width: 142px;">Oluşturulduğu Tarih</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label=": activate to sort column ascending" style="width: 52px;"></th>
+                                        </tr>
                                         </thead>
                                         <tbody>
                                     

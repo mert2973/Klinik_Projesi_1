@@ -10,7 +10,7 @@
                 </a>
             </li>
             <li class="" id="Patient_active">
-                <a href="{{url('Patient')}}">
+                <a href="{{route('Patient.index')}}">
                     <i class="ti-heart-broken"></i>
                     <span>Hastalar</span>
                 </a>
@@ -121,7 +121,7 @@
             </li>
             <li class="has-sub" id="Setting_active">
                 <a><i class="ti-settings"></i>
-                    <span>Setting</span>
+                    <span>Ayarlar</span>
                     <i class="arrow"></i>
                 </a>
                 <ul class="sub-menu">

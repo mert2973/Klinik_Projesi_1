@@ -24,12 +24,14 @@
             <div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h2 class="page-title-text d-inline-block">Add User</h2>
+                        <h2 class="page-title-text d-inline-block">Kullanıcı Ekle</h2>
                         <div class="breadcrumbs d-inline-block">
                             <ul>
                                 <li><a href="">Dashboard</a></li>
-                                <li><a href="">Users</a></li>
-                                <li>Add User</li>
+                                <i class="fa fa-angle-right font-13 ml-2" ></i>
+                                <span class="ml-2"><a href="">Kullanıcılar</a></span>
+                                <i class="fa fa-angle-right font-13 ml-2" ></i>
+                                <span>Kullanıcı Ekle</span>
                             </ul>
                         </div>
                     </div>
@@ -42,10 +44,10 @@
                     <div class="panel-body">
                         <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-primary">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#user-info" data-toggle="tab">Basic Info</a>
+                                <a class="nav-link active" href="#user-info" data-toggle="tab"> Bilgiler</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#user-address" data-toggle="tab">Address</a>
+                                <a class="nav-link" href="#user-address" data-toggle="tab">Adres</a>
                             </li>
                         </ul>
                         <div class="tab-content pt-4">
@@ -55,7 +57,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>First Name <span class="form-required">*</span></label>
+                                                    <label>Ad <span class="form-required">*</span></label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="ti-user"></i></span>
@@ -66,7 +68,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Last Name <span class="form-required">*</span></label>
+                                                    <label>Soyad <span class="form-required">*</span></label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="ti-user"></i></span>
@@ -77,7 +79,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Email Address <span class="form-required">*</span></label>
+                                            <label>Email Adresi <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-email"></i></span>
@@ -86,7 +88,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Mobile Number <span class="form-required">*</span></label>
+                                            <label>Telefon <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-mobile"></i></span>
@@ -95,24 +97,24 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Gender</label>
+                                            <label>Cinsiyet</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-user"></i></span>
                                                 </div>
                                                 <select name="user[gender]" class="custom-select">
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                    <option value="Other">Other</option>
+                                                    <option value="Male">Erkek</option>
+                                                    <option value="Female">Kadın</option>
+                                                    <option value="Other">Diğer</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group pb-3">
-                                            <label class="d-block">Picture</label>
+                                            <label class="d-block">Resim</label>
                                             <div class="image-upload">
-                                                <a>Upload</a>
+                                                <a>Yükle</a>
                                             </div>
                                             <div class="saved-picture" style="display: none">
                                                 <input type="hidden" name="user[picture]" value="">
@@ -122,7 +124,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Date of Birth</label>
+                                            <label>Doğum Tarihi</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-calendar"></i></span>
@@ -131,7 +133,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Blood Group</label>
+                                            <label>Kan Grubu</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-heart-broken"></i></span>
@@ -154,50 +156,60 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>User Role <span class="form-required">*</span></label>
+                                            <label>Kullanıcı Rolü <span class="form-required">*</span></label>
                                             <div class="input-group">
-                                                <div class="input-group-prepend"><span class="input-group-text"><i class="ti-cloud-up"></i></span></div>
-                                                <select name="user[user_role]" class="custom-select">
-                                                    <option value="2">Dean</option>
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="ti-cloud-up"></i>
+                                                    </span>
+                                                </div>
+                                                <select name="user_role" class="custom-select">
+                                                    <option>Seçiniz</option>
+                                                    @foreach(\App\Roles::get() as $roles)
+                                                      @if($roles->id!=1 && $roles->id!=2 && $roles->id!=3)
+                                                         <option value="{{$roles->id}}">{{$roles->name}}</option>
+                                                      @endif
+                                                    @endforeach
+                                                   <!-- <option value="2">Dean</option>
                                                     <option value="4">Nurse</option>
                                                     <option value="5">Accountant</option>
                                                     <option value="6">Pharmacist</option>
                                                     <option value="7">Receptionist</option>
-                                                    <option value="8">Employee</option>
+                                                    <option value="8">Employee</option> -->
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>User Name <span class="form-required">*</span></label>
+                                            <label>Kullanıcı Adı <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-cloud-up"></i></span>
                                                 </div>
-                                                <input type="text" name="user[user_name]" class="form-control" value="" placeholder="Enter User Name . . ." required="">
+                                                <input type="text" name="user_name" class="form-control" value="" placeholder="Enter User Name . . ." required="">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Password <span class="form-required">*</span></label>
+                                            <label>Şifre <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-key"></i></span>
                                                 </div>
-                                                <input type="password" name="user[password]" class="form-control" placeholder="Enter Password . . ." required="">
+                                                <input type="password" name="user[password]" class="form-control" placeholder="Bir şifre giriniz . . ." required="">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Confirm Password <span class="form-required">*</span></label>
+                                            <label>Şifre Tekrar <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-key"></i></span>
                                                 </div>
-                                                <input type="password" name="user[cpassword]" class="form-control" placeholder="Enter Password . . ." required="">
+                                                <input type="password" name="user[cpassword]" class="form-control" placeholder="Şifreyi tekrar giriniz . . ." required="">
                                             </div>
                                         </div>
                                     </div>
@@ -207,56 +219,56 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Address Line 1</label>
+                                            <label>Addres 1</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-location-pin"></i></span>
                                                 </div>
-                                                <input type="text" name="user[address][address1]" class="form-control" value="" placeholder="Enter Address Line 1 . . .">
+                                                <input type="text" name="user[address][address1]" class="form-control" value="" placeholder="Birinci adresi giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Address Line 2</label>
+                                            <label>Addres 2</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-location-pin"></i></span>
                                                 </div>
-                                                <input type="text" name="user[address][address2]" class="form-control" value="" placeholder="Enter Address Line 2 . . .">
+                                                <input type="text" name="user[address][address2]" class="form-control" value="" placeholder="İkinci adresi giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>City</label>
+                                            <label>Şehir</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-map-alt"></i></span>
                                                 </div>
-                                                <input type="text" name="user[address][city]" class="form-control" value="" placeholder="Enter City . . .">
+                                                <input type="text" name="user[address][city]" class="form-control" value="" placeholder="Şehir adını giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Country</label>
+                                            <label>Ülke</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-map"></i></span>
                                                 </div>
-                                                <input type="text" name="user[address][country]" class="form-control" value="" placeholder="Enter Country . . .">
+                                                <input type="text" name="user[address][country]" class="form-control" value="" placeholder="Ülke adını giriniz. . .">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Postal/Zip Code</label>
+                                            <label>Posta/Zip Kodu</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-pin"></i></span>
                                                 </div>
-                                                <input type="text" name="user[address][postal]" class="form-control" value="" placeholder="Enter Postal/Zip Code . . .">
+                                                <input type="text" name="user[address][postal]" class="form-control" value="" placeholder="Posta/Zip kodu'nu giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
@@ -264,9 +276,9 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="user[user_id]" value="">
+                 
                     <div class="panel-footer text-center">
-                        <button type="submit" name="submit" class="btn btn-primary"><i class="ti-save-alt pr-2"></i> Save</button>
+                        <button type="submit" name="submit" class="btn btn-primary"><i class="ti-save-alt pr-2"></i> Kaydet</button>
                     </div>
                 </div>
             </form>

@@ -10,12 +10,12 @@
         <div class="page-body"><div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h2 class="page-title-text d-inline-block">Doctors</h2>
+                        <h2 class="page-title-text d-inline-block">Doktorlar</h2>
                         <div class="breadcrumbs d-inline-block">
                             <ul>
                                 <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
                                 <i class="fa fa-angle-right font-12 ml-2" ></i>
-                                <span class="ml-2">Doctors</span>
+                                <span class="ml-2">Doktorlar</span>
                             </ul>
                         </div>
                     </div>

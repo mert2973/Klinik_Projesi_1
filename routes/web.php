@@ -21,7 +21,9 @@ use function foo\func;
     return view('welcome');
 });
 
+Auth::routes();
 
+Route::get('/home', 'HomeController@index')->name('home');
 
 /*
 Route::get('/', function () {
@@ -35,30 +37,23 @@ Route::get('kayit',function (){
 
 
 Route::prefix('/')->group(function () {
+
     Route::get('/',function (){
         if(Auth::check()){
             return view('pages.Dashboard');
         }else{
             return view('pages.Login');
         }
-
     });
 
    Route::get('/My_Profile','Hesabim@my_profile');
    Route::get('/Dashboard','HomeController@Dashboard');
 
-   Route::get('/Patient',function (){
-       return view('pages.Patient');
-   });
-   Route::get('/Patient_Add',function (){
-       return view('pages.Patient_Add');
-   });
-   Route::get('/Patient_View',function (){
-       return view('pages.Patient_View');
-   });
-   Route::get('/Patient_Edit',function (){
-       return view('pages.Patient_Edit');
-   });
+   Route::get('/Patient_Add','Patient@patient_add_page');
+   Route::resource('Patient','Patient');
+
+
+
    Route::get('/Appointments',function (){
        return view('pages.Appointments');
    });
@@ -117,24 +112,15 @@ Route::prefix('/')->group(function () {
    Route::get('/Notice_View',function (){
        return view('pages.Notice_View');
    });
-   Route::get('/Users',function (){
-       return view('pages.Users');
-   });
-   Route::get('/Users_Add',function (){
-       return view('pages.Users_Add');
-   });
-   Route::get('/Users_Edit',function (){
-       return view('pages.Users_Edit');
-   });
-   Route::get('/User_Roles',function (){
-       return view('pages.User_Roles');
-   });
-   Route::get('/User_Role_Add',function (){
-       return view('pages.User_Role_Add');
-   });
-   Route::get('/User_Role_Edit',function (){
-       return view('pages.User_Role_Edit');
-   });
+   Route::post('/Add_The_User_Role','Roles_and_Users@add_the_user_role');
+   Route::get('/Users','Roles_and_Users@users');
+   Route::get('/Users_Add','Roles_and_Users@users_add');
+   Route::get('/Users_Edit','Roles_and_Users@users_edit');
+
+   Route::get('/User_Roles','Roles_and_Users@user_roles');
+   Route::get('/User_Role_Add','Roles_and_Users@user_role_add');
+   Route::get('/User_Role_Edit','Roles_and_Users@user_role_edit');
+
    Route::get('/St_Clinical_Notes',function (){
        return view('pages.St_Clinical_Notes');
    });
@@ -162,10 +148,10 @@ Route::prefix('/')->group(function () {
 
 Route::match(array('POST','GET'),'sifre_yenile','Hesabim@Sifreyi_Yenile');
 
+
+
 Route::get('/no_page', function () {
     return view('pages.No_Page');
 });
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

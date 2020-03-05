@@ -9,14 +9,14 @@
     <div class="page-body"><div class="page-title">
             <div class="row align-items-center">
                 <div class="col-sm-6">
-                    <h2 class="page-title-text d-inline-block">Add Patient</h2>
+                    <h2 class="page-title-text d-inline-block">Hasta Ekle</h2>
                     <div class="breadcrumbs d-inline-block">
                         <ul>
-                            <li><a href="{{url('/Patient')}}">Home</a></li>
+                            <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
                             <i class="fa fa-angle-right font-12 ml-2" ></i>
-                            <span class="ml-2 text-linkedin"><a href="{{url('/Patient_Add')}}">Patients</a></span>
+                            <span class="ml-2 text-linkedin"><a href="{{url('/Patient_Add')}}">Hastalar</a></span>
                             <i class="fa fa-angle-right font-12 ml-2" ></i>
-                            <span class="ml-2">Add Patient</span>
+                            <span class="ml-2">Hasta Ekle</span>
                         </ul>
                     </div>
                 </div>
@@ -25,20 +25,19 @@
             </div>
         </div>
         
-        <form action="{{url('/Patient')}}" method="" siq_id="autopick_208">
-            <input type="hidden" name="_token" value="">
-            <input type="hidden" name="patient[id]" value="">
+        <form action="{{route('Patient.store')}}" method="POST" siq_id="autopick_208">
+            @csrf
             <div class="panel panel-default">
                 <div class="panel-body">
                     <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-primary">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#patient-info" data-toggle="tab">Basic Info</a>
+                            <a class="nav-link active" href="#patient-info" data-toggle="tab">Bilgiler</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#patient-address" data-toggle="tab">Address</a>
+                            <a class="nav-link" href="#patient-address" data-toggle="tab">Adres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#patient-medical-history" data-toggle="tab">Medical History</a>
+                            <a class="nav-link" href="#patient-medical-history" data-toggle="tab">Tıbbi Geçmişi</a>
                         </li>
                     </ul>
                     <div class="tab-content pt-4">
@@ -46,67 +45,67 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>First Name <span class="form-required">*</span></label>
+                                        <label>Ad <span class="form-required">*</span></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ti-user"></i></span>
                                             </div>
-                                            <input type="text" name="patient[firstname]" class="form-control" value="" placeholder="Enter First Name . . . ">
+                                            <input type="text" name="name" required class="form-control" value="" placeholder="Adı giriniz . . . ">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Last Name <span class="form-required">*</span></label>
+                                        <label>Soyad <span class="form-required">*</span></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ti-user"></i></span>
                                             </div>
-                                            <input type="text" name="patient[lastname]" class="form-control" value="" placeholder="Enter Last Name . . . ">
+                                            <input type="text" name="surname" required class="form-control" value="" placeholder="Soyadı giriniz . . . ">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Email Address <span class="form-required">*</span></label>
+                                        <label>Email Adres <span class="form-required">*</span></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ti-email"></i></span>
                                             </div>
-                                            <input type="email" name="patient[mail]" class="form-control" value="" placeholder="Enter Email Address . . . ">
+                                            <input type="email" name="email" class="form-control" value="" placeholder="Email adresi giriniz . . . ">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Mobile Number <span class="form-required">*</span></label>
+                                        <label>Telefon <span class="form-required">*</span></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ti-mobile"></i></span>
                                             </div>
-                                            <input type="text" name="patient[mobile]" class="form-control" value="" placeholder="Enter Mobile Number . . . ">
+                                            <input type="text" name="phone" required class="form-control" value="" placeholder="Telefon numarasını giriniz . . . ">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Date of Birth</label>
+                                        <label>Doğum Tarihi</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ti-calendar"></i></span>
                                             </div>
-                                            <input type="text" id="user-dob" name="patient[dob]" class="form-control bg-white hasDatepicker" value="" placeholder="Enter Date of Birth . . . " readonly="" autocomplete="off">
+                                            <input type="date" name="date_birth" required class="form-control bg-white" value="" placeholder="Doğum tarihini giriniz. . . "  autocomplete="on">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Blood Group</label>
+                                        <label>Kan Grubu</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ti-heart-broken"></i></span>
                                             </div>
-                                            <select name="patient[bloodgroup]" class="custom-select">
+                                            <select name="blood_group" class="custom-select">
                                                 <option value="A+">A+</option>
                                                 <option value="A-">A-</option>
                                                 <option value="B+">B+</option>
@@ -121,13 +120,13 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Gender</label>
+                                        <label>Cinsiyet</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend"><span class="input-group-text"><i class="ti-check-box"></i></span></div>
-                                            <select name="patient[gender]" class="custom-select">
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Other">Other</option>
+                                            <select name="gender" class="custom-select" required>
+                                                <option value="Male">Erkek</option>
+                                                <option value="Female">Kadın</option>
+                                                <option value="Other">Diğer</option>
                                             </select>
                                         </div>
                                     </div>
@@ -138,152 +137,152 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Address Line 1</label>
+                                        <label>Adres  1</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ti-location-pin"></i></span>
                                             </div>
-                                            <input type="text" name="patient[address][address1]" class="form-control" value="" placeholder="Enter Address Line 1 . . .">
+                                            <input type="text" name="adres_1" class="form-control" value="" placeholder="Birinci adresi giriniz . . .">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Address Line 2</label>
+                                        <label>Adres 2</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ti-location-pin"></i></span>
                                             </div>
-                                            <input type="text" name="patient[address][address2]" class="form-control" value="" placeholder="Enter Address Line 2 . . .">
+                                            <input type="text" name="adres_2" class="form-control" value="" placeholder="İkinici adresi giriniz . . .">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>City</label>
+                                <label>Şehir</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ti-map-alt"></i></span>
                                     </div>
-                                    <input type="text" name="patient[address][city]" class="form-control" value="" placeholder="Enter City . . .">
+                                    <input type="text" name="city"  class="form-control" value="" placeholder="Şehir adını giriniz . . .">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Country</label>
+                                <label>Ülke</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ti-map"></i></span>
                                     </div>
-                                    <input type="text" name="patient[address][country]" class="form-control" value="" placeholder="Enter Country . . .">
+                                    <input type="text" name="country" class="form-control" value="" placeholder="Ülke adını giriniz . . .">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Postal/Zip Code</label>
+                                <label>Posta/Zip Kodu</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ti-pin"></i></span>
                                     </div>
-                                    <input type="text" name="patient[address][postal]" class="form-control" value="" placeholder="Enter Postal/Zip Code . . .">
+                                    <input type="text" name="posta_kodu" class="form-control" value="" placeholder="Posta/Zip kodunu giriniz . . .">
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="patient-medical-history">
                             <div class="form-group mb-2">
-                                <label class="d-block mb-2">Do you now or have you ever had:</label>
+                                <label class="d-block mb-2">Aşağdaki hastalıklardan herhangi birine şimdi veya daha önce hiç yakalandınız mı?</label>
                                 <div class="row">
                                     <div class="col-md-6 col-lg-4">
                                         <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" name="patient[history][]" class="custom-control-input" value="Diabetes" id="diabetes">
-                                            <label class="custom-control-label" for="diabetes">Diabetes</label>
+                                            <input type="checkbox" name="diabetes" class="custom-control-input" value="Diabetes" id="diabetes">
+                                            <label class="custom-control-label" for="diabetes">Şeker Hastalığı</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" name="patient[history][]" class="custom-control-input" value="High Blood Pressure" id="high-blood-pressure">
-                                            <label class="custom-control-label" for="high-blood-pressure">High Blood Pressure</label>
+                                            <input type="checkbox" name="high_blood_pressure" class="custom-control-input" value="High Blood Pressure" id="high-blood-pressure">
+                                            <label class="custom-control-label" for="high-blood-pressure">Tansiyon</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" name="patient[history][]" class="custom-control-input" value="High Cholesterol" id="high-cholesterol">
-                                            <label class="custom-control-label" for="high-cholesterol">High Cholesterol</label>
+                                            <input type="checkbox" name="high_cholestrol" class="custom-control-input" value="High Cholesterol" id="high-cholesterol">
+                                            <label class="custom-control-label" for="high-cholesterol">Yüksek kolestorol</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" name="patient[history][]" class="custom-control-input" value="Heart Problems" id="heart-problems">
-                                            <label class="custom-control-label" for="heart-problems">Heart Problems</label>
+                                            <input type="checkbox" name="heart_problems" class="custom-control-input" value="Heart Problems" id="heart-problems">
+                                            <label class="custom-control-label" for="heart-problems">Kalp Rahatsızlıkları</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" name="patient[history][]" class="custom-control-input" value="Asthma" id="asthma">
-                                            <label class="custom-control-label" for="asthma">Asthma</label>
+                                            <input type="checkbox" name="asthma" class="custom-control-input" value="Asthma" id="asthma">
+                                            <label class="custom-control-label" for="asthma">Astım</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" name="patient[history][]" class="custom-control-input" value="Kidney Disease" id="kidney-disease">
-                                            <label class="custom-control-label" for="kidney-disease">Kidney Disease</label>
+                                            <input type="checkbox" name="kidney_disease" class="custom-control-input" value="Kidney Disease" id="kidney-disease">
+                                            <label class="custom-control-label" for="kidney-disease">Böbrek Hastalığı</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" name="patient[history][]" class="custom-control-input" value="Kidney Stones" id="kidney-stones">
-                                            <label class="custom-control-label" for="kidney-stones">Kidney Stones</label>
+                                            <input type="checkbox" name="kidney_stones" class="custom-control-input" value="Kidney Stones" id="kidney-stones">
+                                            <label class="custom-control-label" for="kidney-stones">Böbrek taşı</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" name="patient[history][]" class="custom-control-input" value="Jaundice" id="jaundice">
-                                            <label class="custom-control-label" for="jaundice">Jaundice</label>
+                                            <input type="checkbox" name="jaundice" class="custom-control-input" value="Jaundice" id="jaundice">
+                                            <label class="custom-control-label" for="jaundice">Sarılık</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" name="patient[history][]" class="custom-control-input" value="Rheumatic Fever" id="rheumatic-fever">
-                                            <label class="custom-control-label" for="rheumatic-fever">Rheumatic Fever</label>
+                                            <input type="checkbox" name="rheumatic_fever" class="custom-control-input" value="Rheumatic Fever" id="rheumatic-fever">
+                                            <label class="custom-control-label" for="rheumatic-fever">Romatizmal Ateş</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" name="patient[history][]" class="custom-control-input" value="Cancer" id="cancer">
-                                            <label class="custom-control-label" for="cancer">Cancer</label>
+                                            <input type="checkbox" name="cancer" class="custom-control-input" value="Cancer" id="cancer">
+                                            <label class="custom-control-label" for="cancer">Kanser</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" name="patient[history][]" class="custom-control-input" value="HIV/AIDS" id="hiv-aids">
-                                            <label class="custom-control-label" for="hiv-aids">HIV/AIDS</label>
+                                            <input type="checkbox" name="hiv_aids" class="custom-control-input" value="HIV/AIDS" id="hiv-aids">
+                                            <label class="custom-control-label" for="hiv-aids">HİV/AİDS</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" name="patient[history][]" class="custom-control-input" value="Epilepsy" id="epilepsy">
-                                            <label class="custom-control-label" for="epilepsy">Epilepsy</label>
+                                            <input type="checkbox" name="epilepsy" class="custom-control-input" value="Epilepsy" id="epilepsy">
+                                            <label class="custom-control-label" for="epilepsy">Epilepsi</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" name="patient[history][]" class="custom-control-input" value="Pregnancy" id="pregnancy">
-                                            <label class="custom-control-label" for="pregnancy">Pregnancy</label>
+                                            <input type="checkbox" name="pregnancy" class="custom-control-input" value="Pregnancy" id="pregnancy">
+                                            <label class="custom-control-label" for="pregnancy">Gebelik</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" name="patient[history][]" class="custom-control-input" value="Blood Thinners" id="blood-thinners">
-                                            <label class="custom-control-label" for="blood-thinners">Blood Thinners</label>
+                                            <input type="checkbox" name="blood_thinners" class="custom-control-input" value="Blood Thinners" id="blood-thinners">
+                                            <label class="custom-control-label" for="blood-thinners">Kansızlık</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Other History :</label>
+                                <label>Ek Açıklama :</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ti-heart-broken"></i></span>
                                     </div>
-                                    <textarea name="patient[other]" class="form-control" placeholder="Patient other history . . ."></textarea>
+                                    <textarea name="explation" class="form-control" placeholder=" . . ."></textarea>
                                 </div>
                             </div>
                         </div>

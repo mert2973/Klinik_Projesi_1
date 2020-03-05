@@ -12,11 +12,12 @@
         <div class="page-body"><div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h2 class="page-title-text d-inline-block">User Roles</h2>
+                        <h2 class="page-title-text d-inline-block">Kullanıcı Roleri</h2>
                         <div class="breadcrumbs d-inline-block">
                             <ul>
                                 <li><a href="http://pepdev.com/theme-preview/klinikal/admin/">Dashboard</a></li>
-                                <li>User Roles</li>
+                                <i class="fa fa-angle-right font-13 ml-2" ></i>
+                                <span class="ml-2 ">Kullanıcı Rolleri</span>
                             </ul>
                         </div>
                     </div>
@@ -31,7 +32,7 @@
                                 <li><a class="copy"><i class="ti-layers pr-2"></i>Copy</a></li>
                             </ul>
                         </div>
-                        <a href="{{url('/User_Role_Add')}}" class="btn btn-primary btn-sm"><i class="ti-plus pr-2"></i> New User Role</a>
+                        <a href="{{url('/User_Role_Add')}}" class="btn btn-primary btn-sm"><i class="ti-plus pr-2"></i> Yeni Kullanıcı Rolü Ekle</a>
                     </div>
                 </div>
             </div>
@@ -42,7 +43,13 @@
                                     <!-- datatable-table dataTable  -->
                                     <table class="table table-bordered table-striped no-footer" width="100%" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="width: 100%;">
                                         <thead>
-                                        <tr class="table-heading" role="row"><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column ascending" style="width: 51px;">#</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Role Name: activate to sort column ascending" style="width: 149px;">Role Name</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending" style="width: 418px;">Description</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Created Date: activate to sort column ascending" style="width: 181px;">Created Date</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label=": activate to sort column ascending" style="width: 52px;"></th></tr>
+                                        <tr class="table-heading" role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column ascending" style="width: 51px;">#</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Role Name: activate to sort column ascending" style="width: 149px;">Rol Adı</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending" style="width: 418px;">Açıklama</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Created Date: activate to sort column ascending" style="width: 181px;">Oluşturulduğu Tarih</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label=": activate to sort column ascending" style="width: 52px;"></th>
+                                        </tr>
                                         </thead>
                                         <tbody>
                                     
