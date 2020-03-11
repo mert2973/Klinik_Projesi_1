@@ -151,14 +151,14 @@
                                             <label>Branş <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend"><span class="input-group-text"><i class="ti-layers-alt"></i></span></div>
-                                                <select name="doctor[department]" class="custom-select" required="">
-                                                    <option value="1"> Gynaecology</option>
-                                                    <option value="2"> Orthology</option>
-                                                    <option value="3"> Dermatologist</option>
-                                                    <option value="4"> Anaesthesia</option>
-                                                    <option value="5"> Ayurvedic</option>
-                                                    <option value="6"> Pathology</option>
-                                                    <option value="7"> Radiology</option>
+                                                <select name="department" class="custom-select" required="">
+                                                    <option value="Jinekoloji"> Jinekoloji</option>
+                                                    <option value="Ortoloji"> Ortoloji</option>
+                                                    <option value="Dermatolog"> Dermatolog</option>
+                                                    <option value="Anestezi"> Anestezi</option>
+                                                    <option value="Ayurveda"> Ayurveda</option>
+                                                    <option value="Patoloji"> Patoloji</option>
+                                                    <option value="Radyoloji"> Radiology</option>
                                                 </select>
                                             </div>
                                         </div>

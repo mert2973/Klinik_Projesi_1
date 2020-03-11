@@ -35,6 +35,9 @@ Route::get('kayit',function (){
     return "kayıt oldunuz";
 });
 
+Route::get('vue_ex',function (){
+    return view('pages.vue_ornekleri');
+});
 
 Route::prefix('/')->group(function () {
 
@@ -51,18 +54,12 @@ Route::prefix('/')->group(function () {
 
    Route::get('/Patient_Add','Patient@patient_add_page');
    Route::resource('Patient','Patient');
+   Route::get('autoComplete_patients_list','Patient@autoComplete_patients');
+   Route::get('Find_Patient','Patient@find_the_patient');
+
+   Route::resource('/Appointments','Appointment');
 
 
-
-   Route::get('/Appointments',function (){
-       return view('pages.Appointments');
-   });
-   Route::get('/Appointment_View',function (){
-       return view('pages.Appointment_View');
-   });
-   Route::get('/Appointment_Edit',function (){
-       return view('pages.Appointment_Edit');
-   });
    Route::get('/Invoices',function (){
        return view('pages.Invoices');
    });
@@ -102,6 +99,7 @@ Route::prefix('/')->group(function () {
    Route::get('/Doctors','Doctor@doctors');
    Route::get('/Doctor_Add',"Doctor@doctor_add");
    Route::post('/Doctor_Create','Doctor@doctor_create');
+
 
    Route::get('/Doctor_Edit',function (){
        return view('pages.Doctor_Edit');

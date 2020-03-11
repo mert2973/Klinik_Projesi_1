@@ -112,9 +112,11 @@
                                                         </form>
                                                     </ul>
                                                 </div>
+                                               
                                                 <a class="table-delete text-danger delete" data-toggle="tooltip" title="" data-original-title="Delete">
-                                                    <i class="ti-trash"></i><input type="hidden" value="13">
+                                                    <i class="ti-trash"></i>
                                                 </a>
+                                                
                                             </td>
                                         </tr>
                                         @endforeach

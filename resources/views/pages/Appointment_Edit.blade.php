@@ -6,48 +6,50 @@
         });
     </script>
     <div class="page-wrapper">
-        <div class="page-body"><link rel="stylesheet" href="./Appointment_Edit_ Klinikal Hospital_files/jquery.fancybox.min.css">
+        <div class="page-body">
+            <!--<link rel="stylesheet" href="./Appointment_Edit_ Klinikal Hospital_files/jquery.fancybox.min.css">
             <script src="./Appointment_Edit_ Klinikal Hospital_files/jquery.fancybox.min.js"></script>
-            <script src="./Appointment_Edit_ Klinikal Hospital_files/appointment.js"></script>
+            <script src="./Appointment_Edit_ Klinikal Hospital_files/appointment.js"></script> -->
             <div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h2 class="page-title-text d-inline-block">Edit Appointment</h2>
+                        <h2 class="page-title-text d-inline-block">Randevu Düzenle</h2>
                         <div class="breadcrumbs">
                             <ul>
                                 <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
                                 <i class="fa fa-angle-right font-13 ml-2" ></i>
-                               <span class="text-linkedin ml-2"> <a href="{{url('/Appointments')}}">Appointments</a></span>
+                               <span class="text-linkedin ml-2"> <a href="{{url('/Appointments')}}">Randevular</a></span>
                                 <i class="fa fa-angle-right font-12 ml-2" ></i>
-                                <span class="ml-2">Edit Appointment</span>
+                                <span class="ml-2">Randevu Düzenle</span>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <a href="{{url('/Appointment_View')}}" class="btn btn-white btn-sm"><i class="ti-calendar text-primary mr-2"></i> View Appointment</a>
+                        <a href="{{url('/Appointment_View')}}" class="btn btn-white btn-sm"><i class="ti-calendar text-primary mr-2"></i> Randevu İncele</a>
                     </div>
                 </div>
             </div>
             
-            <form action="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=appointment/edit" method="post" siq_id="autopick_9777">
-                <input type="hidden" name="_token" value="a37c23e576049c2e86e5b09056b820f5a205da8c448f38e15ab09d2fa1edf3b588681a537df8abc56c1ff242dbef8129443905deb043c1d1166301b083bf52e8">
+            <form action="{{route('Appointments.update',$dr_with_patient->patients_id)}}" method="post">
+                @csrf
+                @method('PUT')
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-primary">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#appointment-info" data-toggle="tab">Appointment Info</a>
+                                <a class="nav-link active" href="#appointment-info" data-toggle="tab">Randevu Bilgisi</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#appointment-records" data-toggle="tab">Clinical Notes</a>
+                                <a class="nav-link" href="#appointment-records" data-toggle="tab">Klinik Notlar</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#appointment-prescription" data-toggle="tab">Prescription</a>
+                                <a class="nav-link" href="#appointment-prescription" data-toggle="tab">Reçete</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#appointment-documents" data-toggle="tab">Documents</a>
+                                <a class="nav-link" href="#appointment-documents" data-toggle="tab">Dökümanlar</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#appointment-invoice" data-toggle="tab">Invoice</a>
+                                <a class="nav-link" href="#appointment-invoice" data-toggle="tab">Fatura</a>
                             </li>
                         </ul>
                         <div class="tab-content pt-4">
@@ -55,69 +57,65 @@
                                 <div id="apnt-info" class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Doctor <span class="form-required">*</span></label>
+                                            <label>Doktor <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-user"></i></span>
                                                 </div>
-                                                <select name="appointment[doctor]" class="custom-select apnt-doctor" required="">
-                                                    <option value="">Select Doctor</option>
-                                                    <option value="2" data-department="1" data-weekly="[0]" data-national="&quot;2000-12-25, 2020-01-15, 2020-01-17, 2020-02-13, 2020-02-18, 2020-03-13, 2020-03-17, 2020-04-16, 2020-04-28&quot;">Melissa Bates (Gynaecology)</option>
-                                                    <option value="7" data-department="1" data-weekly="[0]" data-national="&quot;2000-12-25, 2020-01-15, 2020-01-20&quot;">Linda Adams (Gynaecology)</option>
-                                                    <option value="8" data-department="1" data-weekly="[0]" data-national="&quot;2000-12-25&quot;">Janet Collins (Gynaecology)</option>
-                                                    <option value="10" data-department="1" data-weekly="[6,0]" data-national="&quot;2000-12-25&quot;" selected="">Emily Rasberry (Gynaecology)</option>
-                                                    <option value="11" data-department="1" data-weekly="[4,5,6]" data-national="&quot;2000-12-25&quot;">Nancy Allen (Gynaecology)</option>
-                                                    <option value="1" data-department="2" data-weekly="[0]" data-national="&quot;2000-12-25, 2019-12-31, 2020-01-16, 2020-01-21, 2020-02-19&quot;">Daniel Barnes (Orthology)</option>
-                                                    <option value="4" data-department="2" data-weekly="[0]" data-national="&quot;2000-12-25&quot;">Steve Soeren (Orthology)</option>
-                                                    <option value="6" data-department="2" data-weekly="[6,0]" data-national="&quot;2000-12-25&quot;">Barbara Baker (Orthology)</option>
-                                                    <option value="3" data-department="3" data-weekly="[0]" data-national="&quot;2000-12-25&quot;">Cheri Aria (Dermatologist)</option>
-                                                    <option value="9" data-department="5" data-weekly="[6,0]" data-national="&quot;2000-12-25&quot;">Vedhraj Jain (Ayurvedic)</option>
+                                                <input type="hidden" name="prev_doctor" value="{{$doctor_id}}">
+                                                <select name="doctor" class="custom-select text-capitalize" required="required"> <!-- class="apnt-doctor"--->
+                                                     <option value=""> Doktor Seçiniz</option>
+                                                     @foreach($all_doctors as $item)
+                                                        <option value="{{$item->user_id}}" @if($item->user_id==$doctor_id) selected="selected" @endif>
+                                                            {{$item->name}} {{$item->surname}} ( {{$item->department}} )
+                                                        </option>
+                                                     @endforeach
                                                 </select>
-                                                <input type="hidden" class="apnt-department" name="appointment[department]" value="1">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Date <span class="form-required">*</span></label>
+                                            <label>Tarih <span class="form-required">*</span></label>
+                                            
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-calendar"></i></span>
-                                                </div>
-                                                <input type="date" class="form-control apnt-date hasDatepicker" name="appointment[date]" placeholder="Select Date . . ." value="21-02-2020" required="" autocomplete="off" id="dp1582277769837">
+                                                </div>  <!-- apnt-date hasDatepicker --->
+                                                <input type="text" class="form-control"  name="apt_date" placeholder="Tarih seçiniz . . ."
+                                                       value="{{$dr_with_patient->apt_date}}" required="" autocomplete="off" id="datepicker">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Time <span class="form-required">*</span></label>
+                                            <label>Saat <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-timer"></i></span>
                                                 </div>
-                                                <input type="text" name="appointment[time]" class="form-control apnt-time" value="10:15" readonly="">
-                                                <input type="hidden" name="appointment[slot]" class="apnt-slot-time" value="15" required="">
+                                                <input type="text" name="apt_time" class="form-control apnt-time" value="10:15" readonly="">
                                             </div>
                                             <div class="apnt-slot"></div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Status <span class="form-required">*</span></label>
+                                            <label>Durum <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-check-box"></i></span>
                                                 </div>
-                                                <select name="appointment[status]" class="custom-select" required="">
-                                                    <option value="">Status</option>
-                                                    <option value="2" selected="">In Process</option>
-                                                    <option value="3">Confirmed</option>
-                                                    <option value="4">Completed</option>
-                                                    <option value="1">Cancelled</option>
+                                                <select name="apt_status" class="custom-select" required="required">
+                                                    <option value="">Durum Seçiniz</option>
+                                                    <option value="İşleniyor"    @if($dr_with_patient->apt_status=="İşleniyor") selected  @endif>İşleniyor</option>
+                                                    <option value="Doğrulandı"    @if($dr_with_patient->apt_status=="Doğrulandı") selected  @endif>Doğrulandı</option>
+                                                    <option value="Tamamlandı"   @if($dr_with_patient->apt_status=="Tamamlandı") selected  @endif>Tamamlandı</option>
+                                                    <option value="İptal Edildi" @if($dr_with_patient->apt_status=="İptal Edildi") selected  @endif>İptal Edildi</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Reason/Problem</label>
+                                            <label>Neden/Problem</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-comment-alt"></i></span>
                                                 </div>
-                                                <textarea class="form-control" name="appointment[message]"></textarea>
+                                                <textarea class="form-control" name="apt_prob">{{$dr_with_patient->apt_prob}}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -134,49 +132,48 @@
                                                     </div>
                                                     <div class="col-auto pl-0">
                                                         <div class="title mt-2">
-                                                            <h4 class="m-0"><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=appointment/edit&amp;id=77#" class="d-block text-primary">PepDev Team</a></h4>
-                                                            <p class="font-12 mb-0 mt-2">support@pepdev.com</p>
-                                                            <p class="font-12 mb-0">1234567890</p>
+                                                            <h4 class="m-0"><a href="#" class="d-block text-primary text-capitalize">{{$dr_with_patient->p_name}} {{$dr_with_patient->p_surname}}</a></h4>
+                                                            <p class="font-12 mb-0 mt-2">{{$dr_with_patient->p_email}}</p>
+                                                            <p class="font-12 mb-0">{{$dr_with_patient->p_phone}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="info">
                                                 <p><i class="ti-heart-broken"></i> <span>A-</span></p>
-                                                <p><i class="ti-user"></i> <span>Male</span></p>
-                                                <p><i class="ti-calendar"></i> <span>0 Years 1 Month</span></p>
+                                                <p><i class="ti-user"></i> <span>{{$dr_with_patient->gender}}</span></p>
+                                                <p><i class="ti-calendar"></i> <span>{{$dr_with_patient->date_of_birth}}</span></p><!-- 0 Years 1 Month --->
                                                 <p class="d-block mt-3">
                                                     <i class="ti-wheelchair"></i> Diabetes, High Blood Pressure, Heart Problems, Jaundice									</p>
                                             </div>
                                         </div>
                                         <div class="apnt-user-input">
                                             <div class="form-group">
-                                                <label>Patient Name <span class="form-required">*</span></label>
+                                                <label>Hasta Adı <span class="form-required">*</span></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="ti-user"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control apnt-name" name="appointment[name]" value="PepDev Team" placeholder="Enter Patient Name . . ." required="">
-                                                    <input type="hidden" class="patient-id" name="appointment[patient_id]" value="8">
-                                                
+                                                    <input type="text" class="form-control apnt-name text-capitalize" readonly value="{{$dr_with_patient->p_name}} {{$dr_with_patient->p_surname}}" placeholder="Hasta adını giriniz . . ." required="">
+                                                    
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Patient Email Address <span class="form-required">*</span></label>
+                                                <label>Hasta Mail Adresi <span class="form-required">*</span></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="ti-email"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control apnt-email" name="appointment[mail]" value="support@pepdev.com" placeholder="Enter Patient Email Address . . ." required="">
+                                                    <input type="text" class="form-control apnt-email" readonly  value="{{$dr_with_patient->p_email}}" placeholder="Enter Patient Email Address . . ." required="">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Patient Mobile Number <span class="form-required">*</span></label>
+                                                <label>Hasta Telefon Numarası <span class="form-required">*</span></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="ti-mobile"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control apnt-mobile" name="appointment[mobile]" value="1234567890" placeholder="Enter Patient Mobile Number . . ." required="">
+                                                    <input type="text" class="form-control apnt-mobile" readonly value="{{$dr_with_patient->p_phone}}" placeholder="Enter Patient Mobile Number . . ." required="">
                                                 </div>
                                             </div>
                                         </div>
@@ -184,16 +181,15 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="appointment-prescription">
-                                <input type="hidden" name="prescription[id]" value="">
                                 <div class="table-responsive">
                                     <table class="table table-bordered medicine-table">
                                         <thead>
                                         <tr class="medicine-row">
-                                            <th style="width: 20%;">Drug Name</th>
-                                            <th>Generic</th>
-                                            <th style="width: 11%;">Frequency</th>
-                                            <th style="width: 13%;">Duration</th>
-                                            <th style="width: 25%;">Instruction</th>
+                                            <th style="width: 20%;">İlaç Adı</th>
+                                            <th>Genel</th>
+                                            <th style="width: 11%;">Sıklık</th>
+                                            <th style="width: 13%;">Süre</th>
+                                            <th style="width: 25%;">Talimat</th>
                                             <th style="width: 5%;"></th>
                                         </tr>
                                         </thead>
@@ -216,18 +212,18 @@
                                             </td>
                                             <td>
                                                 <select name="prescription[medicine][0][duration]" class="form-control">
-                                                    <option value="1">1 Days</option>
-                                                    <option value="2">2 Days</option>
-                                                    <option value="3">3 Days</option>
-                                                    <option value="4">4 Days</option>
-                                                    <option value="5">5 Days</option>
-                                                    <option value="6">6 Days</option>
-                                                    <option value="8">8 Days</option>
-                                                    <option value="10">10 Days</option>
-                                                    <option value="15">15 Days</option>
-                                                    <option value="20">20 Days</option>
-                                                    <option value="30">30 Days</option>
-                                                    <option value="60">60 Days</option>
+                                                    <option value="1">1 Gün</option>
+                                                    <option value="2">2 Gün</option>
+                                                    <option value="3">3 Gün</option>
+                                                    <option value="4">4 Gün</option>
+                                                    <option value="5">5 Gün</option>
+                                                    <option value="6">6 Gün</option>
+                                                    <option value="8">8 Gün</option>
+                                                    <option value="10">10 Gün</option>
+                                                    <option value="15">15 Gün</option>
+                                                    <option value="20">20 Gün</option>
+                                                    <option value="30">30 Gün</option>
+                                                    <option value="60">60 Gün</option>
                                                 </select>
                                             </td>
                                             <td>
@@ -237,7 +233,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="6">
-                                                <a id="add-medicine" class="font-12 text-primary cursor-pointer">Add Medicine</a>
+                                                <a id="add-medicine" class="font-12 text-primary cursor-pointer">İlaç Ekle</a>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -247,7 +243,7 @@
                                     function medicine_autocomplete() {
                                         $(".prescription-name").autocomplete({
                                             minLength: 0,
-                                            source: 'http://pepdev.com/theme-preview/klinikal/admin/index.php?route=getmedicine',
+                                            source: 'ilaç isimlerini al',
                                             focus: function( event, ui ) {
                                                 $(this).parents('tr').find('.prescription-name').val( ui.item.label );
                                                 return false;
@@ -300,43 +296,43 @@
                                                 <div class="input-group">
                                                     <input type="text" class="form-control ui-autocomplete-input" data-name="problem" placeholder="Add Patient Problem . . ." autocomplete="off">
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text">Add</span>
+                                                        <span class="input-group-text">Ekle</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Observation</label>
+                                                <label>Gözlem</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control ui-autocomplete-input" data-name="observation" placeholder="Add Observation. . ." autocomplete="off">
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text">Add</span>
+                                                        <span class="input-group-text">Ekle</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Diagnosis</label>
+                                                <label>Teşhis</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control ui-autocomplete-input" data-name="diagnosis" placeholder="Add Diagnosis . . ." autocomplete="off">
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text">Add</span>
+                                                        <span class="input-group-text">Ekle</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Test Request/Investigation</label>
+                                                <label>Test Talebi/Gözlem</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control ui-autocomplete-input" data-name="investigation" placeholder="Add Test Request/Investigation . . ." autocomplete="off">
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text">Add</span>
+                                                        <span class="input-group-text">Ekle</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label>Notes/Advice</label>
+                                                <label>Notlar/Tavsiye</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control ui-autocomplete-input" data-name="notes" placeholder="Add Notes . . ." autocomplete="off">
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text">Add</span>
+                                                        <span class="input-group-text">Ekle</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -350,7 +346,7 @@
                                                     <div class="circle"><i class="ti-help-alt"></i></div>
                                                     <div class="arrow"></div>
                                                     <div class="item-content">
-                                                        <div class="title">Problems</div>
+                                                        <div class="title">Problemler</div>
                                                         <div class="descr">
                                                             <ul>
                                                             </ul>
@@ -361,7 +357,7 @@
                                                     <div class="circle"><i class="ti-panel text-info"></i></div>
                                                     <div class="arrow"></div>
                                                     <div class="item-content">
-                                                        <div class="title">Observation</div>
+                                                        <div class="title">Gözlem</div>
                                                         <div class="descr">
                                                             <ul>
                                                             </ul>
@@ -372,7 +368,7 @@
                                                     <div class="circle"><i class="ti-heart-broken text-secondary"></i></div>
                                                     <div class="arrow"></div>
                                                     <div class="item-content">
-                                                        <div class="title">Diagnosis</div>
+                                                        <div class="title">Teşhis</div>
                                                         <div class="descr">
                                                             <ul>
                                                             </ul>
@@ -383,7 +379,7 @@
                                                     <div class="circle"><i class="ti-agenda text-success"></i></div>
                                                     <div class="arrow"></div>
                                                     <div class="item-content">
-                                                        <div class="title">Test Request/Investigation</div>
+                                                        <div class="title">Test Talebi/Gözlem</div>
                                                         <div class="descr">
                                                             <ul>
                                                             </ul>
@@ -394,7 +390,7 @@
                                                     <div class="circle"><i class="ti-write text-primary"></i></div>
                                                     <div class="arrow"></div>
                                                     <div class="item-content">
-                                                        <div class="title">Notes</div>
+                                                        <div class="title">Notlar</div>
                                                         <div class="descr">
                                                             <ul>
                                                             </ul>
@@ -403,28 +399,26 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input type="hidden" name="notes[id]" value="">
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-pane" id="appointment-documents">
                                 <div class="form-group">
-                                    <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#reports-modal"><i class="ti-cloud-up mr-2"></i> Upload Document/Report</a>
+                                    <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#reports-modal"><i class="ti-cloud-up mr-2"></i> Döküman Yükle/Rapor</a>
                                 </div>
                                 <div class="report-container">
                                 </div>
                             </div>
                             <div class="tab-pane" id="appointment-invoice">
                                 <div class="text-center">
-                                    <p>Invoice is not Generated</p>
-                                    <a href="{{url('/Invoice_Add')}}" class="btn btn-primary btn-sm" target="_blank"><i class="ti-plus pr-2"></i>Generate Invoice Now</a>
+                                    <p>Fatura Henüz Oluşturulmadı</p>
+                                    <a href="{{url('/Invoice_Add')}}" class="btn btn-primary btn-sm" target="_blank"><i class="ti-plus pr-2"></i>Fatura Oluştur</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" class="appointment-id" name="appointment[id]" value="77">
                     <div class="panel-footer text-center">
-                        <button type="submit" name="submit" class="btn btn-primary"><i class="ti-save-alt pr-2"></i> Save</button>
+                        <button type="submit" name="submit" class="btn btn-primary"><i class="ti-save-alt pr-2"></i> Kaydet</button>
                     </div>
                 </div>
             </form>
@@ -434,12 +428,12 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Upload Reports/Documents</h4>
+                            <h4 class="modal-title"> Rapor/Döküman Yükle</h4>
                             <button type="button" class="close" data-dismiss="modal">×</button>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label>Report/Document Name</label>
+                                <label>Rapor/Döküman Adı</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ti-tag"></i></span>
@@ -450,11 +444,11 @@
                             <div class="media-upload-container" style="max-width: 100%;">
                                 <form action="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=report/reportUpload" class="dropzone dz-clickable" id="report-upload" method="post" enctype="multipart/form-data">
                                     
-                                    <div class="dz-default dz-message"><span>Drop files here or click here to upload <br><br> Only Image or PDF</span></div></form>
+                                    <div class="dz-default dz-message"><span>Dosyaları buraya sürükleyin veya yüklemek için buraya tıklayın<br><br> Sadece Resim/PDF</span></div></form>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary upload-report">Done</button>
+                            <button type="button" class="btn btn-primary upload-report">Bitti</button>
                         </div>
                     </div>
                 

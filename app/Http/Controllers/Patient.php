@@ -35,9 +35,48 @@ class Patient extends Controller
     {
        //$the_patients= $a->all_patients_list()->paginate(3);
         $the_patients= Patients::with('all_patients_list')->paginate(2); // all patients
-
+       // return $the_patients;
        // $the_patients = Auth::user()->patients_list(); // patients of the belong to user
-        return view('pages.Patient',compact('the_patients'));
+
+       return view('pages.Patient',compact('the_patients'));
+    }
+    public function autoComplete_patients(){
+
+        $search = $_GET['term'];
+       // return $name;
+
+        $skillData = array();
+        $dta= Patients::where('p_name','like','%'.$search.'%')->get();
+
+        foreach ($dta as $datas){
+            $data['id']=$datas['id'];
+            $data['value']=$datas['p_name'];//when it is requesting the name
+
+            $data['name']=$datas['p_name'];
+            $data['surname']=$datas['p_surname'];
+            $data['email']=$datas['p_email'];
+            $data['phone']=$datas['p_phone'];
+
+
+            $name_surname=  $datas['p_name']." ".$datas['p_surname']."<br>".$datas['p_phone']; //the autocomplete format
+            $data['label']=$name_surname;
+
+            /* if we want an autocomplete with a picture  */
+            /* $data['label'] = '
+           <a class="bg-white border-white text-capitalize text-info font-weight-bold text-black-50 ">
+           <img src="/css_js_img/media-1771205195e049ca8ee997.jpg" class="img-thumbnail" width="60" height="60"/>
+            <span class="" />'.$name_surname.'</span> </a>
+        '; */
+
+
+            array_push($skillData, $data);
+        }
+
+        echo json_encode($skillData);
+    }
+    public function find_the_patient(){
+        $patient_id=$_GET['id'];
+        return $patient_id;
     }
 
     public function patient_add_page(){

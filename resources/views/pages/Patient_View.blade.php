@@ -126,7 +126,7 @@
                                         </tr>
                                         <tr>
                                             <td>Oluşturulma Tarihi</td>
-                                            <td>{{$list->created_at}}/td>
+                                            <td>{{$list->created_at}}</td>
                                         </tr>
                                        @endforeach
                                         </tbody>

@@ -14,10 +14,10 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
         $roles=array(
-            array("name"=>"Admin"),//1
-            array("name"=>"Doktor(Master)"), // 2
-            array("name"=>"Doktor"), // 3
-            array("name"=>"Resepsiyonist"), // 4
+            array("all_roles"=>"Admin"),//1
+            array("all_roles"=>"Doktor(Master)"), // 2
+            array("all_roles"=>"Doktor"), // 3
+            array("all_roles"=>"Resepsiyonist"), // 4
         );
         foreach ($roles as $role){
             Roles::create($role);// role tablosuna Admin, Doctor(Master),Doctor,Resepsiyonist rolllerini oluştur

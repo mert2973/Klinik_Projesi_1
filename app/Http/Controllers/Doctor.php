@@ -27,6 +27,20 @@ class Doctor extends Controller
     public function doctor_add(){
         return view('pages.Doctor_Add');
     }
+    public function all_doctors(){
+      //return User::all()->toArray();
+        return    DB::table('users as u')
+            ->join('role_user as r','r.user_id','=','u.id')
+            ->join('roles as rl','rl.id','=','r.role_id')
+            ->join('UsersGenInfo_of_SubMasterDr as ugi','ugi.user_id','=','u.id')
+            ->join('general_infos as gi','gi.id','=','ugi.general_info_id')
+            ->where('rl.all_roles','Doktor')
+            ->select('u.name','u.surname','u.usr_name','gi.department','gi.adress_1','gi.blood_group',
+                'u.email','u.phone','r.user_id','rl.all_roles','rl.role_description')
+            ->get(); //user_id is the doctor id
+    }
+
+
     public function doctor_create(Request $request){
         $masterDR_id=Auth::user()->id;
        $user= User::create([ // person of dr,resepsiyonist etc..
@@ -51,6 +65,7 @@ class Doctor extends Controller
             "status" => $request-> web_status,
             "priority" => $request-> priority,
             "position" => $request-> position,
+            "department" => $request-> department,
             "degree" => $request-> degree,
             "specility" => $request-> specility,
             "expr_year" => $request-> experience,

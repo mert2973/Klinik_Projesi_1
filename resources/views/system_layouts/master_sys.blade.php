@@ -18,14 +18,20 @@
     <link rel="stylesheet" type="text/css" href="{{--asset('css_js_img/embedpostload_43aa0_.css')--}}">
      <link rel="stylesheet" type="text/css" href="{{--asset('css_js_img/embedtheme1_83dcc_.css')--}}">
     <!-- Include js files -->
+
+    
+     
+      <script type="text/javascript" id="zsiqscript" defer="" src="{{asset('css_js_img/widget')}}" ></script>
     <script async="" src="{{asset('css_js_img/analytics.js')}}"></script>
-    <script type="text/javascript" id="zsiqscript" defer="" src="{{asset('css_js_img/widget')}}"></script>
+    <script type="text/javascript" src="{{asset('css_js_img/jquery-ui.multidatespicker.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('css_js_img/vendor.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('css_js_img/admin.js')}}"></script>
-    <script type="text/javascript" src="{{asset('css_js_img/jquery-ui.multidatespicker.min.js')}}"></script>
-
+    
     <script type="text/javascript" src="{{asset('css_js_img/summernote/summernote-bs4.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('css_js_img/summernote/klinikal.summernote.js')}}"></script>
+
+
+
     
    
     
@@ -73,6 +79,13 @@
     @yield('icerik')
   </div>
 </div>
+
+
+
+<script type="text/javascript" src="{{--asset('js/app.js')--}}"></script>
+
+
+
 
 <script type="text/javascript" src="{{asset('css_js_img/appointment.js')}}"></script>
 <script type="text/javascript" src="{{asset('css_js_img/Chart.min.js')}}"></script>
@@ -194,6 +207,7 @@
             }
         }
     });
+    
 </script>
 <!-- Footer -->
 <script type="text/javascript">
@@ -256,6 +270,43 @@
     </div>
 </div>  -->
 
-
+<script>
+    $(document).ready(function () {
+        $('.table-date-range').daterangepicker({
+            autoApply: false,
+            alwaysShowCalendars: true,
+            opens: 'left',
+            applyButtonClasses: 'btn-danger',
+            cancelClass: 'btn-white',
+            locale: {
+                format: $('.common_daterange_format').val(),
+                separator: " => ",
+            },
+            startDate: "18-02-2020",
+            endDate: "18-02-2020",
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Tomorrow': [moment().add(1, 'days'), moment().add(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Next 7 Days': [moment(), moment().add(6, 'days')],
+                //'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'All Time': [moment('2015-01-01'), moment().add(30, 'days')]
+            },
+        });
+        $('.table-date-range').on('apply.daterangepicker', function(ev, picker) {
+            window.location.replace(''+'&start='+picker.startDate.format('DD-MM-YYYY')+'&end='+picker.endDate.format('DD-MM-YYYY'));
+        });
+    });
+   
+</script>
+<script>
+    $( function() {
+        $( "#datepicker" ).datepicker({dateFormat:"dd/mm/yy"});
+        
+    } );
+</script>
 </body>
 </html>

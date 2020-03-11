@@ -34,7 +34,7 @@ class Roles_and_Users extends Controller
 
     public function add_the_user_role(Request $request){
         Roles::create([
-            'name'=>$request->role_name,
+            'all_roles'=>$request->role_name,
             'role_description'=>$request->role_description,
         ]);
 

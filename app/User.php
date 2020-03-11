@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Patient;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -31,6 +32,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -48,13 +50,28 @@ class User extends Authenticatable
       return $aa;
     }
 
+    public function appointments(){
+        //return   DB::table('appointments as ap')->where('doctors_id',Auth::user()->id)
+        return   $this->hasMany('App\Appointments','doctors_id')
+            ->join('patients','patients.id','=','appointments.patients_id')
+            ->join('users','users.id','=','appointments.doctors_id')->paginate(4);
+    }
+    public function doctor_with_his_patients(){
+      return  $this->hasMany('App\Appointments','doctors_id')
+              ->join('patients','patients.id','=','appointments.patients_id')
+              ->join('users','users.id','=','appointments.doctors_id')
+              ->join('patient_and_patient_infos as ppi','ppi.patients_id','=','patients.id')
+              ->join('patient_infos as pi','pi.id','=','ppi.patient_infos_id')
+          ->get();
+    }
+
     public  function get_roles(){
         return  $this->belongsToMany('App\Roles','role_user','user_id','role_id');
     }
 
     public  function the_role() {
         foreach ( $this->get_roles()->get() as $ytk ) {
-            return $ytk->name;
+            return $ytk->all_roles;
         }
     }
     public function yetkili_kisi_doktor(){

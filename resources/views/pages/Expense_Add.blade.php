@@ -55,7 +55,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ti-calendar"></i></span>
                                         </div>
-                                        <input type="text" name="expense[date]" class="form-control date bg-white hasDatepicker" value="18-02-2020" placeholder="Enter Purchase Date . . ." readonly="" autocomplete="off" required="" id="dp1582020986809">
+                                        <!--class=" date hasDatepicker" --->
+                                        <input type="text" name="expense[date]" class="form-control  bg-white " value="" placeholder="Tarihi girininiz . . ." readonly="" autocomplete="off" required="" id="datepicker">
                                     </div>
                                 </div>
                             </div>
