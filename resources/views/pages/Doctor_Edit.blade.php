@@ -8,43 +8,43 @@
     </script>
     <div class="page-wrapper">
         <div class="page-body">
-            <script type="text/javascript" src="./Doctor_Edit _ Klinikal Hospital_files/jquery-ui.multidatespicker.min.js"></script>
             <div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h2 class="page-title-text d-inline-block">Edit Doctor</h2>
+                        <h2 class="page-title-text d-inline-block">Doktor Bilgilerini Düzenle</h2>
                         <div class="breadcrumbs d-inline-block">
                             <ul>
                                 <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
                                 <i class="fa fa-angle-right font-12 ml-2" ></i>
-                                <span class="ml-2"><a href="{{url('Doctors')}}">Doctors</a></span>
+                                <span class="ml-2"><a href="{{url('Doctors')}}">Doktorlar</a></span>
                                 <i class="fa fa-angle-right font-12 ml-2" ></i>
-                                <span class="ml-2">Edit Doctor</span>
+                                <span class="ml-2">Doktor Bilgilerini Düzenle</span>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-6 text-right"></div>
                 </div>
             </div>
-            <form action="" method="get" enctype="multipart/form-data" siq_id="autopick_6778">
-                <input type="hidden" name="_token" value="a37c23e576049c2e86e5b09056b820f5a205da8c448f38e15ab09d2fa1edf3b588681a537df8abc56c1ff242dbef8129443905deb043c1d1166301b083bf52e8">
+            <form action="{{url('/Doctor_Info_Update')}}" method="POST" enctype="multipart/form-data" >
+               @csrf
                 <div class="panel panel-default">
                     <div class="panel-body">
+                        <input type="hidden" name="dr_id" value="{{$the_doctor->user_id}}">
                         <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-primary">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#doctor-basic" data-toggle="tab">Basic Info</a>
+                                <a class="nav-link active" href="#doctor-basic" data-toggle="tab">Bilgiler</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#doctor-address" data-toggle="tab">Address</a>
+                                <a class="nav-link" href="#doctor-address" data-toggle="tab">Adres</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#doctor-web" data-toggle="tab">Website Data</a>
+                                <a class="nav-link" href="#doctor-web" data-toggle="tab">Web Site Bilgileri</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#doctor-appointment" data-toggle="tab">Appointment Info</a>
+                                <a class="nav-link" href="#doctor-appointment" data-toggle="tab">Randevu Bilgileri</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#doctor-holidays" data-toggle="tab">Holidays</a>
+                                <a class="nav-link" href="#doctor-holidays" data-toggle="tab">Tatiller</a>
                             </li>
                         </ul>
                         <div class="tab-content pt-4">
@@ -54,125 +54,132 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>First Name <span class="form-required">*</span></label>
+                                                    <label>Ad <span class="form-required">*</span></label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="ti-user"></i></span>
                                                         </div>
-                                                        <input type="text" name="doctor[firstname]" class="form-control" value="Daniel" placeholder="Enter Doctor First Name . . ." required="">
+                                                        <input type="text" name="name" class="form-control" value="{{$the_doctor->name}} " placeholder="Enter Doctor First Name . . ." required="">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Last Name <span class="form-required">*</span></label>
+                                                    <label>Soyad <span class="form-required">*</span></label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="ti-user"></i></span>
                                                         </div>
-                                                        <input type="text" name="doctor[lastname]" class="form-control" value="Barnes" placeholder="Enter Doctor Last Name . . ." required="">
+                                                        <input type="text" name="surname" class="form-control" value="{{$the_doctor->surname}}" placeholder="Enter Doctor Last Name . . ." required="">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Email Address <span class="form-required">*</span></label>
+                                            <label>Email Adresi <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-email"></i></span>
                                                 </div>
-                                                <input type="text" name="doctor[mail]" class="form-control" value="daniel@gmail.com" placeholder="Enter Email Address . . ." required="">
+                                                <input type="text" class="form-control" value="{{$the_doctor->email}}" placeholder="Enter Email Address . . ." required="" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Mobile Number <span class="form-required">*</span></label>
+                                            <label>Telefon Numarası <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-mobile"></i></span>
                                                 </div>
-                                                <input type="text" name="doctor[mobile]" class="form-control" value="1234567890" placeholder="Enter Mobile Number . . ." required="">
+                                                <input type="text" name="phone" class="form-control" value="{{$the_doctor->phone}}" placeholder="Enter Mobile Number . . ." required="">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Blood Group</label>
+                                            <label>Kan Grubu</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-user"></i></span>
                                                 </div>
-                                                <select name="doctor[bloodgroup]" class="custom-select">
-                                                    <option value="A+" selected="">A+</option>
-                                                    <option value="A-">A-</option>
-                                                    <option value="B+" selected="">B+</option>
-                                                    <option value="B-">B-</option>
-                                                    <option value="O+">O+</option>
-                                                    <option value="O-">O-</option>
-                                                    <option value="AB+">AB+</option>
-                                                    <option value="AB-">AB-</option>
+                                                <select name="blood_group" class="custom-select">
+                                                    <option>Kan Grubunu Seçiniz</option>
+                                                    <option value="A+" @if($the_doctor->blood_group=="A+") selected="" @endif>A+</option>
+                                                    <option value="A-" @if($the_doctor->blood_group=="A-") selected="" @endif>A-</option>
+                                                    <option value="B+" @if($the_doctor->blood_group=="B+") selected="" @endif>B+</option>
+                                                    <option value="B-" @if($the_doctor->blood_group=="B-") selected="" @endif>B-</option>
+                                                    <option value="O+" @if($the_doctor->blood_group=="O+") selected="" @endif>O+</option>
+                                                    <option value="O-" @if($the_doctor->blood_group=="O-") selected="" @endif>O-</option>
+                                                    <option value="AB+" @if($the_doctor->blood_group=="AB+") selected="" @endif>AB+</option>
+                                                    <option value="AB-" @if($the_doctor->blood_group=="AB-") selected="" @endif>AB-</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Gender</label>
+                                            <label>Cinsiyet</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-user"></i></span>
                                                 </div>
-                                                <select name="doctor[gender]" class="custom-select">
-                                                    <option value="Male" selected="">Male</option>
-                                                    <option value="Female">Female</option>
-                                                    <option value="Other">Other</option>
+                                                <select name="gender" class="custom-select">
+                                                    <option value="Erkek"   @if($the_doctor->gender=="Erkek") selected="" @endif>Erkek</option>
+                                                    <option value="Kadın" @if($the_doctor->gender=="Kadın") selected="" @endif>Kadın</option>
+                                                    <option value="Diğer"  @if($the_doctor->gender=="Diğer") selected="" @endif>Diğer</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="d-block">Picture</label>
+                                                <div class="image-upload" style="display: none">
+                                                    <a>Upload</a>
+                                                </div>
+                                                <div class="saved-picture">
+                                                    @if($the_doctor->gender=="Erkek")
+                                                        <img class="img-thumbnail" src="{{asset('css_js_img/dr_resim.jpg')}}" alt="">
+                                                        <input type="hidden" name="doctor[picture]" value="media-1771205195e049ca8ee997.jpg">
+                                                    @else
+                                                        <img class="img-thumbnail" src="{{asset('css_js_img/doktors_img/media-14789594495e049ca8efcdf.jpg')}}" alt="">
+                                                    @endif
+                                                  
+                                                </div>
+                                                <div class="saved-picture-delete" data-toggle="tooltip" data-placement="right" title="" data-original-title="Remove">
+                                                    <a class="ti-trash"></a>
+                                                </div>
+                                                <div class="form-text">(Size: 530px * 470px)</div>
+                                            </div>
+                                      
                                         <div class="form-group">
-                                            <label class="d-block">Picture</label>
-                                            <div class="image-upload" style="display: none">
-                                                <a>Upload</a>
-                                            </div>
-                                            <div class="saved-picture">
-                                                <img class="img-thumbnail" src="css_js_img/dr_resim.jpg" alt="">
-                                                <input type="hidden" name="doctor[picture]" value="media-1771205195e049ca8ee997.jpg">
-                                            </div>
-                                            <div class="saved-picture-delete" data-toggle="tooltip" data-placement="right" title="" data-original-title="Remove">
-                                                <a class="ti-trash"></a>
-                                            </div>
-                                            <div class="form-text">(Size: 530px * 470px)</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Date of Birth</label>
+                                            <label>Doğum Tarihi</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-calendar"></i></span>
                                                 </div>
-                                                <input type="text" id="user-dob" name="doctor[dob]" class="form-control bg-white hasDatepicker" value="19-06-1979" placeholder="Select Date of Birth . . ." readonly="" autocomplete="off" required="">
+                                                <input type="text"  name="date_of_birth" class="form-control bg-white " value="{{$the_doctor->date_of_birth}}" placeholder="Select Date of Birth . . ."  autocomplete="off" required="" id="datepicker">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Department <span class="form-required">*</span></label>
+                                            <label>Branş <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend"><span class="input-group-text"><i class="ti-layers-alt"></i></span></div>
-                                                <select name="doctor[department]" class="custom-select" required="">
-                                                    <option value="1"> Gynaecology</option>
-                                                    <option value="2" selected=""> Orthology</option>
-                                                    <option value="3"> Dermatologist</option>
-                                                    <option value="4"> Anaesthesia</option>
-                                                    <option value="5"> Ayurvedic</option>
-                                                    <option value="6"> Pathology</option>
-                                                    <option value="7"> Radiology</option>
+                                                <select name="department" class="custom-select" required="">
+                                                    <option value="Jinekoloji"  @if($the_doctor->department=="Jinekoloji") selected="" @endif> Jinekoloji</option>
+                                                    <option value="Ortoloji"    @if($the_doctor->department=="Ortoloji") selected="" @endif> Ortoloji</option>
+                                                    <option value="Dermatolog"  @if($the_doctor->department=="Dermatolog") selected="" @endif> Dermatolog</option>
+                                                    <option value="Anestezi"    @if($the_doctor->department=="Anestezi") selected="" @endif> Anestezi</option>
+                                                    <option value="Ayurveda"    @if($the_doctor->department=="Ayurveda") selected="" @endif> Ayurveda</option>
+                                                    <option value="Patoloji"    @if($the_doctor->department=="Patoloji") selected="" @endif> Patoloji</option>
+                                                    <option value="Radyoloji"   @if($the_doctor->department=="Radyoloji") selected="" @endif> Radyoloji</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Status</label>
+                                            <label>Durum</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-check-box"></i></span>
                                                 </div>
-                                                <select name="doctor[status]" class="custom-select" required="">
-                                                    <option value="1" selected="">Active</option>
-                                                    <option value="0">InActive</option>
+                                                <select name="status" class="custom-select" required="">
+                                                    <option value="1" @if($the_doctor->status==1) selected="" @endif >Aktif</option>
+                                                    <option value="0" @if($the_doctor->status==0) selected="" @endif>Pasif</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -182,12 +189,12 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label>Username <span class="form-required">*</span></label>
+                                            <label>Kullanıcı Adı <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-id-badge"></i></span>
                                                 </div>
-                                                <input type="text" name="doctor[user_name]" class="form-control" value="daniel" placeholder="Enter Doctor Username . . ." required="">
+                                                <input type="text" name="user_name" class="form-control" value="{{$the_doctor->usr_name}}" placeholder="Enter Doctor Username . . ." required="">
                                             </div>
                                         </div>
                                     </div>
@@ -197,56 +204,56 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Address Line 1</label>
+                                            <label>Adres 1</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-location-pin"></i></span>
                                                 </div>
-                                                <input type="text" name="doctor[address][address1]" class="form-control" value="" placeholder="Enter Address Line 1 . . .">
+                                                <input type="text" name="adress1" class="form-control" value="{{$the_doctor->adress_1}}" placeholder="Enter Address Line 1 . . .">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Address Line 2</label>
+                                            <label>Adres 2</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-location-pin"></i></span>
                                                 </div>
-                                                <input type="text" name="doctor[address][address2]" class="form-control" value="" placeholder="Enter Address Line 2 . . .">
+                                                <input type="text" name="adress2" class="form-control" value="{{$the_doctor->adress_2}}" placeholder="Enter Address Line 2 . . .">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>City</label>
+                                            <label>Şehir</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-map-alt"></i></span>
                                                 </div>
-                                                <input type="text" name="doctor[address][city]" class="form-control" value="" placeholder="Enter City . . .">
+                                                <input type="text" name="city" class="form-control" value="{{$the_doctor->city}}" placeholder="Şehir adını giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Country</label>
+                                            <label>Ülke</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-map"></i></span>
                                                 </div>
-                                                <input type="text" name="doctor[address][country]" class="form-control" value="" placeholder="Enter Country . . .">
+                                                <input type="text" name="country" class="form-control" value="{{$the_doctor->country}}" placeholder="Ülke adını giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Postal/Zip Code</label>
+                                            <label>Posta/Zip Kodu</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-pin"></i></span>
                                                 </div>
-                                                <input type="text" name="doctor[address][postal]" class="form-control" value="" placeholder="Enter Postal/Zip Code . . .">
+                                                <input type="text" name="posta_zip_kodu" class="form-control" value="{{$the_doctor->postal_zip}}" placeholder="Posta/Zip kodunu giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
@@ -254,68 +261,68 @@
                             </div>
                             <div class="tab-pane" id="doctor-web">
                                 <div class="form-group">
-                                    <label>Do you want to display this data on website?</label>
-                                    <select name="doctor[web_status]" class="custom-select">
-                                        <option value="1" selected="">Yes</option>
-                                        <option value="0">No</option>
+                                    <label>Bilgileri web site üzerinde göstermek istiyor musunuz?</label>
+                                    <select name="web_status" class="custom-select">
+                                        <option value="1">Evet</option>
+                                        <option value="0">Hayır</option>
                                     </select>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label>Priority</label>
+                                            <label>Öncelik</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-shortcode"></i></span>
                                                 </div>
-                                                <input type="number" name="doctor[priority]" class="form-control" value="1" placeholder="Enter Priority . . .">
+                                                <input type="number" name="priority" class="form-control" value="{{$the_doctor->priority}}" placeholder="Öncelik sayısını giriniz . . .">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Position</label>
+                                            <label>Pozisyon</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-info"></i></span>
                                                 </div>
-                                                <input type="text" name="doctor[about][position]" class="form-control" value="CEO" placeholder="Enter Doctor&#39;s Position . . .">
+                                                <input type="text" name="position" class="form-control" value="{{$the_doctor->position}}" placeholder="Doktor pozisyonunu giriniz . . .">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Degree</label>
+                                            <label>Derece</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-id-badge"></i></span>
                                                 </div>
-                                                <input type="text" name="doctor[about][degree]" class="form-control" value="MBBS, MD, MCH" placeholder="Enter Doctor&#39;s Degree . . .">
+                                                <input type="text" name="degree" class="form-control" value="{{$the_doctor->degree}}" placeholder="Doktor derecesini giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label>Specility</label>
+                                            <label>Uzman Olduğu Alan</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-shield"></i></span>
                                                 </div>
-                                                <input type="text" name="doctor[about][specility]" class="form-control" value="Ortho" placeholder="Enter Doctor&#39;s Specility . . .">
+                                                <input type="text" name="specility" class="form-control" value="{{$the_doctor->specility}}" placeholder="Doktorun Uzman olduğu alanı giriniz. . .">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Experience</label>
+                                            <label>Deneyim</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-shine"></i></span>
                                                 </div>
-                                                <input type="number" name="doctor[about][experience]" class="form-control" value="26" placeholder="Enter Doctor&#39;s Experience . . .">
+                                                <input type="number" name="experience" class="form-control" value="{{$the_doctor->expr_year}}" placeholder="Doktor'un deneyim yılını giriniz . . .">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Awards</label>
+                                            <label>Ödüller</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-gift"></i></span>
                                                 </div>
-                                                <input type="text" name="doctor[about][awards]" class="form-control" value="23" placeholder="Enter Awards Count . . .">
+                                                <input type="text" name="awards" class="form-control" value="{{$the_doctor->awards_count}}" placeholder="Ödül sayısını giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
@@ -326,7 +333,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-facebook"></i></span>
                                                 </div>
-                                                <input type="url" name="doctor[social][facebook]" class="form-control" value="https://www.facebook.com" placeholder="Facebook URL">
+                                                <input type="url" name="facebook_link" class="form-control" value="{{$the_doctor->facebook_link}}" placeholder="Facebook linki">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -335,27 +342,27 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-twitter"></i></span>
                                                 </div>
-                                                <input type="url" name="doctor[social][twitter]" class="form-control" value="https://www.twitter.com" placeholder="Twitter URL">
+                                                <input type="url" name="twitter_link" class="form-control" value="{{$the_doctor->twitter_link}}" placeholder="Twitter linki">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <div class="form-group">
+                                       <!-- <div class="form-group">
                                             <label>Google +</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-google"></i></span>
                                                 </div>
-                                                <input type="url" name="doctor[social][google]" class="form-control" value="https://www.google.com" placeholder="Google plus URL">
+                                                <input type="url" name="google_plus_link" class="form-control" value="{{--$the_doctor->instegram_link--}}" placeholder="Google+ linki">
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <label>Instagram</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-instagram"></i></span>
                                                 </div>
-                                                <input type="url" name="doctor[social][instagram]" class="form-control" value="https://www.instagram.com" placeholder="Instagram URL">
+                                                <input type="url" name="instagram_link" class="form-control" value="{{$the_doctor->instegram_link}}" placeholder="Instagram linki">
                                             </div>
                                         </div>
                                     </div>
@@ -363,194 +370,194 @@
                             </div>
                             <div class="tab-pane" id="doctor-appointment">
                                 <div class="form-group">
-                                    <label>Can doctor take appointment? <span class="form-required">*</span></label>
-                                    <select name="doctor[appointment_status]" class="custom-select">
-                                        <option value="1" selected="">Yes</option>
-                                        <option value="0">No</option>
+                                    <label>Doktor randevu alabilir mi? <span class="form-required">*</span></label>
+                                    <select name="appointment_status" class="custom-select">
+                                        <option value="1">Evet</option>
+                                        <option value="0">Hayır</option>
                                     </select>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-middle table-bordered">
                                         <thead>
                                         <tr>
-                                            <th rowspan="2">Day</th>
-                                            <th colspan="2" class="text-center">Before Lunch</th>
-                                            <th colspan="2" class="text-center">After Lunch</th>
-                                            <th rowspan="2">Slot Time(In Minute)</th>
-                                            <th rowspan="2">Holiday</th>
+                                            <th rowspan="2">Günler</th>
+                                            <th colspan="2" class="text-center">Öğleden Önce</th>
+                                            <th colspan="2" class="text-center">Öğleden Sonra</th>
+                                            <th rowspan="2">Zaman Aralığı(Dakika)</th>
+                                            <th rowspan="2">Tatil</th>
                                         </tr>
                                         <tr>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
+                                            <th>Başlama Saati</th>
+                                            <th>Bitiş Saati</th>
+                                            <th>Başlama Saati</th>
+                                            <th>Bitiş Saati</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>Monday</td>
+                                            <td>Pazartesi</td>
                                             <td>
-                                                <input type="time" name="doctor[time][1][st1]" value="10:00" class="form-control m-0">
+                                                <input type="time" name="pzt_before_begin" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][1][et1]" value="13:00" class="form-control m-0">
+                                                <input type="time" name="pzt_before_end" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][1][st2]" value="15:00" class="form-control m-0">
+                                                <input type="time" name="pzt_after_begin" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][1][et2]" value="18:00" class="form-control m-0">
+                                                <input type="time" name="pzt_after_end" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="text" name="doctor[time][1][slot]" value="15" class="form-control m-0">
+                                                <input type="text" name="pzt_slot_time" value="" class="form-control m-0">
                                             </td>
                                             <td class="text-center">
                                                 <div class="custom-control custom-checkbox d-inline-block">
-                                                    <input type="checkbox" name="doctor[time][1][holiday]" class="custom-control-input doctor-time" id="time-1" value="1">
+                                                    <input type="checkbox" name="pzt_holiday" class="custom-control-input doctor-time" id="time-1" value="1">
                                                     <label class="custom-control-label" for="time-1"></label>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Tuesday</td>
+                                            <td>Salı</td>
                                             <td>
-                                                <input type="time" name="doctor[time][2][st1]" value="10:00" class="form-control m-0">
+                                                <input type="time" name="sali_before_begin" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][2][et1]" value="13:00" class="form-control m-0">
+                                                <input type="time" name="sali_before_end" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][2][st2]" value="15:00" class="form-control m-0">
+                                                <input type="time" name="sali_after_begin" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][2][et2]" value="18:00" class="form-control m-0">
+                                                <input type="time" name="sali_after_end" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="text" name="doctor[time][2][slot]" value="15" class="form-control m-0">
+                                                <input type="text" name="sali_slot_time" value="" class="form-control m-0">
                                             </td>
                                             <td class="text-center">
                                                 <div class="custom-control custom-checkbox d-inline-block">
-                                                    <input type="checkbox" name="doctor[time][2][holiday]" class="custom-control-input doctor-time" id="time-2" value="1">
+                                                    <input type="checkbox" name="sali_holiday" class="custom-control-input doctor-time" id="time-2" value="1">
                                                     <label class="custom-control-label" for="time-2"></label>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Wednesday</td>
+                                            <td>Çarşamba</td>
                                             <td>
-                                                <input type="time" name="doctor[time][3][st1]" value="10:00" class="form-control m-0">
+                                                <input type="time" name="crs_beforo_begin" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][3][et1]" value="13:00" class="form-control m-0">
+                                                <input type="time" name="crs_beforo_end" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][3][st2]" value="15:00" class="form-control m-0">
+                                                <input type="time" name="crs_after_begin" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][3][et2]" value="18:00" class="form-control m-0">
+                                                <input type="time" name="crs_after_end" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="text" name="doctor[time][3][slot]" value="15" class="form-control m-0">
+                                                <input type="text" name="crs_slot_time" value="" class="form-control m-0">
                                             </td>
                                             <td class="text-center">
                                                 <div class="custom-control custom-checkbox d-inline-block">
-                                                    <input type="checkbox" name="doctor[time][3][holiday]" class="custom-control-input doctor-time" id="time-3" value="1">
+                                                    <input type="checkbox" name="crs_holiday" class="custom-control-input doctor-time" id="time-3" value="1">
                                                     <label class="custom-control-label" for="time-3"></label>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Thursday</td>
+                                            <td>Perşembe</td>
                                             <td>
-                                                <input type="time" name="doctor[time][4][st1]" value="10:00" class="form-control m-0">
+                                                <input type="time" name="pers_before_begin" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][4][et1]" value="12:00" class="form-control m-0">
+                                                <input type="time" name="pers_before_end" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][4][st2]" value="16:00" class="form-control m-0">
+                                                <input type="time" name="pers_after_begin" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][4][et2]" value="18:00" class="form-control m-0">
+                                                <input type="time" name="pers_after_end" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="text" name="doctor[time][4][slot]" value="15" class="form-control m-0">
+                                                <input type="text" name="pers_slot_time" value="" class="form-control m-0">
                                             </td>
                                             <td class="text-center">
                                                 <div class="custom-control custom-checkbox d-inline-block">
-                                                    <input type="checkbox" name="doctor[time][4][holiday]" class="custom-control-input doctor-time" id="time-4" value="1">
+                                                    <input type="checkbox" name="" class="custom-control-input doctor-time" id="time-4" value="1">
                                                     <label class="custom-control-label" for="time-4"></label>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Friday</td>
+                                            <td>Cuma</td>
                                             <td>
-                                                <input type="time" name="doctor[time][5][st1]" value="10:00" class="form-control m-0">
+                                                <input type="time" name="cuma_before_begin" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][5][et1]" value="13:00" class="form-control m-0">
+                                                <input type="time" name="cuma_before_end" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][5][st2]" value="15:00" class="form-control m-0">
+                                                <input type="time" name="cuma_after_begin" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][5][et2]" value="18:00" class="form-control m-0">
+                                                <input type="time" name="cuma_after_end" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="text" name="doctor[time][5][slot]" value="15" class="form-control m-0">
+                                                <input type="text" name="cuma_slot_time" value="" class="form-control m-0">
                                             </td>
                                             <td class="text-center">
                                                 <div class="custom-control custom-checkbox d-inline-block">
-                                                    <input type="checkbox" name="doctor[time][5][holiday]" class="custom-control-input doctor-time" id="time-5" value="1">
+                                                    <input type="checkbox" name="cuma_holiday" class="custom-control-input doctor-time" id="time-5" value="1">
                                                     <label class="custom-control-label" for="time-5"></label>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Saturday</td>
+                                            <td>Cumartesi</td>
                                             <td>
-                                                <input type="time" name="doctor[time][6][st1]" value="09:00" class="form-control m-0">
+                                                <input type="time" name="cmt_before_begin" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][6][et1]" value="23:00" class="form-control m-0">
+                                                <input type="time" name="cmt_before_end" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][6][st2]" value="" class="form-control m-0">
+                                                <input type="time" name="cmt_after_" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][6][et2]" value="" class="form-control m-0">
+                                                <input type="time" name="" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="text" name="doctor[time][6][slot]" value="15" class="form-control m-0">
+                                                <input type="text" name="" value="" class="form-control m-0">
                                             </td>
                                             <td class="text-center">
                                                 <div class="custom-control custom-checkbox d-inline-block">
-                                                    <input type="checkbox" name="doctor[time][6][holiday]" class="custom-control-input doctor-time" id="time-6" value="1">
+                                                    <input type="checkbox" name="" class="custom-control-input doctor-time" id="time-6" value="1">
                                                     <label class="custom-control-label" for="time-6"></label>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Sunday</td>
+                                            <td>Pazar</td>
                                             <td>
-                                                <input type="time" name="doctor[time][0][st1]" value="" class="form-control m-0" readonly="readonly">
+                                                <input type="time" name="doctor[time][0][st1]" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][0][et1]" value="" class="form-control m-0" readonly="readonly">
+                                                <input type="time" name="doctor[time][0][et1]" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][0][st2]" value="" class="form-control m-0" readonly="readonly">
+                                                <input type="time" name="doctor[time][0][st2]" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="time" name="doctor[time][0][et2]" value="" class="form-control m-0" readonly="readonly">
+                                                <input type="time" name="doctor[time][0][et2]" value="" class="form-control m-0">
                                             </td>
                                             <td>
-                                                <input type="text" name="doctor[time][0][slot]" value="" class="form-control m-0" readonly="readonly">
+                                                <input type="text" name="doctor[time][0][slot]" value="" class="form-control m-0">
                                             </td>
                                             <td class="text-center">
                                                 <div class="custom-control custom-checkbox d-inline-block">
-                                                    <input type="checkbox" name="doctor[time][0][holiday]" class="custom-control-input doctor-time" id="time-0" value="1" checked="">
+                                                    <input type="checkbox" name="doctor[time][0][holiday]" class="custom-control-input doctor-time" id="time-0" value="1">
                                                     <label class="custom-control-label" for="time-0"></label>
                                                 </div>
                                             </td>
@@ -561,7 +568,247 @@
                             </div>
                             <div class="tab-pane" id="doctor-holidays">
                                 <div class="form-group">
-                                    <div id="other-holiday" class="hasDatepicker"><div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all ui-datepicker-multi ui-datepicker-multi-3" style="display: block; width: 51em;"><div class="ui-datepicker-group ui-datepicker-group-first"><div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-left"><a class="ui-datepicker-prev ui-corner-all ui-state-disabled" title="Prev"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a><div class="ui-datepicker-title"><span class="ui-datepicker-month">February</span>&nbsp;<span class="ui-datepicker-year">2020</span></div></div><table class="ui-datepicker-calendar"><thead><tr><th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th><th scope="col"><span title="Monday">Mo</span></th><th scope="col"><span title="Tuesday">Tu</span></th><th scope="col"><span title="Wednesday">We</span></th><th scope="col"><span title="Thursday">Th</span></th><th scope="col"><span title="Friday">Fr</span></th><th scope="col" class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th></tr></thead><tbody><tr><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">1</span></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">2</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">3</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">4</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">5</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">6</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">7</span></td><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">8</span></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">9</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">10</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">11</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">12</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">13</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">14</span></td><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">15</span></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">16</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">17</span></td><td class=" ui-datepicker-days-cell-over undefined ui-datepicker-current-day ui-datepicker-today" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default ui-state-highlight ui-state-active ui-state-hover" href="#id=1">18</a></td><td class=" ui-state-highlight" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">19</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">20</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">21</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">22</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">23</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">24</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">25</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">26</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">27</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">28</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">29</a></td></tr></tbody></table></div><div class="ui-datepicker-group ui-datepicker-group-middle"><div class="ui-datepicker-header ui-widget-header ui-helper-clearfix"><div class="ui-datepicker-title"><span class="ui-datepicker-month">March</span>&nbsp;<span class="ui-datepicker-year">2020</span></div></div><table class="ui-datepicker-calendar"><thead><tr><th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th><th scope="col"><span title="Monday">Mo</span></th><th scope="col"><span title="Tuesday">Tu</span></th><th scope="col"><span title="Wednesday">We</span></th><th scope="col"><span title="Thursday">Th</span></th><th scope="col"><span title="Friday">Fr</span></th><th scope="col" class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th></tr></thead><tbody><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">1</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">2</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">3</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">4</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">5</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">6</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">7</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">8</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">9</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">10</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">11</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">12</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">13</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">14</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">15</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">16</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">17</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">18</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">19</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">20</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">21</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">22</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">23</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">24</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">25</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">26</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">27</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">28</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">29</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">30</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">31</a></td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr></tbody></table></div><div class="ui-datepicker-group ui-datepicker-group-last"><div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-right"><a class="ui-datepicker-next ui-corner-all" data-handler="next" data-event="click" title="Next"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a><div class="ui-datepicker-title"><span class="ui-datepicker-month">April</span>&nbsp;<span class="ui-datepicker-year">2020</span></div></div><table class="ui-datepicker-calendar"><thead><tr><th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th><th scope="col"><span title="Monday">Mo</span></th><th scope="col"><span title="Tuesday">Tu</span></th><th scope="col"><span title="Wednesday">We</span></th><th scope="col"><span title="Thursday">Th</span></th><th scope="col"><span title="Friday">Fr</span></th><th scope="col" class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th></tr></thead><tbody><tr><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">1</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">2</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">3</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">4</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">5</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">6</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">7</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">8</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">9</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">10</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">11</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">12</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">13</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">14</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">15</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">16</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">17</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">18</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">19</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">20</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">21</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">22</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">23</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">24</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">25</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">26</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">27</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">28</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">29</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">30</a></td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr></tbody></table></div><div class="ui-datepicker-row-break"></div><div class="ui-datepicker-group ui-datepicker-group-first"><div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-left"><div class="ui-datepicker-title"><span class="ui-datepicker-month">May</span>&nbsp;<span class="ui-datepicker-year">2020</span></div></div><table class="ui-datepicker-calendar"><thead><tr><th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th><th scope="col"><span title="Monday">Mo</span></th><th scope="col"><span title="Tuesday">Tu</span></th><th scope="col"><span title="Wednesday">We</span></th><th scope="col"><span title="Thursday">Th</span></th><th scope="col"><span title="Friday">Fr</span></th><th scope="col" class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th></tr></thead><tbody><tr><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">1</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">2</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">3</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">4</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">5</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">6</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">7</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">8</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">9</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">10</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">11</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">12</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">13</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">14</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">15</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">16</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">17</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">18</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">19</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">20</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">21</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">22</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">23</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">24</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">25</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">26</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">27</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">28</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">29</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">30</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">31</span></td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr></tbody></table></div><div class="ui-datepicker-group ui-datepicker-group-middle"><div class="ui-datepicker-header ui-widget-header ui-helper-clearfix"><div class="ui-datepicker-title"><span class="ui-datepicker-month">June</span>&nbsp;<span class="ui-datepicker-year">2020</span></div></div><table class="ui-datepicker-calendar"><thead><tr><th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th><th scope="col"><span title="Monday">Mo</span></th><th scope="col"><span title="Tuesday">Tu</span></th><th scope="col"><span title="Wednesday">We</span></th><th scope="col"><span title="Thursday">Th</span></th><th scope="col"><span title="Friday">Fr</span></th><th scope="col" class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th></tr></thead><tbody><tr><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">1</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">2</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">3</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">4</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">5</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">6</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">7</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">8</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">9</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">10</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">11</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">12</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">13</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">14</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">15</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">16</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">17</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">18</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">19</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">20</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">21</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">22</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">23</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">24</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">25</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">26</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">27</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">28</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">29</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">30</a></td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr></tbody></table></div><div class="ui-datepicker-group ui-datepicker-group-last"><div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-right"><div class="ui-datepicker-title"><span class="ui-datepicker-month">July</span>&nbsp;<span class="ui-datepicker-year">2020</span></div></div><table class="ui-datepicker-calendar"><thead><tr><th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th><th scope="col"><span title="Monday">Mo</span></th><th scope="col"><span title="Tuesday">Tu</span></th><th scope="col"><span title="Wednesday">We</span></th><th scope="col"><span title="Thursday">Th</span></th><th scope="col"><span title="Friday">Fr</span></th><th scope="col" class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th></tr></thead><tbody><tr><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">1</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">2</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">3</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">4</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">5</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">6</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">7</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">8</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">9</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">10</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">11</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">12</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">13</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">14</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">15</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">16</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">17</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">18</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">19</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">20</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">21</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">22</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">23</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">24</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">25</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">26</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">27</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">28</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">29</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">30</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">31</a></td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr></tbody></table></div><div class="ui-datepicker-row-break"></div></div></div>
+                                    <div id="other-holiday" class="hasDatepicker">
+                                        <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all ui-datepicker-multi ui-datepicker-multi-3" style="display: block; width: 51em;">
+                                            <div class="ui-datepicker-group ui-datepicker-group-first">
+                                                <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-left">
+                                                    <a class="ui-datepicker-prev ui-corner-all ui-state-disabled" title="Prev">
+                                                        <span class="ui-icon ui-icon-circle-triangle-w">Prev</span>
+                                                    </a>
+                                                    <div class="ui-datepicker-title"><span class="ui-datepicker-month">February</span>&nbsp;
+                                                        <span class="ui-datepicker-year">2020</span>
+                                                    </div>
+                                                </div>
+                                                <table class="ui-datepicker-calendar">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col" class="ui-datepicker-week-end">
+                                                            <span title="Sunday">Su</span>
+                                                        </th>
+                                                        <th scope="col"><span title="Monday">Mo</span>
+                                                        </th>
+                                                        <th scope="col"><span title="Tuesday">Tu</span></th>
+                                                        <th scope="col"><span title="Wednesday">We</span></th>
+                                                        <th scope="col"><span title="Thursday">Th</span></th>
+                                                        <th scope="col"><span title="Friday">Fr</span></th>
+                                                        <th scope="col" class="ui-datepicker-week-end">
+                                                            <span title="Saturday">Sa</span>
+                                                        </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined">
+                                                            <span class="ui-state-default">1</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined">
+                                                            <span class="ui-state-default">2</span>
+                                                        </td><td class=" ui-datepicker-unselectable ui-state-disabled undefined">
+                                                            <span class="ui-state-default">3</span>
+                                                        </td>
+                                                        <td class=" ui-datepicker-unselectable ui-state-disabled undefined">
+                                                            <span class="ui-state-default">4</span>
+                                                        </td>
+                                                        <td class=" ui-datepicker-unselectable ui-state-disabled undefined">
+                                                            <span class="ui-state-default">5</span></td>
+                                                        <td class=" ui-datepicker-unselectable ui-state-disabled undefined">
+                                                            <span class="ui-state-default">6</span>
+                                                        </td>
+                                                        <td class=" ui-datepicker-unselectable ui-state-disabled undefined">
+                                                            <span class="ui-state-default">7</span>
+                                                        </td>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined">
+                                                            <span class="ui-state-default">8</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">9</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">10</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">11</span>
+                                                        </td>
+                                                        <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">12</span></td>
+                                                        <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">13</span></td>
+                                                        <td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">14</span></td>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">15</span> </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">16</span></td><td class=" ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">17</span></td>
+                                                        <td class=" ui-datepicker-days-cell-over undefined ui-datepicker-current-day ui-datepicker-today" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default ui-state-highlight ui-state-active ui-state-hover" href="#id=1">18</a></td><td class=" ui-state-highlight" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">19</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">20</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">21</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020">
+                                                            <a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">22</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">23</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">24</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">25</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">26</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">27</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">28</a></td>
+                                                        <td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="1" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">29</a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="ui-datepicker-group ui-datepicker-group-middle">
+                                                <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix">
+                                                    <div class="ui-datepicker-title"><span class="ui-datepicker-month">March</span>&nbsp;<span class="ui-datepicker-year">2020</span></div>
+                                                </div><table class="ui-datepicker-calendar">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th>
+                                                        <th scope="col"><span title="Monday">Mo</span></th>
+                                                        <th scope="col"><span title="Tuesday">Tu</span></th>
+                                                        <th scope="col"><span title="Wednesday">We</span></th>
+                                                        <th scope="col"><span title="Thursday">Th</span></th>
+                                                        <th scope="col"><span title="Friday">Fr</span></th>
+                                                        <th scope="col" class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">1</span></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020">
+                                                            <a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">2</a>
+                                                        </td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">3</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">4</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">5</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">6</a></td>
+                                                        <td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">7</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">8</span></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">9</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">10</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">11</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">12</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">13</a></td>
+                                                        <td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">14</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">15</span></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020">
+                                                            <a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">16</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">17</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">18</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">19</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">20</a></td>
+                                                        <td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">21</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">22</span></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">23</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">24</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">25</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">26</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">27</a></td>
+                                                        <td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">28</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">29</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">30</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">31</a></td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr></tbody></table></div><div class="ui-datepicker-group ui-datepicker-group-last"><div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-right"><a class="ui-datepicker-next ui-corner-all" data-handler="next" data-event="click" title="Next"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a><div class="ui-datepicker-title"><span class="ui-datepicker-month">April</span>&nbsp;<span class="ui-datepicker-year">2020</span></div></div>
+                                                <table class="ui-datepicker-calendar">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th>
+                                                        <th scope="col"><span title="Monday">Mo</span></th>
+                                                        <th scope="col"><span title="Tuesday">Tu</span></th>
+                                                        <th scope="col"><span title="Wednesday">We</span></th>
+                                                        <th scope="col"><span title="Thursday">Th</span></th>
+                                                        <th scope="col"><span title="Friday">Fr</span></th>
+                                                        <th scope="col" class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th>
+                                                    </tr></thead><tbody><tr><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">1</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">2</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">3</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">4</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">5</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">6</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">7</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">8</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">9</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">10</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">11</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">12</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">13</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">14</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">15</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">16</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">17</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">18</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">19</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">20</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">21</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">22</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">23</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">24</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">25</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">26</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">27</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">28</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">29</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="3" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">30</a></td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr></tbody></table></div><div class="ui-datepicker-row-break"></div><div class="ui-datepicker-group ui-datepicker-group-first"><div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-left"><div class="ui-datepicker-title"><span class="ui-datepicker-month">May</span>&nbsp;<span class="ui-datepicker-year">2020</span></div></div>
+                                                <table class="ui-datepicker-calendar">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th>
+                                                        <th scope="col"><span title="Monday">Mo</span></th>
+                                                        <th scope="col"><span title="Tuesday">Tu</span></th>
+                                                        <th scope="col"><span title="Wednesday">We</span></th>
+                                                        <th scope="col"><span title="Thursday">Th</span></th>
+                                                        <th scope="col"><span title="Friday">Fr</span></th>
+                                                        <th scope="col" class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">1</a></td>
+                                                        <td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">2</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">3</span></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">4</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">5</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">6</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">7</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">8</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">9</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">10</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">11</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">12</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">13</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">14</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">15</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">16</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">17</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">18</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">19</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">20</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">21</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">22</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">23</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">24</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">25</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">26</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">27</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">28</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">29</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="4" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">30</a></td></tr><tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">31</span></td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="ui-datepicker-group ui-datepicker-group-middle">
+                                                <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix"><div class="ui-datepicker-title"><span class="ui-datepicker-month">June</span>&nbsp;<span class="ui-datepicker-year">2020</span></div></div>
+                                                <table class="ui-datepicker-calendar"><thead><tr><th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th><th scope="col"><span title="Monday">Mo</span></th><th scope="col"><span title="Tuesday">Tu</span></th><th scope="col"><span title="Wednesday">We</span></th><th scope="col"><span title="Thursday">Th</span></th><th scope="col"><span title="Friday">Fr</span></th><th scope="col" class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th></tr></thead><tbody><tr><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">1</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">2</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">3</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">4</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">5</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">6</a></td></tr>
+                                                    <tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">7</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">8</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">9</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">10</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">11</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">12</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">13</a></td></tr>
+                                                    <tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">14</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">15</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">16</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">17</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">18</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">19</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">20</a></td></tr>
+                                                    <tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">21</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">22</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">23</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">24</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">25</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">26</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">27</a></td></tr>
+                                                    <tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">28</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">29</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="5" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">30</a></td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr>
+                                                    <tr><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr></tbody></table></div>
+                                            <div class="ui-datepicker-group ui-datepicker-group-last">
+                                                <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-right">
+                                                    <div class="ui-datepicker-title"><span class="ui-datepicker-month">July</span>&nbsp;<span class="ui-datepicker-year">2020</span>
+                                                    </div>
+                                                </div>
+                                                <table class="ui-datepicker-calendar">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th>
+                                                        <th scope="col"><span title="Monday">Mo</span></th>
+                                                        <th scope="col"><span title="Tuesday">Tu</span></th>
+                                                        <th scope="col"><span title="Wednesday">We</span></th>
+                                                        <th scope="col"><span title="Thursday">Th</span></th>
+                                                        <th scope="col"><span title="Friday">Fr</span></th>
+                                                        <th scope="col" class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">1</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">2</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">3</a></td>
+                                                        <td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">4</a></td></tr>
+                                                    <tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">5</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">6</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">7</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">8</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">9</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">10</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">11</a></td></tr>
+                                                    <tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">12</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">13</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">14</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">15</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">16</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">17</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">18</a></td></tr>
+                                                    <tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">19</span></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">20</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">21</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">22</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">23</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">24</a></td><td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">25</a></td></tr>
+                                                    <tr><td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">26</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">27</a></td>
+                                                        <td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">28</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">29</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">30</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="6" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">31</a></td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr>
+                                                    <tr>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="ui-datepicker-row-break"></div>
+                                        </div>
+                                    </div>
                                     <input type="hidden" name="doctor[national]" value="2000-12-25, 2019-12-31, 2020-01-16, 2020-01-21, 2020-02-19" id="altField">
                                     <input type="hidden" id="other-holiday-list" value="2000-12-25, 2019-12-31, 2020-01-16, 2020-01-21, 2020-02-19">
                                     <input type="hidden" id="weekly-holiday" value="0">
@@ -569,10 +816,8 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="doctor[id]" value="1">
-                    <input type="hidden" name="doctor[user_id]" value="2">
                     <div class="panel-footer text-center">
-                        <button type="submit" name="submit" class="btn btn-primary"><i class="ti-save-alt pr-2"></i> Save</button>
+                        <button type="submit" name="submit" class="btn btn-primary"><i class="ti-save-alt pr-2"></i> Kaydet</button>
                     </div>
                 </div>
             </form>
@@ -631,4 +876,21 @@
         
         </div>
         </div>
+    <script>
+        $(document).ready(function () {
+            $(".doctor-time").click(function() {
+                var chk = $(this);
+                holidayCheck(chk);
+            });
+            function holidayCheck(chk) {
+
+                var chk_parent = chk.parents('tr');
+                if(chk.is(":checked")) {
+                    chk_parent.find('input').not(chk).attr('readonly', true);
+                } else {
+                    chk_parent.find('input').not(chk).attr('readonly', false);
+                }
+            }
+        });
+    </script>
     @endsection

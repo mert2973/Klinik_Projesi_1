@@ -96,14 +96,12 @@ Route::prefix('/')->group(function () {
    Route::get('/Noticeboard',function (){
        return view('pages.Noticeboard');
    });
-   Route::get('/Doctors','Doctor@doctors');
+   Route::get('/Doctors','Doctor@list_dr');
    Route::get('/Doctor_Add',"Doctor@doctor_add");
    Route::post('/Doctor_Create','Doctor@doctor_create');
+   Route::get('/Doctor_Edit/{dr_id}','Doctor@doctor_edit');
+   Route::post('/Doctor_Info_Update','Doctor@doctor_info_update');
 
-
-   Route::get('/Doctor_Edit',function (){
-       return view('pages.Doctor_Edit');
-   });
    Route::get('/Send_Email',function (){
        return view('pages.Send_Email');
    });

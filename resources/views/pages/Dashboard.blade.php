@@ -284,7 +284,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ti-timer"></i></span>
                                 </div>
-                                <input type="text" name="appointment[date]" class="form-control apnt-date" value="" placeholder="Select Date . . ." required="" autocomplete="off">
+                                <!-- apnt-date --->
+                                <input type="text" name="appointment[date]" class="form-control " value="" placeholder="Select Date . . ." required="" autocomplete="off" id="datepicker">
                             </div>
                         </div>
                         <div class="form-group mb-2">

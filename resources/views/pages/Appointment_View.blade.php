@@ -45,7 +45,7 @@
                                 <li><a href="#appointment-documents" data-toggle="tab"><i class="ti-calendar"></i> <span>Dökümanlar</span></a></li>
                                 <li><a href="#appointment-prescription" data-toggle="tab"><i class="ti-clipboard"></i> <span>Reçete</span></a></li>
                                 <li><a href="#appointment-invoice" data-toggle="tab"><i class="ti-receipt"></i> <span>Fatura</span></a></li>
-                                <li><a href="{{route('Appointments.edit',['Appointment'=>$dr_with_ptn->patients_id])}}"><i class="ti-pencil-alt"></i> <span>Randevu Düzenle</span></a></li>
+                                <li><a href="{{route('Appointments.edit',['Appointment'=>$dr_with_ptn->patients_id,'dr_id'=>$dr_with_ptn->doctors_id])}}"><i class="ti-pencil-alt"></i> <span>Randevu Düzenle</span></a></li>
                                 <li><a href="#appointment-send-mail" data-toggle="tab" class=""><i class="ti-email"></i> <span>Email Gönder</span></a></li>
                             </ul>
                         </div>

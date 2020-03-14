@@ -12,6 +12,5 @@ class Patients extends Model
     public function all_patients_list(){
      return $this->belongsToMany('App\Patient_Infos','patient_and_patient_infos',
          'patients_id','patient_infos_id');
-
     }
 }

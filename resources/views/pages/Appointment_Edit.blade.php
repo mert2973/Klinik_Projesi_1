@@ -33,6 +33,7 @@
             <form action="{{route('Appointments.update',$dr_with_patient->patients_id)}}" method="post">
                 @csrf
                 @method('PUT')
+                <input type="hidden" name="apt_id" value="{{$dr_with_patient->appointments_id}}">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-primary">
@@ -63,7 +64,7 @@
                                                     <span class="input-group-text"><i class="ti-user"></i></span>
                                                 </div>
                                                 <input type="hidden" name="prev_doctor" value="{{$doctor_id}}">
-                                                <select name="doctor" class="custom-select text-capitalize" required="required"> <!-- class="apnt-doctor"--->
+                                                <select name="doctor" class="custom-select text-capitalize" required="required" autocomplete="off"> <!-- class="apnt-doctor"--->
                                                      <option value=""> Doktor Seçiniz</option>
                                                      @foreach($all_doctors as $item)
                                                         <option value="{{$item->user_id}}" @if($item->user_id==$doctor_id) selected="selected" @endif>
@@ -115,7 +116,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-comment-alt"></i></span>
                                                 </div>
-                                                <textarea class="form-control" name="apt_prob">{{$dr_with_patient->apt_prob}}</textarea>
+                                                <textarea class="form-control" name="apt_rsn">{{$dr_with_patient->apt_reason}}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -294,7 +295,7 @@
                                             <div class="form-group">
                                                 <label>Problem</label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control ui-autocomplete-input" data-name="problem" placeholder="Add Patient Problem . . ." autocomplete="off">
+                                                    <input type="text" class="form-control ui-autocomplete-input" data-name="problem" placeholder="Hasta ile ilgili problemi ekleyiniz . . ." autocomplete="off">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text">Ekle</span>
                                                     </div>
@@ -303,7 +304,7 @@
                                             <div class="form-group">
                                                 <label>Gözlem</label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control ui-autocomplete-input" data-name="observation" placeholder="Add Observation. . ." autocomplete="off">
+                                                    <input type="text" class="form-control ui-autocomplete-input" data-name="observation" placeholder="Hasta ile ilgili gözlemi ekleyiniz. . ." autocomplete="off">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text">Ekle</span>
                                                     </div>
@@ -312,7 +313,7 @@
                                             <div class="form-group">
                                                 <label>Teşhis</label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control ui-autocomplete-input" data-name="diagnosis" placeholder="Add Diagnosis . . ." autocomplete="off">
+                                                    <input type="text" class="form-control ui-autocomplete-input" data-name="diagnosis" placeholder="Hasta ile ilgili teşhisi ekleyiniz . . ." autocomplete="off">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text">Ekle</span>
                                                     </div>
@@ -321,7 +322,7 @@
                                             <div class="form-group">
                                                 <label>Test Talebi/Gözlem</label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control ui-autocomplete-input" data-name="investigation" placeholder="Add Test Request/Investigation . . ." autocomplete="off">
+                                                    <input type="text" class="form-control ui-autocomplete-input" data-name="investigation" placeholder="Hasta ile ilgili testleri ve gözlemleri ekleyiniz . . ." autocomplete="off">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text">Ekle</span>
                                                     </div>
@@ -330,7 +331,7 @@
                                             <div class="form-group">
                                                 <label>Notlar/Tavsiye</label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control ui-autocomplete-input" data-name="notes" placeholder="Add Notes . . ." autocomplete="off">
+                                                    <input type="text" class="form-control ui-autocomplete-input" data-name="notes" placeholder="Hasta ile ilgili bir not ekleyiniz . . ." autocomplete="off">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text">Ekle</span>
                                                     </div>
@@ -349,6 +350,15 @@
                                                         <div class="title">Problemler</div>
                                                         <div class="descr">
                                                             <ul>
+                                                                @foreach($problems as $prob_id=>$prob)
+                                                                 @if($prob==null)
+                                                                        <input type="hidden" name="problems[{{$prob_id}}]" value="{{$prob}}">
+                                                                      
+                                                                 @else
+                                                                  <li> {{$prob}} <input type="hidden" name="problems[{{$prob_id}}]" value="{{$prob}}">
+                                                                       <span class="ti-close delete"></span></li>
+                                                               @endif
+                                                                @endforeach
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -360,6 +370,14 @@
                                                         <div class="title">Gözlem</div>
                                                         <div class="descr">
                                                             <ul>
+                                                                @foreach($observations as $obs_id=>$obs)
+                                                                    @if($obs==null)
+                                                                        <input type="hidden" name="observations[{{$obs_id}}]" value="{{$obs}}">
+                                                                    @else
+                                                                        <li> {{$obs}} <input type="hidden" name="observations[{{$obs_id}}]" value="{{$obs}}">
+                                                                            <span class="ti-close delete"></span></li>
+                                                                    @endif
+                                                                @endforeach
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -371,6 +389,14 @@
                                                         <div class="title">Teşhis</div>
                                                         <div class="descr">
                                                             <ul>
+                                                                @foreach($diagnosis as $diog_id=>$diog)
+                                                                    @if($diog==null)
+                                                                        <input type="hidden" name="diagnosis[{{$diog_id}}]" value="{{$diog}}">
+                                                                    @else
+                                                                        <li> {{$diog}} <input type="hidden" name="diagnosis[{{$diog_id}}]" value="{{$diog}}">
+                                                                            <span class="ti-close delete"></span></li>
+                                                                    @endif
+                                                                @endforeach
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -382,6 +408,14 @@
                                                         <div class="title">Test Talebi/Gözlem</div>
                                                         <div class="descr">
                                                             <ul>
+                                                                @foreach($investigations as $invt_id=>$invt)
+                                                                    @if($invt==null)
+                                                                        <input type="hidden" name="investigations[{{$invt_id}}]" value="{{$invt}}">
+                                                                    @else
+                                                                        <li> {{$invt}} <input type="hidden" name="investigations[{{$invt_id}}]" value="{{$invt}}">
+                                                                            <span class="ti-close delete"></span></li>
+                                                                    @endif
+                                                                @endforeach
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -393,6 +427,14 @@
                                                         <div class="title">Notlar</div>
                                                         <div class="descr">
                                                             <ul>
+                                                                @foreach($notes_advices as $note_id=>$note)
+                                                                    @if($note==null)
+                                                                        <input type="hidden" name="notes_advices[{{$note_id}}]" value="{{$note}}">
+                                                                    @else
+                                                                        <li> {{$note}} <input type="hidden" name="notes_advices[{{$note_id}}]" value="{{$note}}">
+                                                                            <span class="ti-close delete"></span></li>
+                                                                    @endif
+                                                                @endforeach
                                                             </ul>
                                                         </div>
                                                     </div>

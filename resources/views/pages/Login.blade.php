@@ -135,7 +135,7 @@
                          <option value="">Seçiniz</option>
                         @foreach(\App\Roles::get() as $list )
                          @if($list->id!=1 && $list->id!=3 && $list->id!=4)
-                          <option value="{{$list->id}}">{{$list->name}}</option>
+                          <option value="{{$list->id}}">{{$list->all_roles}}</option>
                          @endif
                         @endforeach
                         

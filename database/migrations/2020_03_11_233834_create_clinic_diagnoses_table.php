@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMedicalNotesAdvicesTable extends Migration
+class CreateClinicDiagnosesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateMedicalNotesAdvicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('medicalNotes_advices', function (Blueprint $table) {
+        Schema::create('clinic_diagnoses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('notes_advices')->comment('notlar tavisyeler');
+            $table->integer('appointments_id');
+            $table->string('diagnoses')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateMedicalNotesAdvicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('medicalNotes_advices');
+        Schema::dropIfExists('clinic_diagnoses');
     }
 }

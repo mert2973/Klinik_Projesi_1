@@ -144,7 +144,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-calendar"></i></span>
                                                 </div>
-                                                <input type="text" id="user-dob" name="doctor[dob]" class="form-control bg-white hasDatepicker" value="" placeholder="Select Date of Birth . . ." readonly="" autocomplete="off" required="">
+                                                <input type="text" id="user-dob" name="date_of_birth" class="form-control bg-white hasDatepicker" value="" placeholder="Select Date of Birth . . ." readonly="" autocomplete="off" required="">
                                             </div>
                                         </div>
                                         <div class="form-group">

@@ -77,7 +77,14 @@
                         <div class="menu-dropdown-inner">
                             <div class="menu-dropdown-head pb-3">
                                 <div class="tbl-cell">
-                                    <img src="{{asset('css_js_img/media-1771205195e049ca8ee997.jpg')}}" alt="Klinikal">
+                                  
+                                    @if(Auth::user()->check_gender()[0]->gender=="Erkek")
+                                        <img class="img-thumbnail rounded" src="{{asset('css_js_img/doktors_img/media-1771205195e049ca8ee997.jpg')}}" alt="Image">
+                                    @elseif(Auth::user()->check_gender()[0]->gender=="Kadın")
+                                       <img class="img-thumbnail rounded" src="{{asset('css_js_img/doktors_img/media-14789594495e049ca8efcdf.jpg')}}" alt="Image">
+                                    @else
+                                        <img class="img-thumbnail rounded" src="{{asset('css_js_img/doktors_img/a.jpg')}}" alt="Image">
+                                    @endif
                                 </div>
                                 <div class="tbl-cell pl-2 text-left">
                                     @auth()

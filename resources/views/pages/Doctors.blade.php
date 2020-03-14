@@ -40,7 +40,7 @@
                         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                             <div class="row align-items-center pb-3">
                                 <div class="col-sm-6 text-left">
-                                    <div class="dataTables_length" id="DataTables_Table_0_length">
+                                  <!--  <div class="dataTables_length" id="DataTables_Table_0_length">
                                         <label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm">
                                                 <option value="10">10</option>
                                                 <option value="25">25</option>
@@ -48,7 +48,7 @@
                                                 <option value="75">75</option>
                                                 <option value="-1">All</option>
                                             </select> entries</label>
-                                    </div>
+                                    </div>  -->
                                 </div>
                                 <div class="col-sm-6 text-right">
                                     <div id="DataTables_Table_0_filter" class="dataTables_filter">
@@ -73,77 +73,58 @@
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label=": activate to sort column ascending" style="width: 52px;"></th></tr>
                                         </thead>
                                         <tbody>
+                                        @foreach($info_dr as $doctor)
                                         <tr role="row" class="odd">
                                             <td>1</td>
+                                            @if($doctor->gender=="Erkek")
                                             <td class="table-img"><img class="img-thumbnail rounded" src="{{asset('css_js_img/doktors_img/media-1771205195e049ca8ee997.jpg')}}" alt="Image"></td>
+                                            @else
+                                                <td class="table-img"><img class="img-thumbnail rounded" src="{{asset('css_js_img/doktors_img/media-14789594495e049ca8efcdf.jpg')}}" alt="Image"></td>
+                                            @endif
                                             <td>
-                                                <p class="m-0 text-primary">Daniel Barnes</p>
-                                                <p class="m-0">daniel@pepdev.com</p>
-                                                <p class="m-0">1234567890</p>
+                                                <p class="m-0 text-primary">{{$doctor->name}} {{$doctor->surname}}</p>
+                                                <p class="m-0">{{$doctor->email}}</p>
+                                                <p class="m-0">{{$doctor->phone}}</p>
                                             </td>
-                                            <td>Male</td>
-                                            <td>daniel</td>
-                                            <td>Orthology</td>
+                                            <td>{{$doctor->gender}}</td>
+                                            <td>{{$doctor->usr_name}}</td>
+                                            <td>{{$doctor->department}}</td>
                                             <td>1</td>
                                             <td>
-                                                <span class="label label-success">Active</span>
+                                                <span class="label label-success">@if($doctor->status==1) {{"Aktif"}} @else {{"Pasif"}}  @endif</span>
                                             </td>
                                             <td class="table-action">
-                                                <a href="{{url('/Doctor_Edit')}}" class="text-primary edit" data-toggle="tooltip" title="" data-original-title="Edit">
+                                                <a href="{{url('/Doctor_Edit',with(['dr_id'=>$doctor->user_id]))}}" class="text-primary edit" data-toggle="tooltip" title="" data-original-title="Düzenle">
                                                     <i class="ti-pencil-alt"></i>
                                                 </a>
-                                                <a class="table-delete text-danger delete" data-toggle="tooltip" title="" data-original-title="Delete">
+                                                <a class="table-delete text-danger delete" data-toggle="tooltip" title="" data-original-title="Sil">
                                                     <i class="ti-trash"></i>
                                                     <input type="hidden" value="1">
                                                 </a>
                                             </td>
                                         </tr>
-                                        <tr role="row" class="even">
-                                            <td>2</td>
-                                            <td class="table-img"><img class="img-thumbnail rounded" src="{{asset('css_js_img/doktors_img/media-14789594495e049ca8efcdf.jpg')}}" alt="Image"></td>
-                                            <td>
-                                                <p class="m-0 text-primary">Melissa Bates</p>
-                                                <p class="m-0">melissa@pepdev.com</p>
-                                                <p class="m-0">1234567890</p>
-                                            </td>
-                                            <td>Female</td>
-                                            <td>melissa</td>
-                                            <td>Gynaecology</td>
-                                            <td>2</td>
-                                            <td>
-                                                <span class="label label-success">Active</span>
-                                            </td>
-                                            <td class="table-action">
-                                                <a href="" class="text-primary edit" data-toggle="tooltip" title="" data-original-title="Edit"><i class="ti-pencil-alt"></i></a>
-                                                <a class="table-delete text-danger delete" data-toggle="tooltip" title="" data-original-title="Delete">
-                                                    <i class="ti-trash"></i><input type="hidden" value="2">
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td>10</td>
-                                            <td class="table-img"><img class="img-thumbnail rounded" src="{{asset('css_js_img/doktors_img/media-333493465e049ca924fd4.jpg')}}" alt="Image"></td>
-                                            <td>
-                                                <p class="m-0 text-primary">Emily Rasberry</p>
-                                                <p class="m-0">emily@pepdev.com</p>
-                                                <p class="m-0">1234567890</p>
-                                            </td>
-                                            <td>Female</td>
-                                            <td>emily</td>
-                                            <td>Gynaecology</td>
-                                            <td>10</td>
-                                            <td>
-                                                <span class="label label-success">Active</span>
-                                            </td>
-                                            <td class="table-action">
-                                                <a href="" class="text-primary edit" data-toggle="tooltip" title="" data-original-title="Edit"><i class="ti-pencil-alt"></i></a>
-                                                <a class="table-delete text-danger delete" data-toggle="tooltip" title="" data-original-title="Delete">
-                                                    <i class="ti-trash"></i><input type="hidden" value="10">
-                                                </a>
-                                            </td>
-                                        </tr>
+                                        @endforeach
                                         </tbody>
-                                    </table></div></div><div class="row align-items-center pt-3"><div class="col-sm-12 col-md-4"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 11 entries</div></div><div class="col-sm-12 col-md-8 text-right dataTables_pager"><div class="dataTables_paginate paging_full_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item first disabled" id="DataTables_Table_0_first"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link"><i class="fa fa-angle-double-left"></i></a></li><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link"><i class="fa fa-angle-left"></i></a></li><li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link"><i class="fa fa-angle-right"></i></a></li><li class="paginate_button page-item last" id="DataTables_Table_0_last"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0" class="page-link"><i class="fa fa-angle-double-right"></i></a></li></ul></div></div></div></div>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row align-items-center pt-3">
+                                <div class="col-sm-12 col-md-4">
+                                  <!--  <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 11 entries</div>-->
+                                </div>
+                                <div class="col-sm-12 col-md-8 text-right dataTables_pager">
+                                    <div class="dataTables_paginate paging_full_numbers" id="DataTables_Table_0_paginate">
+                                        <ul class="pagination">
+                                            <li class="paginate_button page-item active">
+                                               @if(Auth::user()->the_role()=="Doktor(Master)" || Auth::user()->the_role()=="Admin")
+                                                {{$info_dr->links()}}
+                                                @endif
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

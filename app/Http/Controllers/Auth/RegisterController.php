@@ -82,7 +82,7 @@ class RegisterController extends Controller
         DB::table('masterDr_and_GenInfo')->insert(['masterDR_id'=>$user->id,'general_info_id'=>$genral_info_id->id]);
 
         $get_clinic_id=Clinics::create(['status'=>1]);
-        DB::table('masterDR_and_clinics')->insert(['master_dr_id'=>$user->id,'clinic_id'=>$get_clinic_id->id]);
+        DB::table('masterDr_and_Clinics')->insert(['master_dr_id'=>$user->id,'clinic_id'=>$get_clinic_id->id]);
 
     return $user;
     }
