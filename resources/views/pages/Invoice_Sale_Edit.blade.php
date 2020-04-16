@@ -2,13 +2,17 @@
 @section('icerik')
     <script>
         $(document).ready(function () {
+            // $('#Pharmacy_Rotate').addClass('rotate') ;
+            $('#Account_active').addClass('active') ;
             $('#Invoices_active').addClass('active') ;
+            $('#Invoices_Sale_text').addClass('text-white') ;
+        
         });
     </script>
 
     <div class="page-wrapper">
         <div class="page-body">
-            <script type="text/javascript" src="{{asset('css_js_img/invoice.js')}}"></script>
+            <script type="text/javascript" src="{{--asset('css_js_img/invoice.js')--}}"></script>
             <div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
