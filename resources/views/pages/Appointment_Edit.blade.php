@@ -10,6 +10,22 @@
             <!--<link rel="stylesheet" href="./Appointment_Edit_ Klinikal Hospital_files/jquery.fancybox.min.css">
             <script src="./Appointment_Edit_ Klinikal Hospital_files/jquery.fancybox.min.js"></script>
             <script src="./Appointment_Edit_ Klinikal Hospital_files/appointment.js"></script> -->
+            @if (session('warning'))
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                        <span aria-hidden="true" style="line-height: 0.6">&times;</span>
+                    </button>
+                    <strong>{{ session('warning') }}</strong>
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                        <span aria-hidden="true" style="line-height: 0.6">&times;</span>
+                    </button>
+                    <strong>{{ session('success') }}</strong>
+                </div>
+            @endif
             <div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
@@ -30,10 +46,9 @@
                 </div>
             </div>
             
-            <form action="{{route('Appointments.update',$dr_with_patient->patients_id)}}" method="post">
+            <form action="{{route('Appointments.update',$dr_with_patient->id)}}" method="post"><!-- patients_id-->
                 @csrf
                 @method('PUT')
-                <input type="hidden" name="apt_id" value="{{$dr_with_patient->appointments_id}}">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-primary">
@@ -76,13 +91,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Tarih <span class="form-required">*</span></label>
-                                            
+                                          
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-calendar"></i></span>
                                                 </div>  <!-- apnt-date hasDatepicker --->
                                                 <input type="text" class="form-control"  name="apt_date" placeholder="Tarih seçiniz . . ."
-                                                       value="{{$dr_with_patient->apt_date}}" required="" autocomplete="off" id="datepicker">
+                                                       value="{{$date}}" required="" autocomplete="off" id="datepicker">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -91,7 +106,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-timer"></i></span>
                                                 </div>
-                                                <input type="text" name="apt_time" class="form-control apnt-time" value="10:15" readonly="">
+                                                <input type="time" name="apt_time" class="form-control apnt-time" value="{{$dr_with_patient->apt_time}}" >
                                             </div>
                                             <div class="apnt-slot"></div>
                                         </div>
@@ -185,7 +200,7 @@
                                 <div class="table-responsive">
                                     <table class="table table-bordered medicine-table">
                                         <thead>
-                                        <tr class="medicine-row">
+                                        <tr class="">
                                             <th style="width: 20%;">İlaç Adı</th>
                                             <th>Genel</th>
                                             <th style="width: 11%;">Sıklık</th>
@@ -194,8 +209,52 @@
                                             <th style="width: 5%;"></th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr class="medicine-row">
+                                    
+                                        <tbody class="medicine-row">
+                                        @php $a=0; @endphp
+                                        @foreach($prescriptions as $itm)
+                                            <tr class="">
+                                                <input type="hidden" name="pres[{{$a}}][id]" value="{{$itm->id}}">
+                                                <td>
+                                                    <input class="form-control prescription-name" name="pres[{{$a}}][name]" value="{{$itm->mdc_name}}" placeholder="Medicine Name">
+                                                </td>
+                                                <td>
+                                                    <textarea name="pres[{{$a}}][generic]" class="form-control prescription-generic" rows="3" placeholder="Generic">{{$itm->mdc_generic}}</textarea>
+                                                </td>
+                                                <td>
+                                                    <select name="pres[{{$a}}][dose]" class="form-control">
+                                                        <option @if($itm->mdc_dose=="1-0-0") selected @endif value="1-0-0">1-0-0</option>
+                                                        <option @if($itm->mdc_dose=="1-0-1") selected @endif value="1-0-1">1-0-1</option>
+                                                        <option @if($itm->mdc_dose=="1-1-1") selected @endif value="1-1-1">1-1-1</option>
+                                                        <option @if($itm->mdc_dose=="0-0-1") selected @endif value="0-0-1">0-0-1</option>
+                                                        <option @if($itm->mdc_dose=="0-1-0") selected @endif value="0-1-0">0-1-0</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select name="pres[{{$a}}][duration]" class="form-control">
+                                                        <option @if($itm->mdc_duration=="1") selected @endif value="1">1 Gün</option>
+                                                        <option @if($itm->mdc_duration=="2") selected @endif value="2">2 Gün</option>
+                                                        <option @if($itm->mdc_duration=="3") selected @endif value="3">3 Gün</option>
+                                                        <option @if($itm->mdc_duration=="4") selected @endif value="4">4 Gün</option>
+                                                        <option @if($itm->mdc_duration=="5") selected @endif value="5">5 Gün</option>
+                                                        <option @if($itm->mdc_duration=="6") selected @endif value="6">6 Gün</option>
+                                                        <option @if($itm->mdc_duration=="8") selected @endif value="8">8 Gün</option>
+                                                        <option @if($itm->mdc_duration=="10") selected @endif value="10">10 Gün</option>
+                                                        <option @if($itm->mdc_duration=="15") selected @endif value="15">15 Gün</option>
+                                                        <option @if($itm->mdc_duration=="20") selected @endif value="20">20 Gün</option>
+                                                        <option @if($itm->mdc_duration=="30") selected @endif value="30">30 Gün</option>
+                                                        <option @if($itm->mdc_duration=="60") selected @endif value="60">60 Gün</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <textarea name="pres[{{$a}}][instruction]" class="form-control" rows="3" placeholder="Instruction">{{$itm->mdc_instruction}}</textarea>
+                                                </td>
+                                                <td><a class="table-action-button medicine-delete" style="display: none;"><i class="ti-trash text-danger"></i></a></td>
+                                            </tr>
+                                            @php $a++; @endphp
+                                        @endforeach
+                                        <!-- prescription-->
+                                       <!-- <tr class="medicine-row">
                                             <td>
                                                 <input class="form-control prescription-name" name="prescription[medicine][0][name]" placeholder="Medicine Name">
                                             </td>
@@ -231,7 +290,11 @@
                                                 <textarea name="prescription[medicine][0][instruction]" class="form-control" rows="3" placeholder="Instruction"></textarea>
                                             </td>
                                             <td><a class="table-action-button medicine-delete" style="display: none;"><i class="ti-trash text-danger"></i></a></td>
-                                        </tr>
+                                        </tr> -->
+                                        <!--Emd. prescription-->
+                                       
+                                        </tbody>
+                                        <tbody>
                                         <tr>
                                             <td colspan="6">
                                                 <a id="add-medicine" class="font-12 text-primary cursor-pointer">İlaç Ekle</a>
@@ -264,20 +327,22 @@
                                     $('body').on('keydown.autocomplete', '.prescription-name', function() {
                                         medicine_autocomplete();
                                     });
-                                    if ($(".medicine-delete").length < 2) { $(".medicine-delete").hide(); }
+                                    if ($(".medicine-delete").length < 2) { $(".medicine-delete").show(); }
                                     else { $(".medicine-delete").show(); }
 
                                     $('body').on('click', '.medicine-delete', function() {
                                         $(this).parents('tr').remove();
-                                        if ($(".medicine-delete").length < 2) $(".medicine-delete").hide();
+                                        if ($(".medicine-delete").length < 2) $(".medicine-delete").show();
                                     });
-
+                                    var count=0;
                                     $('#add-medicine').click(function () {
-                                        if ($(".medicine-delete").length < 1) { $(".medicine-delete").hide(); }
+                                        if ($(".medicine-delete").length < 1) { $(".medicine-delete").show(); }
                                         else { $(".medicine-delete").show(); }
-                                        var count = $('.medicine-table .medicine-row:last .prescription-name').attr('name').split('[')[2];
-                                        count = parseInt(count.split(']')[0]) + 1;
+                                       // var count = $('.medicine-table .medicine-row:last .prescription-name').attr('name').split('[')[2];
+                                       // count = parseInt(count.split(']')[0]) + 1;
+                                        count +=1;
                                         $(".medicine-row:last").after('<tr class="medicine-row">'+
+                                           
                                             '<td><input class="form-control prescription-name" name="prescription[medicine]['+count+'][name]" value="" placeholder="Medicine Name"></td>'+
                                             '<td><textarea class="form-control prescription-generic" name="prescription[medicine]['+count+'][generic]" rows="3" placeholder="Generic"></textarea></td>'+
                                             '<td><select name="prescription[medicine]['+count+'][dose]" class="form-control"><option value="1-0-0">1-0-0</option><option value="1-0-1">1-0-1</option><option value="1-1-1">1-1-1</option><option value="0-0-1">0-0-1</option><option value="0-1-0">0-1-0</option></select></td>'+
@@ -351,13 +416,8 @@
                                                         <div class="descr">
                                                             <ul>
                                                                 @foreach($problems as $prob_id=>$prob)
-                                                                 @if($prob==null)
-                                                                        <input type="hidden" name="problems[{{$prob_id}}]" value="{{$prob}}">
-                                                                      
-                                                                 @else
-                                                                  <li> {{$prob}} <input type="hidden" name="problems[{{$prob_id}}]" value="{{$prob}}">
+                                                                  <li> {{ $prob }} <input type="hidden" name="problems[{{$prob_id}}]" value="{{$prob}}">
                                                                        <span class="ti-close delete"></span></li>
-                                                               @endif
                                                                 @endforeach
                                                             </ul>
                                                         </div>
@@ -371,12 +431,9 @@
                                                         <div class="descr">
                                                             <ul>
                                                                 @foreach($observations as $obs_id=>$obs)
-                                                                    @if($obs==null)
-                                                                        <input type="hidden" name="observations[{{$obs_id}}]" value="{{$obs}}">
-                                                                    @else
-                                                                        <li> {{$obs}} <input type="hidden" name="observations[{{$obs_id}}]" value="{{$obs}}">
-                                                                            <span class="ti-close delete"></span></li>
-                                                                    @endif
+                                                                 <li> {{$obs}} <input type="hidden" name="observations[{{$obs_id}}]" value="{{$obs}}">
+                                                                  <span class="ti-close delete"></span>
+                                                                 </li>
                                                                 @endforeach
                                                             </ul>
                                                         </div>
@@ -390,12 +447,9 @@
                                                         <div class="descr">
                                                             <ul>
                                                                 @foreach($diagnosis as $diog_id=>$diog)
-                                                                    @if($diog==null)
-                                                                        <input type="hidden" name="diagnosis[{{$diog_id}}]" value="{{$diog}}">
-                                                                    @else
-                                                                        <li> {{$diog}} <input type="hidden" name="diagnosis[{{$diog_id}}]" value="{{$diog}}">
-                                                                            <span class="ti-close delete"></span></li>
-                                                                    @endif
+                                                                 <li> {{$diog}} <input type="hidden" name="diagnosis[{{$diog_id}}]" value="{{$diog}}">
+                                                                  <span class="ti-close delete"></span>
+                                                                 </li>
                                                                 @endforeach
                                                             </ul>
                                                         </div>
@@ -409,12 +463,9 @@
                                                         <div class="descr">
                                                             <ul>
                                                                 @foreach($investigations as $invt_id=>$invt)
-                                                                    @if($invt==null)
-                                                                        <input type="hidden" name="investigations[{{$invt_id}}]" value="{{$invt}}">
-                                                                    @else
-                                                                        <li> {{$invt}} <input type="hidden" name="investigations[{{$invt_id}}]" value="{{$invt}}">
-                                                                            <span class="ti-close delete"></span></li>
-                                                                    @endif
+                                                                 <li> {{$invt}} <input type="hidden" name="investigations[{{$invt_id}}]" value="{{$invt}}">
+                                                                  <span class="ti-close delete"></span>
+                                                                 </li>
                                                                 @endforeach
                                                             </ul>
                                                         </div>
@@ -428,12 +479,9 @@
                                                         <div class="descr">
                                                             <ul>
                                                                 @foreach($notes_advices as $note_id=>$note)
-                                                                    @if($note==null)
-                                                                        <input type="hidden" name="notes_advices[{{$note_id}}]" value="{{$note}}">
-                                                                    @else
-                                                                        <li> {{$note}} <input type="hidden" name="notes_advices[{{$note_id}}]" value="{{$note}}">
-                                                                            <span class="ti-close delete"></span></li>
-                                                                    @endif
+                                                                 <li> {{$note}} <input type="hidden" name="notes_advices[{{$note_id}}]" value="{{$note}}">
+                                                                  <span class="ti-close delete"></span>
+                                                                 </li>
                                                                 @endforeach
                                                             </ul>
                                                         </div>

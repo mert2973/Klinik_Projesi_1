@@ -8,6 +8,22 @@
   
 <div class="page-wrapper">
     <div class="page-body">
+        @if (session('warning'))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                    <span aria-hidden="true" style="line-height: 0.6">&times;</span>
+                </button>
+                <strong>{{ session('warning') }}</strong>
+            </div>
+        @endif
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                    <span aria-hidden="true" style="line-height: 0.6">&times;</span>
+                </button>
+                <strong>{{ session('success') }}</strong>
+            </div>
+        @endif
         <div class="page-title">
             <div class="row align-items-center">
                 <div class="col-sm-6">
@@ -86,12 +102,16 @@
                                         @elseif($num>=10000 || $num<=10000)
                                             <td> {{"Apt-"}}{{$num++}}</td>
                                         @endif
+                                        @php
+                                            $date=$list->apt_date;
+                                            $date=Carbon\Carbon::parse($date)->format('d/m/Y  H:i');
+                                        @endphp
                                         <td>
-                                            <a class="m-0 text-primary">{{$list->p_name}}</a>
+                                            <a class="m-0 text-primary">{{$list->p_name}} {{$list->p_surname}}</a>
                                             <p class="m-0">{{$list->p_email}}</p>
                                             <p class="m-0">{{$list->p_phone}}</p>
                                         </td>
-                                        <td class="text-info">21-02-2020 AT 10:15</td>
+                                        <td class="text-info">{{$date}}</td>
                                         <td>{{$list->name}} {{$list->surname}}</td>
                                         <td>
                                             <span class="label label-warning">İşleniyor</span>
@@ -100,18 +120,15 @@
                                             <div class="dropdown d-inline-block">
                                                 <a class="text-primary edit dropdown-toggle" data-toggle="dropdown"><i class="ti-more"></i></a>
                                                 <ul class="dropdown-menu dropdown-menu-right export-button">
-                                                   <!-- <li><a href="{{--url('/Appointment_View')--}}"><i class="ti-layout-media-center-alt pr-2"></i>İncele</a></li>
-                                                    <li><a href="{{--url('/Appointment_Edit')--}}"><i class="ti-pencil-alt pr-2"></i>Düzenle</a></li> -->
                                                     
-                                                    <li><a href="{{route('Appointments.show',['Appointment'=>$list->patients_id,'dr_id'=>$list->doctors_id])}}"><i class="ti-layout-media-center-alt pr-2"></i>İncele</a></li>
-                                                    <li><a href="{{route('Appointments.edit',['Appointment'=>$list->patients_id,'dr_id'=>$list->doctors_id])}}"><i class="ti-pencil-alt pr-2"></i>Düzenle</a></li>
+                                                    <li><a href="{{route('Appointments.show',$list->id)}}"><i class="ti-layout-media-center-alt pr-2"></i>İncele</a></li>
+                                                    <li><a href="{{route('Appointments.edit',$list->id)}}"><i class="ti-pencil-alt pr-2"></i>Düzenle</a></li>
                                                     
-                                                    <li><a href="{{url('/Invoice_Add')}}"><i class="ti-receipt pr-2"></i>Fatura Oluştur</a></li>
+                                                    <li><a href="{{url('/Invoice_Sale_Add')}}"><i class="ti-receipt pr-2"></i>Fatura Oluştur</a></li>
                                                 </ul>
                                             </div>
-                                            <a class="table-delete text-danger delete" data-toggle="tooltip" title="" data-original-title="Delete">
-                                                <i class="ti-trash"></i><input type="hidden" value="77">
-                                            </a>
+                                            <button class="table-delete text-danger delete" type="hidden" data-toggle="tooltip" title="" data-original-title="Delete"
+                                            value="{{$list->id}}" id="del<?php  apt_del(1); ?>"> <i class="ti-trash font-16"></i></button>
                                         </td>
                                     </tr>
                                  @endforeach
@@ -121,7 +138,7 @@
                         </div>
                         <div class="row align-items-center pt-3">
                             <div class="col-sm-12 col-md-4">
-                                <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 3 of 3 entries</div>
+                                <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Toplam: {{ $list_appointment->lastPage() }} Sayfa<br>Toplam {{$list_appointment->total()}} Randevudan {{$list_appointment->count()}} Kayıt Gösteriliyor</div>
                             </div>
                             <div class="col-sm-8 col-md-8 col-lg-8 " >
                                 <span style="float: right">{{ $list_appointment->links() }}</span>
@@ -131,9 +148,7 @@
                 </div>
             </div>
         </div>
-        
-  
-        
+       
         <!-- Delete Modal -->
         <div id="delete-card" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -143,13 +158,14 @@
                         <button type="button" class="close" data-dismiss="modal">×</button>
                     </div>
                     <div class="modal-body">
-                        <p class="delete-card-ttl mb-0">Simek İstediğinizden Emin misiniz?</p>
+                        <p class="delete-card-ttl mb-0">Bu Randevuyu Simek İstediğinizden Emin misiniz?</p>
                         <p class="form-text">Bu randevuyla ilgili tüm Belgeler, Reçete ve notlar silinecek.</p>
                     </div>
                     <div class="modal-footer">
-                        <form action="" class="delete-card-button" method="" siq_id="autopick_2051">
-                            <input type="hidden" value="" class="delete-id" name="id">
-                            <input type="hidden" name="_token" value="">
+                        <form action=""  method="post" id="delete_appointment">
+                            @csrf
+                            @method("DELETE")
+                            <input type="hidden" value="" class="apt_id" name="apt_id">
                             <button type="submit" class="btn btn-danger" name="delete">Sil</button>
                         </form>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
@@ -157,7 +173,9 @@
                 </div>
             </div>
         </div>
+        <!--End. Delete Modal -->
         
+        <!-- Create An Appointment -->
         <div class="sidebar sidebar-right appointmet-sidebar" style="right: -450px;">
             <div class="sidebar-hdr">
                 <div class="sidebar-close"><i class="ti-close"></i></div>
@@ -172,9 +190,9 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="ti-timer"></i></span>
                             </div>
-                            <input type="hidden" name="patient_id" value="" id="patient_id">
-                            <input type="text" value="" class="form-control  " id="name"  placeholder="Hasta adını giriniz . . ." autocomplete="off">
-                            <input type="text" value="" class="form-control " id="surname"  placeholder="Hasta Soyadını giriniz . . .">
+                            <input type="hidden" name="patient_id" value="" id="patient_id" required="required">
+                            <input type="text" value="" class="form-control" id="name"  placeholder="Hasta adını giriniz . . ." autocomplete="off" required="required">
+                            <input type="text" value="" class="form-control " id="surname"  placeholder="Hasta Soyadını giriniz . . ." required="required">
                         </div>
                     </div>
                     <div class="form-group mb-2">
@@ -184,7 +202,7 @@
                                 <span class="input-group-text"><i class="ti-timer"></i></span>
                             </div>
                             <input type="email" name="email" class="form-control patient-mail" id="email" placeholder="Email Adresi . . ."
-                                   required="" autocomplete="off" readonly>
+                                   required="required" autocomplete="off" readonly>
                         </div>
                     </div>
                     <div class="form-group mb-2">
@@ -205,7 +223,7 @@
                                     <i class="ti-timer"></i>
                                 </span>
                             </div>
-                            <select name="doctor_appointment" class="custom-select apnt-doctor" required="required" autocomplete="off">
+                            <select name="doctor" class="custom-select apnt-doctor" required="required" autocomplete="off" id="doctors_list">
                               <!--  <option value="">Doktor Seçiniz</option>
                                 <option value="2" data-department="1" data-weekly="[0]" data-national="&quot;&quot;">Melissa Bates (Gynaecology)</option>
                                 <option value="7" data-department="1" data-weekly="[0]" data-national="&quot;2000-12-25, 2020-01-15, 2020-01-20&quot;">Linda Adams (Gynaecology)</option>
@@ -232,19 +250,23 @@
                                 <span class="input-group-text"><i class="ti-timer"></i></span>
                             </div>
                                                                   <!--class=" apnt-date"-->
-                            <input type="text" name="apt_date" class="form-control zdatepicker" value="" placeholder="Randevu tarihini seçiniz . . ." required="" autocomplete="off" id="datepicker">
+                            <!--<input type="text" name="apt_date" class="form-control zdatepicker" value="" placeholder="Randevu tarihini seçiniz . . ." required="" autocomplete="off" id="datepicker"> -->
+                            <input type="text" name="apt_date" class="form-control apnt-date "  placeholder="Randevu tarihini seçiniz . . ."  id="default_datetimepicker" autocomplete="off"  required="">
+              
                         </div>
+                       
                     </div>
                     <div class="form-group mb-2">
-                        <label>Saat <span class="form-required">*</span></label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="ti-timer"></i></span>
-                            </div>
-                            <input type="text" name="apt_time" class="form-control apnt-time" value="" required="" readonly="">
-                           
+                        <label>Randevu Saati <span class="form-required">*</span></label>
+                      <div class="input-group">
+                          <!--  <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="ti-timer"></i></span>
+                          </div>
+                          <input type="time" name="apt_time" class="form-control " value="09:00:00" required="" >-->
+                           <div id="apt_time_info" class="text-danger">Doktor ve Randevu Tarihini Belirleyiniz...</div>
+                          <div class="apnt-slot"  id="apt_times"></div>
                         </div>
-                        <div class="apnt-slot"></div>
+                      
                     </div>
                     <div class="form-group">
                         <label>Durum <span class="form-required">*</span></label>
@@ -267,58 +289,73 @@
                 </div>
             </form>
         </div>
-  
+        <!--End. Create An Appointment -->
+    
+            <script>
+                $(document).ready(function () {
+                    var orgin=window.location.origin;
+                    var $del_apt="@php function apt_del($id){return $id;} @endphp";
+                    $("#del,del_apt").click(function () {
+                        var del_id=$(this).val();
+                        //$('.apt_id').val(del_id);
+                        $("#delete_appointment").get(0).setAttribute("action",orgin+"/Appointments/"+del_id);
+                    });
+                });
+            </script>
+            
+            <!-- Set Confirmation Message on create, update and delete -->
+            <script>
+                /*Set toastr Option*/
+                /*   toastr.options = {
+                       "closeButton": true,
+                       "debug": false,
+                       "newestOnTop": false,
+                       "progressBar": false,
+                       "positionClass": "toast-top-right",
+                       "preventDuplicates": false,
+                       "onclick": null,
+                       "showDuration": "10000",
+                       "hideDuration": "10000",
+                       "timeOut": "2000",
+                       "extendedTimeOut": "800",
+                       "showEasing": "swing",
+                       "hideEasing": "linear",
+                       "showMethod": "fadeIn",
+                       "hideMethod": "fadeOut"
+                   }
+                   toastr.warning("Create and update is disabled in demo!", "Warning");  */
+            </script>
+           
         <script>
-            $(function() {
-                $( "#name" ).autocomplete({
-                    minLength: 1,
-                    
-                    source:"{{'/autoComplete_patients_list'}}",
-                    
-                    select: function( event, get_id ) {
-                        event.preventDefault();
-                        $("#name").val('');
-                        $("#name").val(get_id.item.name);
-                        $("#surname").val(get_id.item.surname);
-                        $("#email").val(get_id.item.email);
-                        $("#phone").val(get_id.item.phone);
-                        $("#patient_id").val(get_id.item.id);
-                    
-                       // $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
-
-                        return false;
+           /* $(document).ready(function () {
+                
+                var logic = function( currentDateTime ){
+                    if (currentDateTime && currentDateTime.getDay() == 1){
+                        this.setOptions({
+                            yearStart: 2020,
+                            yearEnd:2030,
+                            allowTimes:['11:00','12:00','14:00'],
+                            timepickerScrollbar:true,
+                            step:15,
+                        });
+                    }else{
+                        this.setOptions({
+                            allowTimes:['00:00'],
+                        });
                     }
-                }).data("ui-autocomplete")._renderItem = function( ul, item ) {
-                    return $( "<li class='ui-autocomplete-row list-group-item  list-group-item-action font-weight-bold p-10 text-capitalize'></li>" )
-                        .data( "item.autocomplete", item )
-                        .append( item.label )
-                        .appendTo( ul );
                 };
-            });
-        </script>
-        
-        <!-- Set Confirmation Message on create, update and delete -->
-        <script>
-            /*Set toastr Option*/
-         /*   toastr.options = {
-                "closeButton": true,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": false,
-                "positionClass": "toast-top-right",
-                "preventDuplicates": false,
-                "onclick": null,
-                "showDuration": "10000",
-                "hideDuration": "10000",
-                "timeOut": "2000",
-                "extendedTimeOut": "800",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            }
-            toastr.warning("Create and update is disabled in demo!", "Warning");  */
+                $('#default_datetimepicker').datetimepicker({
+                    formatTime:'H:i',
+                    formatDate:'d.m.Y',
+                    onChangeDateTime:logic,
+                    onShow:logic,
+                    
+                    dayOfWeekStart: 1,
+                    disabledWeekDays: [0],
+                });
+            }); */
         </script>
     </div>
 </div>
+    
     @endsection

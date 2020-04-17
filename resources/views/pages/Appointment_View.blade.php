@@ -4,6 +4,7 @@
         $(document).ready(function () {
             $('#Appointment_active').addClass('active') ;
         });
+       
     </script>
     
 <div class="page-wrapper">
@@ -13,7 +14,7 @@
         <div class="page-title">
             <div class="row align-items-center">
                 <div class="col-sm-6">
-                    <h2 class="page-title-text d-inline-block">Randevu durumunu incele</h2>
+                    <h2 class="page-title-text d-inline-block">Randevu Durumunu İncele</h2>
                     <div class="breadcrumbs d-inline-block">
                         <ul>
                             <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
@@ -36,8 +37,8 @@
                             <span>E</span>
                         </div>
                         <div class="user-details text-center pt-3">
-                      
-                            <h3>{{$dr_with_ptn->name}} {{$dr_with_ptn->surname}}</h3>
+                          
+                            <h3>Dr. {{ $dr_with_ptn->name}} {{$dr_with_ptn->surname}}</h3>
                             <p class="mb-3 font-12"><i class="ti-email"></i> {{$dr_with_ptn->email}} <i class="ti-mobile"></i> {{$dr_with_ptn->phone}}</p>
                             <ul class="v-menu text-left pt-0 nav d-block">
                                 <li><a href="#appointment-info" class="active show" data-toggle="tab"><i class="ti-info-alt"></i> <span>Randevu Bilgisi</span></a></li>
@@ -45,13 +46,14 @@
                                 <li><a href="#appointment-documents" data-toggle="tab"><i class="ti-calendar"></i> <span>Dökümanlar</span></a></li>
                                 <li><a href="#appointment-prescription" data-toggle="tab"><i class="ti-clipboard"></i> <span>Reçete</span></a></li>
                                 <li><a href="#appointment-invoice" data-toggle="tab"><i class="ti-receipt"></i> <span>Fatura</span></a></li>
-                                <li><a href="{{route('Appointments.edit',['Appointment'=>$dr_with_ptn->patients_id,'dr_id'=>$dr_with_ptn->doctors_id])}}"><i class="ti-pencil-alt"></i> <span>Randevu Düzenle</span></a></li>
+                                <li><a href="{{route('Appointments.edit',$dr_with_ptn->id)}}"><i class="ti-pencil-alt"></i> <span>Randevu Düzenle</span></a></li>
                                 <li><a href="#appointment-send-mail" data-toggle="tab" class=""><i class="ti-email"></i> <span>Email Gönder</span></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+           
             <div class="col-md-8">
                 <div class="tab-content">
                     <div class="tab-pane fade active show" id="appointment-info">
@@ -65,7 +67,7 @@
                                         <tbody>
                                         <tr>
                                             <td>Tarih & Saat</td>
-                                            <td class="text-dark">21-02-2020 at 10:15</td>
+                                            <td class="text-dark">{{$date}}</td>
                                         </tr>
                                         <tr>
                                             <td>Nedeni/Problemi</td>
@@ -126,6 +128,9 @@
                                                 <div class="title">Problemler</div>
                                                 <div class="descr">
                                                     <ul>
+                                                        @foreach($problems as $prob)
+                                                        <li>{{$prob}}</li>
+                                                         @endforeach
                                                     </ul>
                                                 </div>
                                             </div>
@@ -137,6 +142,9 @@
                                                 <div class="title">Gözlem</div>
                                                 <div class="descr">
                                                     <ul>
+                                                        @foreach($observations as $obs)
+                                                            <li>{{$obs}}</li>
+                                                        @endforeach
                                                     </ul>
                                                 </div>
                                             </div>
@@ -148,6 +156,9 @@
                                                 <div class="title">Teşhis</div>
                                                 <div class="descr">
                                                     <ul>
+                                                        @foreach($diagnosis as $dia)
+                                                            <li>{{$dia}}</li>
+                                                        @endforeach
                                                     </ul>
                                                 </div>
                                             </div>
@@ -159,6 +170,9 @@
                                                 <div class="title">Test Talebi / İnceleme</div>
                                                 <div class="descr">
                                                     <ul>
+                                                        @foreach($investigations as $inv)
+                                                            <li>{{$inv}}</li>
+                                                        @endforeach
                                                     </ul>
                                                 </div>
                                             </div>
@@ -170,6 +184,9 @@
                                                 <div class="title">Notlar</div>
                                                 <div class="descr">
                                                     <ul>
+                                                        @foreach($notes_advices as $inv)
+                                                            <li>{{$inv}}</li>
+                                                        @endforeach
                                                     </ul>
                                                 </div>
                                             </div>
@@ -199,7 +216,7 @@
                             <div class="panel-body">
                                 <div class="text-center">
                                     <p>Herhangi bir fatura oluşturulmadı</p>
-                                    <a href="{{url('/Invoice_Add')}}" class="btn btn-primary btn-sm" target="_blank"><i class="ti-plus pr-2"></i>Generate Invoice Now</a>
+                                    <a href="{{url('/Invoice_Sale_Add')}}" class="btn btn-primary btn-sm" target="_blank"><i class="ti-plus pr-2"></i>Generate Invoice Now</a>
                                 </div>
                             </div>
                         </div>
@@ -212,14 +229,27 @@
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <tbody><tr>
-                                            <th>İlaç Adı</th>
-                                            <th>Doz</th>
-                                            <th>Süre</th>
-                                            <th>Talimat</th>
+                                    <table class="table table-striped ">
+                                        <thead><tr>
+                                            <th  width="130">İlaç Adı</th>
+                                            <th  width="130">Genel</th>
+                                            <th  width="130">Doz</th>
+                                            <th width="130">Kullanım Süresi</th>
+                                            <th  width="130" >Talimatı</th>
                                         </tr>
-                                        </tbody></table>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($prescriptions as $prs)
+                                            <tr>
+                                                <td>{{$prs->mdc_name}}</td>
+                                                <td>{{$prs->mdc_generic}}</td>
+                                                <td>{{$prs->mdc_dose}}</td>
+                                                <td >{{$prs->mdc_duration}} Gün</td>
+                                                <td>{{$prs->mdc_instruction}}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -258,9 +288,9 @@
         </div>
         
         <!-- include summernote css/js-->
-        <link href="./Appointment_View _ Klinikal Hospital_files/summernote-bs4.css" rel="stylesheet">
+       <!-- <link href="./Appointment_View _ Klinikal Hospital_files/summernote-bs4.css" rel="stylesheet">
         <script type="text/javascript" src="./Appointment_View _ Klinikal Hospital_files/summernote-bs4.min.js"></script>
-        <script type="text/javascript" src="./Appointment_View _ Klinikal Hospital_files/klinikal.summernote.js"></script>
+        <script type="text/javascript" src="./Appointment_View _ Klinikal Hospital_files/klinikal.summernote.js"></script> -->
         <script>
             $("a.open-pdf").fancybox({
                 'frameWidth': 800,
@@ -269,9 +299,12 @@
                 'hideOnContentClick': false,
                 'type': 'iframe'
             });
+
+            
         </script>
         <!-- Footer -->
     
     </div>
 </div>
+
 @endsection
