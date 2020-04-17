@@ -7,6 +7,22 @@
     </script>
     <div class="page-wrapper">
         <div class="page-body">
+            @if (session('warning'))
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                        <span aria-hidden="true" style="line-height: 0.6">&times;</span>
+                    </button>
+                    <strong>{{ session('warning') }}</strong>
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                        <span aria-hidden="true" style="line-height: 0.6">&times;</span>
+                    </button>
+                    <strong>{{ session('success') }}</strong>
+                </div>
+            @endif
             <div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
@@ -53,7 +69,7 @@
                                 </div>  -->
                                 <div class="col-sm-12 text-right">
                                     <div id="user-table_filter" class="dataTables_filter">
-                                        <label>Ara:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="user-table"></label>
+                                        <label>Ara:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="user-table" ></label>
                                     </div>
                                 </div>
                             </div>
@@ -81,11 +97,15 @@
                                                 <p class="m-0">{{$list->p_email}}</p>
                                                 <p class="m-0">{{$list->p_phone}}</p>
                                             </td>
-                                            <td>{{$list->gender}}</td>
-                                            <td>{{$list->blood_group}}</td>
-                                            <td>{{$list->date_of_birth}}</td>
+                                            <td>{{$list->all_patients_list[0]->gender}}</td>
+                                            <td>{{$list->all_patients_list[0]->blood_group}}</td>
+                                            <td>{{$list->all_patients_list[0]->date_of_birth}}</td>
                                             <td>
-                                                <span class="label label-success">Active</span>
+                                                @if($list->status==1)
+                                                    <span class="label label-success">Aktif</span>
+                                                @else
+                                                    <span class="label label-success">Pasif</span>
+                                                @endif
                                             </td>
                                             <td>20-02-2020</td>
                                             <td class="table-action">
@@ -113,9 +133,9 @@
                                                     </ul>
                                                 </div>
                                                
-                                                <a class="table-delete text-danger delete" data-toggle="tooltip" title="" data-original-title="Delete">
-                                                    <i class="ti-trash"></i>
-                                                </a>
+                                                <button value="{{$list->id}}" class="table-delete text-danger delete " data-toggle="tooltip" title="" data-original-title="Delete" id="del_ptn<?php del_ptn(1); ?>">
+                                                    <i class="ti-trash font-18"></i>
+                                                </button>
                                                 
                                             </td>
                                         </tr>
@@ -138,37 +158,7 @@
             </div>
             
             
-            <script>
-                $(document).ready(function () {
-                    $('.table-date-range').daterangepicker({
-                        autoApply: false,
-                        alwaysShowCalendars: true,
-                        opens: 'left',
-                        applyButtonClasses: 'btn-danger',
-                        cancelClass: 'btn-white',
-                        locale: {
-                            format: $('.common_daterange_format').val(),
-                            separator: " => ",
-                        },
-                        startDate: "20-01-2020",
-                        endDate: "20-02-2020",
-                        ranges: {
-                            'Today': [moment(), moment()],
-                            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                            'This Month': [moment().startOf('month'), moment().endOf('month')],
-                            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-                            'This Year': [moment().startOf('year'), moment().endOf('year')],
-                            'All Time': [moment('2015-01-01'), moment().add(1, 'days')],
-                        },
-                    });
-
-                    $('.table-date-range').on('apply.daterangepicker', function(ev, picker) {
-                        window.location.replace(''+'&start='+picker.startDate.format('YYYY-MM-DD')+'&end='+picker.endDate.format('YYYY-MM-DD'));
-                    });
-                });
-            </script>
+            
             
             <!-- Delete Modal -->
             <div id="delete-card" class="modal fade" role="dialog">
@@ -182,8 +172,9 @@
                             <p class="delete-card-ttl mb-0">Silmek İstediğinizden Emin misiniz?</p>
                         </div>
                         <div class="modal-footer">
-                            <form action="" class="delete-card-button" method="" siq_id="autopick_3570">
+                            <form action="" class="delete-card-button" method="post" id="delete_ptn">
                                 @csrf
+                                @method("DELETE")
                                 <button type="submit" class="btn btn-danger" name="delete">Sil</button>
                             </form>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
@@ -191,8 +182,48 @@
                     </div>
                 </div>
             </div>
-            
+         
         </div>
     </div>
-    
+    <script>
+        var d_p="@php function del_ptn($id){ return $id; } @endphp";
+        
+        $("#del_ptn,d_p").click(function () {
+            var orgn=window.location.origin;
+          var del_id=$(this).val();
+            $("#delete_ptn").get(0).setAttribute("action",orgn+"/Patient/"+del_id);
+        });
+        
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.table-date-range').daterangepicker({
+                autoApply: false,
+                alwaysShowCalendars: true,
+                opens: 'left',
+                applyButtonClasses: 'btn-danger',
+                cancelClass: 'btn-white',
+                locale: {
+                    format: $('.common_daterange_format').val(),
+                    separator: " => ",
+                },
+                startDate: "20-01-2020",
+                endDate: "20-02-2020",
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                    'This Year': [moment().startOf('year'), moment().endOf('year')],
+                    'All Time': [moment('2015-01-01'), moment().add(1, 'days')],
+                },
+            });
+
+            $('.table-date-range').on('apply.daterangepicker', function(ev, picker) {
+                window.location.replace(''+'&start='+picker.startDate.format('YYYY-MM-DD')+'&end='+picker.endDate.format('YYYY-MM-DD'));
+            });
+        });
+    </script>
     @endsection

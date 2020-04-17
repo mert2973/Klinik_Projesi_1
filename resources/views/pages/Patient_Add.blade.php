@@ -72,7 +72,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ti-email"></i></span>
                                             </div>
-                                            <input type="email" name="email" class="form-control" value="" placeholder="Email adresi giriniz . . . ">
+                                            <input type="email" name="email" class="form-control" value="" placeholder="Email adresi giriniz . . . " required>
                                         </div>
                                     </div>
                                 </div>

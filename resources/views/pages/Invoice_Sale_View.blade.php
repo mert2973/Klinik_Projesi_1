@@ -9,7 +9,8 @@
         });
     </script>
 <div class="page-wrapper">
-    <div class="page-body"><div class="page-title">
+    <div class="page-body">
+        <div class="page-title">
             <div class="row align-items-center">
                 <div class="col-sm-6">
                     <h2 class="page-title-text d-inline-block">Satış Faturası - İnceleme</h2>

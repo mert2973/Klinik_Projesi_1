@@ -28,7 +28,7 @@
                         <div class="panel-body">
                             <div class="form-group">
                                 <label>Kullanıcı Adı<span class="form-required">*</span></label>
-                                <input type="text" class="form-control" name="usr_name" value="{{Auth()->user()->usr_name}}" placeholder="User Name" required="">
+                                <input type="text" class="form-control" name="usr_name" value="{{Auth()->user()->usr_name}}" placeholder="User Name" required="" >
                             </div>
                             <div class="row content-input">
                                 <div class="col-sm-6">

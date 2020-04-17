@@ -8,16 +8,32 @@
 
     <div class="page-wrapper">
         <div class="page-body"><div class="page-title">
+                @if (session('warning'))
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                            <span aria-hidden="true" style="line-height: 0.6">&times;</span>
+                        </button>
+                        <strong>{{ session('warning') }}</strong>
+                    </div>
+                @endif
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                            <span aria-hidden="true" style="line-height: 0.6">&times;</span>
+                        </button>
+                        <strong>{{ session('success') }}</strong>
+                    </div>
+                @endif
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h2 class="page-title-text d-inline-block">Edit Patient</h2>
+                        <h2 class="page-title-text d-inline-block">Hasta Bilgilerini Düzenle</h2>
                         <div class="breadcrumbs d-inline-block">
                             <ul>
-                                <li><a href="{{url('/Patient')}}">Home</a></li>
+                                <li><a href="{{url('/Dashboard')}}">Dashboard</a></li>
                                 <i class="fa fa-angle-right font-12 ml-2" ></i>
-                                <span class="ml-2 text-linkedin"><a href="{{url('/Patient')}}">Patients</a></span>
+                                <span class="ml-2 text-linkedin"><a href="{{url('/Patient')}}">Hastalar</a></span>
                                 <i class="fa fa-angle-right font-12 ml-2" ></i>
-                                <span class="ml-2">Edit Patient</span>
+                                <span class="ml-2">Hasta bilgilerini düzenle</span>
                             </ul>
                         </div>
                     </div>
@@ -26,20 +42,20 @@
                 </div>
             </div>
         
-            <form action="{{url('/Patient')}}" method="get" siq_id="autopick_1519">
-                <input type="hidden" name="_token" value="">
-                <input type="hidden" name="patient[id]" value="13">
+            <form action="{{route('Patient.update',$patient_info->id)}}" method="Post" >
+                @csrf
+                @method('PUT')
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-primary">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#patient-info" data-toggle="tab">Basic Info</a>
+                                <a class="nav-link active" href="#patient-info" data-toggle="tab">Hasta Bilgileri</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#patient-address" data-toggle="tab">Address</a>
+                                <a class="nav-link" href="#patient-address" data-toggle="tab">Adres</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#patient-medical-history" data-toggle="tab">Medical History</a>
+                                <a class="nav-link" href="#patient-medical-history" data-toggle="tab">Tibbi Geçmişi</a>
                             </li>
                         </ul>
                         <div class="tab-content pt-4">
@@ -47,88 +63,88 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label>First Name <span class="form-required">*</span></label>
+                                            <label> Ad <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-user"></i></span>
                                                 </div>
-                                                <input type="text" name="patient[firstname]" class="form-control" value="Murali" placeholder="Enter First Name . . . ">
+                                                <input type="text" name="name" class="form-control" value="{{$patient_info->p_name}}" placeholder="Hasta adını giriniz . . . ">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label>Last Name <span class="form-required">*</span></label>
+                                            <label>Soyad <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-user"></i></span>
                                                 </div>
-                                                <input type="text" name="patient[lastname]" class="form-control" value="krishna" placeholder="Enter Last Name . . . ">
+                                                <input type="text" name="surname" class="form-control" value="{{$patient_info->p_surname}}" placeholder="Hasta soyadını giriniz. . . ">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Email Address <span class="form-required">*</span></label>
+                                            <label>Email Adresi <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-email"></i></span>
                                                 </div>
-                                                <input type="email" name="patient[mail]" class="form-control" value="tnbtdev@gmail.com" placeholder="Enter Email Address . . . ">
+                                                <input type="email" name="mail" class="form-control" value="{{$patient_info->p_email}}" placeholder="Enter Email Address . . . ">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Mobile Number <span class="form-required">*</span></label>
+                                            <label>Telefon Numarası <span class="form-required">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-mobile"></i></span>
                                                 </div>
-                                                <input type="text" name="patient[mobile]" class="form-control" value="988547852" placeholder="Enter Mobile Number . . . ">
+                                                <input type="text" name="phone" class="form-control" value="{{$patient_info->p_phone}}" placeholder="Telefon numarasını giriniz . . . ">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Date of Birth</label>
+                                            <label>Doğum Tarihi</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-calendar"></i></span>
                                                 </div>
-                                                <input type="text" id="user-dob" name="patient[dob]" class="form-control bg-white hasDatepicker" value="" placeholder="Enter Date of Birth . . . " readonly="" autocomplete="off">
+                                                <input type="text"  name="date_of_birth" class="form-control bg-white " value="{{$patient_info->all_patients_list[0]->date_of_birth}}" placeholder="Doğrum tarihini giriniz . . . "  autocomplete="off" id="datepicker">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Blood Group</label>
+                                            <label>Kan Grubu</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-heart-broken"></i></span>
                                                 </div>
-                                                <select name="patient[bloodgroup]" class="custom-select">
-                                                    <option value="A+">A+</option>
-                                                    <option value="A-">A-</option>
-                                                    <option value="B+">B+</option>
-                                                    <option value="B-">B-</option>
-                                                    <option value="O+">O+</option>
-                                                    <option value="O-">O-</option>
-                                                    <option value="AB+">AB+</option>
-                                                    <option value="AB-">AB-</option>
+                                                <select name="bloodgroup" class="custom-select">
+                                                    <option value="A+" @if($patient_info->all_patients_list[0]->blood_group=="A+") selected @endif>A+</option>
+                                                    <option value="A-" @if($patient_info->all_patients_list[0]->blood_group=="A-") selected @endif>A-</option>
+                                                    <option value="B+" @if($patient_info->all_patients_list[0]->blood_group=="B+") selected @endif>B+</option>
+                                                    <option value="B-" @if($patient_info->all_patients_list[0]->blood_group=="B-") selected @endif>B-</option>
+                                                    <option value="O+" @if($patient_info->all_patients_list[0]->blood_group=="O+") selected @endif>O+</option>
+                                                    <option value="O-" @if($patient_info->all_patients_list[0]->blood_group=="O-") selected @endif>O-</option>
+                                                    <option value="AB+" @if($patient_info->all_patients_list[0]->blood_group=="AB+") selected @endif>AB+</option>
+                                                    <option value="AB-" @if($patient_info->all_patients_list[0]->blood_group=="AB-") selected @endif>AB-</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Gender</label>
+                                            <label>Cinsiyet</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend"><span class="input-group-text"><i class="ti-check-box"></i></span></div>
-                                                <select name="patient[gender]" class="custom-select">
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                    <option value="Other">Other</option>
+                                                <select name="gender" class="custom-select">
+                                                    <option value="Erkek" @if($patient_info->all_patients_list[0]->gender=="Erkek") selected @endif>Erkek</option>
+                                                    <option value="Kadın" @if($patient_info->all_patients_list[0]->gender=="Kadın") selected @endif>Kadın</option>
+                                                    <option value="Diğer" @if($patient_info->all_patients_list[0]->gender=="Diğer") selected @endif>Diğer</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -138,9 +154,9 @@
                                             <label>Status</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend"><span class="input-group-text"><i class="ti-check-box"></i></span></div>
-                                                <select name="patient[status]" class="custom-select">
-                                                    <option value="1" selected="">Active</option>
-                                                    <option value="0">InActive</option>
+                                                <select name="status" class="custom-select">
+                                                    <option value="1" @if($patient_info->status==1) selected @endif>Aktif</option>
+                                                    <option value="0" @if($patient_info->status==0) selected @endif>Pasif</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -151,52 +167,52 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Address Line 1</label>
+                                            <label>Adres 1</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-location-pin"></i></span>
                                                 </div>
-                                                <input type="text" name="patient[address][address1]" class="form-control" value="" placeholder="Enter Address Line 1 . . .">
+                                                <input type="text" name="adress1" class="form-control" value="{{$patient_info->all_patients_list[0]->adress_1}}" placeholder="Adresi giriniz . . .">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Address Line 2</label>
+                                            <label>Adres 2</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-location-pin"></i></span>
                                                 </div>
-                                                <input type="text" name="patient[address][address2]" class="form-control" value="" placeholder="Enter Address Line 2 . . .">
+                                                <input type="text" name="address2" class="form-control" value="{{$patient_info->all_patients_list[0]->adress_2}}" placeholder="İkinci adresi ekleyiniz. . .">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>City</label>
+                                    <label>Şehir</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ti-map-alt"></i></span>
                                         </div>
-                                        <input type="text" name="patient[address][city]" class="form-control" value="" placeholder="Enter City . . .">
+                                        <input type="text" name="city" class="form-control" value="{{$patient_info->all_patients_list[0]->city}}" placeholder="Şehir adını giriniz . . .">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Country</label>
+                                    <label>Ülke</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ti-map"></i></span>
                                         </div>
-                                        <input type="text" name="patient[address][country]" class="form-control" value="" placeholder="Enter Country . . .">
+                                        <input type="text" name="country" class="form-control" value="{{$patient_info->all_patients_list[0]->country}}" placeholder="Ülke adını giriniz . . .">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Postal/Zip Code</label>
+                                    <label>Posta/Zip Kodu</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ti-pin"></i></span>
                                         </div>
-                                        <input type="text" name="patient[address][postal]" class="form-control" value="" placeholder="Enter Postal/Zip Code . . .">
+                                        <input type="text" name="posta_zip" class="form-control" value="{{$patient_info->all_patients_list[0]->postal_zip}}" placeholder="Posta/Zip kodunu giriniz . . .">
                                     </div>
                                 </div>
                             </div>
@@ -308,7 +324,9 @@
                 </div>
             </form>
             <!-- Footer -->
-    
+         
         </div>
     </div>
+    
+   
 @endsection

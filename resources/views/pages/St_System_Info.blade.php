@@ -96,7 +96,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-tag"></i></span>
                                                 </div>
-                                                <input type="text" name="clinic_name" class="form-control" value="{{clean_charecters($clinic->pluck('c_name')) }}" placeholder="Klinik Adını Giriniz . . ." required="">
+                                                <input type="text" name="clinic_name" class="form-control" value="{{$clinic->c_name}}" placeholder="Klinik Adını Giriniz . . ." required="">
                                             </div>
                                         </div>
                                   
@@ -109,7 +109,7 @@
                                                     <span class="input-group-text"><i class="ti-id-badge"></i></span>
                                                 </div>
                                               
-                                                <input type="text" name="legal_name" class="form-control" value="{{clean_charecters($clinic->pluck('c_legal_name'))}}" placeholder="Klinik Resmi Adını Giriniz (Klinik Pvt Ltd) . . ." required="">
+                                                <input type="text" name="legal_name" class="form-control" value="{{$clinic->c_legal_name}}" placeholder="Klinik Resmi Adını Giriniz (Klinik Pvt Ltd) . . ." required="">
                                             </div>
                                         </div>
                                         <!--End klinik adı-->
@@ -120,7 +120,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-email"></i></span>
                                                 </div>
-                                                <input type="email" name="email" class="form-control" value="{{clean_charecters($clinic->pluck('c_email'))}}" placeholder="Email Adresi Giriniz . . ." required="">
+                                                <input type="email" name="email" class="form-control" value="{{$clinic->c_email}}" placeholder="Email Adresi Giriniz . . ." required="">
                                             </div>
                                         </div>
                                         <!--End email-->
@@ -132,7 +132,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-mobile"></i></span>
                                                 </div>
-                                                <input type="text" name="phone_1" class="form-control" value="{{clean_charecters($clinic->pluck('c_phone'))}}" placeholder="Telefon numarası giriniz . . ." required="">
+                                                <input type="text" name="phone_1" class="form-control" value="{{$clinic->c_phone}}" placeholder="Telefon numarası giriniz . . ." required="">
                                             </div>
                                         </div>
                                         <!--End telefon-->
@@ -143,7 +143,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-headphone-alt"></i></span>
                                                 </div>
-                                                <input type="text" name="phone_2" class="form-control" value="{{clean_charecters($clinic->pluck('c_phone_2'))}}" placeholder="Acil telefon numarası giriniz . . .">
+                                                <input type="text" name="phone_2" class="form-control" value="{{$clinic->c_phone_2}}" placeholder="Acil telefon numarası giriniz . . .">
                                             </div>
                                         </div>
                                         <!--End Acil telefon-->
@@ -653,7 +653,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-location-pin"></i></span>
                                                 </div>
-                                                <input type="text" name="adress_1" class="form-control" value="" placeholder="Adres giriniz . . .">
+                                                <input type="text" name="adress_1" class="form-control" value="{{$clinic->adress1}}" placeholder="Adres giriniz . . .">
                                             </div>
                                         </div>
                                     </div>

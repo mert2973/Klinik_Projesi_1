@@ -7,7 +7,16 @@
         });
     </script>
     <div class="page-wrapper">
-        <div class="page-body"><div class="page-title">
+        <div class="page-body">
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                        <span aria-hidden="true" style="line-height: 0.6">&times;</span>
+                    </button>
+                    <strong>{{ session('success') }}</strong>
+                </div>
+            @endif
+            <div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <h2 class="page-title-text d-inline-block">Doktorlar</h2>
@@ -78,9 +87,11 @@
                                             <td>1</td>
                                             @if($doctor->gender=="Erkek")
                                             <td class="table-img"><img class="img-thumbnail rounded" src="{{asset('css_js_img/doktors_img/media-1771205195e049ca8ee997.jpg')}}" alt="Image"></td>
-                                            @else
+                                            @elseif($doctor->gender=="Kadın")
                                                 <td class="table-img"><img class="img-thumbnail rounded" src="{{asset('css_js_img/doktors_img/media-14789594495e049ca8efcdf.jpg')}}" alt="Image"></td>
-                                            @endif
+                                            @else
+                                               <td class="table-img"><img class="img-thumbnail rounded" src="{{asset('css_js_img/doktors_img/a.jpg')}}" alt="Image"></td>
+                                             @endif
                                             <td>
                                                 <p class="m-0 text-primary">{{$doctor->name}} {{$doctor->surname}}</p>
                                                 <p class="m-0">{{$doctor->email}}</p>
@@ -97,10 +108,9 @@
                                                 <a href="{{url('/Doctor_Edit',with(['dr_id'=>$doctor->user_id]))}}" class="text-primary edit" data-toggle="tooltip" title="" data-original-title="Düzenle">
                                                     <i class="ti-pencil-alt"></i>
                                                 </a>
-                                                <a class="table-delete text-danger delete" data-toggle="tooltip" title="" data-original-title="Sil">
-                                                    <i class="ti-trash"></i>
-                                                    <input type="hidden" value="1">
-                                                </a>
+                                                <button type="button" value="{{$doctor->user_id}}"  class="table-delete text-danger  " data-toggle="tooltip"  data-original-title="Sil" id="del_dr<?php del_dr(1); ?>">
+                                                    <i class="ti-trash font-16 "></i>
+                                                </button>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -134,16 +144,16 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Silmeği Doğrula </h5>
+                            <h5 class="modal-title text-danger">Silme İşlemini Doğrula </h5>
                             <button type="button" class="close" data-dismiss="modal">×</button>
                         </div>
                         <div class="modal-body">
-                            <p class="delete-card-ttl mb-0">Silmek İstediğinizden Emin misinz?</p>
+                            <p class="delete-card-ttl mb-0">Doktor'un Bilgilerini Silmek İstediğinizden Emin misinz?</p>
+                            <p class="delete-card-ttl mb-0 text-danger font-13">Bu silme işlemi ile birlikte, Doktor'a ait hasta randevu, reçete işlemleri de silinecektir.</p>
                         </div>
                         <div class="modal-footer">
-                            <form action="" class="delete-card-button" method="" siq_id="autopick_7955">
-                                <input type="hidden" value="" class="delete-id" name="id">
-                                <input type="hidden" name="_token" value="">
+                            <form action="" class="delete-card-button" method="post" id="from_del">
+                                @csrf
                                 <button type="submit" class="btn btn-danger" name="delete">Sil</button>
                             </form>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
@@ -151,6 +161,16 @@
                     </div>
                 </div>
             </div>
+            <script>
+                $(document).ready(function () {
+                   var org=window.location.origin;
+                   var del_dr="@php function del_dr($id){return $id; } @endphp";
+                   $("#del_dr,del_dr").click(function () {
+                     var dr=  $(this).val();
+                     $("#from_del").get(0).setAttribute("action",org+"/Doctor_Delete/"+dr);
+                   });
+                });
+            </script>
         </div>
     </div>
     

@@ -121,9 +121,9 @@
                                                     <span class="input-group-text"><i class="ti-user"></i></span>
                                                 </div>
                                                 <select name="gender" class="custom-select">
-                                                    <option value="Male">Erkek</option>
-                                                    <option value="Female">Kadın</option>
-                                                    <option value="Other">Diğer</option>
+                                                    <option value="Erkek">Erkek</option>
+                                                    <option value="Kadın">Kadın</option>
+                                                    <option value="Diğer">Diğer</option>
                                                 </select>
                                             </div>
                                         </div>

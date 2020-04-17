@@ -4,37 +4,48 @@
     <script>
         $(document).ready(function () {
           // $('#Pharmacy_Rotate').addClass('rotate') ;
-           $('#Pharmacy_active').addClass('active') ;
+           $('#Account_active').addClass('active') ;
            $('#Inventory_Medicines_text').addClass('text-white') ;
         });
     </script>
     
     <div class="page-wrapper">
         <div class="page-body">
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                        <span aria-hidden="true" style="line-height: 0.6">&times;</span>
+                    </button>
+                    <strong>{{ session('success') }}</strong>
+                </div>
+            @endif
             <div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h2 class="page-title-text d-inline-block">Medicines</h2>
+                        <h2 class="page-title-text d-inline-block">Tıbbi İlaçlar</h2>
                         <div class="breadcrumbs d-inline-block">
                             <ul>
                                 <li><a href="http://pepdev.com/theme-preview/klinikal/admin/">Dashboard</a></li>
                                 <i class="fa fa-angle-right font-12 ml-2" ></i>
-                                <span class="ml-2">Medicines</span>
+                                <span class="ml-2">Tıbbi İlaçlar</span>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-6 text-right">
+                        <a class="btn btn-white btn-sm mr-2" data-toggle="modal" data-target="#uploadmedicine-modal"><i class="ti-cloud-up text-primary pr-2"></i> Import Medicines</a>
                         <div class="dropdown d-inline-block mr-2">
                             <a class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown"><i class="ti-download text-primary pr-2"></i> Export</a>
                             <ul class="dropdown-menu dropdown-menu-right export-button">
-                                <li><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=medicines#" class="pdf"><i class="far fa-file-pdf pr-2"></i>PDF</a></li>
-                                <li><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=medicines#" class="excel"><i class="far fa-file-excel pr-2"></i>Excel</a></li>
-                                <li><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=medicines#" class="csv"><i class="ti-clipboard pr-2"></i>CSV</a></li>
-                                <li><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=medicines#" class="print"><i class="ti-printer pr-2"></i>Print</a></li>
-                                <li><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=medicines#" class="copy"><i class="ti-layers pr-2"></i>Copy</a></li>
+                                <li><a href="#" class="excel"><i class="far fa-file-excel pr-2"></i>Excel</a></li>
+                                <li><a href="#" class="pdf"><i class="far fa-file-pdf pr-2"></i>PDF</a></li>
+                                <li><a href="#" class="csv"><i class="ti-clipboard pr-2"></i>CSV</a></li>
+                                <li><a href="#" class="print"><i class="ti-printer pr-2"></i>Print</a></li>
+                                <li><a href="#" class="copy"><i class="ti-layers pr-2"></i>Copy</a></li>
                             </ul>
                         </div>
+                        <a href="{{route('Inventory_Medicines.create')}}" class="btn btn-primary btn-sm"><i class="ti-plus pr-2"></i> Yeni İlaç Ekle</a>
                     </div>
+                   
                 </div>
             </div>
             
@@ -43,7 +54,7 @@
                     <div class="table-responsive">
                         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                             <div class="row align-items-center pb-3">
-                                <div class="col-sm-6 text-left">
+                               <!-- <div class="col-sm-6 text-left">
                                     <div class="dataTables_length" id="DataTables_Table_0_length">
                                         <label>Show
                                             <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm">
@@ -55,174 +66,77 @@
                                             </select> entries
                                         </label>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 text-right"><div id="DataTables_Table_0_filter" class="dataTables_filter">
-                                        <label>Search:
+                                </div> -->
+                                <div class="col-sm-12 text-right"><div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                        <label>Ara:
                                             <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0">
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row"><div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-12">
                                     <!--- datatable-table dataTable --->
-                                    <table class="table table-middle table-bordered table-striped  no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                    <table class="table table-middle table-bordered table-striped  no-footer " id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                         <thead>
-                                        <tr role="row"><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column ascending" style="width: 10px;">#</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Medicine: activate to sort column ascending" style="width: 182px;">Medicine</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Company: activate to sort column ascending" style="width: 61px;">Company</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Unit: activate to sort column ascending" style="width: 24px;">Unit</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Unit/Packing: activate to sort column ascending" style="width: 76px;">Unit/Packing</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Category: activate to sort column ascending" style="width: 57px;">Category</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Storebox: activate to sort column ascending" style="width: 54px;">Storebox</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Reorderlevel: activate to sort column ascending" style="width: 76px;">Reorderlevel</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Live Stock: activate to sort column ascending" style="width: 37px;">Live Stock</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 57px;">Status</th></tr>
+                                        <tr role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column ascending" style="width: 10px;">#</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Medicine: activate to sort column ascending" style="width: 100px;">İlaç Bilgisi</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Company: activate to sort column ascending" style="width: 71px;">Şirket Bilgisi</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Unit: activate to sort column ascending" style="width: 24px;">İlaç Birimi</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Unit/Packing: activate to sort column ascending" style="width: 76px;">Birim/Paket</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Category: activate to sort column ascending" style="width: 57px;">Kategori</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Storebox: activate to sort column ascending" style="width: 54px;">Saklama Kutusu</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Reorderlevel: activate to sort column ascending" style="width: 76px;">Sipariş Düzeyi</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Live Stock: activate to sort column ascending" style="width: 37px;">Şimdiki Stok Adeti</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 57px;">Durum</th>
+                                            <th></th>
+                                        </tr>
                                         </thead>
-                                        <tbody>
-                                   
-                                        <tr role="row" class="odd">
-                                            <td>1</td>
-                                            <td>
-                                                <p class="text-primary mb-0">Amoxicillin</p>
-                                                <p class="mb-0">Amoxicillin</p>
-                                            </td>
-                                            <td>Amoxicillin</td>
-                                            <th>1</th>
-                                            <td>10</td>
-                                            <td>Capsule</td>
-                                            <td>Box 8</td>
-                                            <td>50</td>
-                                            <td>100.00</td>
-                                            <td>
-                                                <span class="badge badge-sm badge-primary">Normal</span>							</td>
-                                        </tr><tr role="row" class="even">
-                                            <td>2</td>
-                                            <td>
-                                                <p class="text-primary mb-0">Amikacin</p>
-                                                <p class="mb-0">aminoglycosides</p>
-                                            </td>
-                                            <td>Amikacin</td>
-                                            <th>1</th>
-                                            <td>10</td>
-                                            <td>Tablet</td>
-                                            <td>Box 5</td>
-                                            <td>30</td>
-                                            <td>100.00</td>
-                                            <td>
-                                                <span class="badge badge-sm badge-primary">Normal</span>							</td>
-                                        </tr><tr role="row" class="odd">
-                                            <td>3</td>
-                                            <td>
-                                                <p class="text-primary mb-0">Seralazide</p>
-                                                <p class="mb-0">Hydralazine &amp; Hydrochlorothiazideq</p>
-                                            </td>
-                                            <td>Aurobindo</td>
-                                            <th>1</th>
-                                            <td>10</td>
-                                            <td>Tablet</td>
-                                            <td>box 2</td>
-                                            <td>20</td>
-                                            <td>50.00</td>
-                                            <td>
-                                                <span class="badge badge-sm badge-primary">Normal</span>							</td>
-                                        </tr><tr role="row" class="even">
-                                            <td>4</td>
-                                            <td>
-                                                <p class="text-primary mb-0">Augmentin</p>
-                                                <p class="mb-0">Amoxicillin and clavulanate potassium</p>
-                                            </td>
-                                            <td>Cipla</td>
-                                            <th>1</th>
-                                            <td>10</td>
-                                            <td>Tablet</td>
-                                            <td>box 1</td>
-                                            <td>20</td>
-                                            <td>50.00</td>
-                                            <td>
-                                                <span class="badge badge-sm badge-primary">Normal</span>							</td>
-                                        </tr><tr role="row" class="odd">
-                                            <td>5</td>
-                                            <td>
-                                                <p class="text-primary mb-0">Xanor</p>
-                                                <p class="mb-0">Xanor</p>
-                                            </td>
-                                            <td>Xanor pvt ltd</td>
-                                            <th>1</th>
-                                            <td>10</td>
-                                            <td>Tablet</td>
-                                            <td>box 3</td>
-                                            <td>50</td>
-                                            <td>50.00</td>
-                                            <td>
-                                                <span class="badge badge-sm badge-warning">Reorderlevel</span>							</td>
-                                        </tr><tr role="row" class="even">
-                                            <td>6</td>
-                                            <td>
-                                                <p class="text-primary mb-0">Altace</p>
-                                                <p class="mb-0">ramipril</p>
-                                            </td>
-                                            <td>Altace</td>
-                                            <th>1</th>
-                                            <td>10</td>
-                                            <td>Tablet</td>
-                                            <td>box 2</td>
-                                            <td>20</td>
-                                            <td>50.00</td>
-                                            <td>
-                                                <span class="badge badge-sm badge-primary">Normal</span>							</td>
-                                        </tr><tr role="row" class="odd">
-                                            <td>7</td>
-                                            <td>
-                                                <p class="text-primary mb-0">Ambien</p>
-                                                <p class="mb-0">Ambien</p>
-                                            </td>
-                                            <td>Ambien</td>
-                                            <th>1</th>
-                                            <td>10</td>
-                                            <td>Tablet</td>
-                                            <td>box 2</td>
-                                            <td>100</td>
-                                            <td>165.00</td>
-                                            <td>
-                                                <span class="badge badge-sm badge-primary">Normal</span>							</td>
-                                        </tr><tr role="row" class="even">
-                                            <td>8</td>
-                                            <td>
-                                                <p class="text-primary mb-0">Norvasc</p>
-                                                <p class="mb-0">amlodipine</p>
-                                            </td>
-                                            <td>Norvasc</td>
-                                            <th>1</th>
-                                            <td>10</td>
-                                            <td>Tablet</td>
-                                            <td>box 2</td>
-                                            <td>20</td>
-                                            <td>200.00</td>
-                                            <td>
-                                                <span class="badge badge-sm badge-primary">Normal</span>							</td>
-                                        </tr><tr role="row" class="odd">
-                                            <td>9</td>
-                                            <td>
-                                                <p class="text-primary mb-0">Celexa</p>
-                                                <p class="mb-0">Celexa</p>
-                                            </td>
-                                            <td>Celexa</td>
-                                            <th>1</th>
-                                            <td>10</td>
-                                            <td>Tablet</td>
-                                            <td>box 1</td>
-                                            <td>50</td>
-                                            <td>100.00</td>
-                                            <td>
-                                                <span class="badge badge-sm badge-primary">Normal</span>							</td>
-                                        </tr><tr role="row" class="even">
-                                            <td>10</td>
-                                            <td>
-                                                <p class="text-primary mb-0">Amaryl</p>
-                                                <p class="mb-0">glimepiride</p>
-                                            </td>
-                                            <td>Amaryl</td>
-                                            <th>1</th>
-                                            <td>10</td>
-                                            <td>Tablet</td>
-                                            <td>box 2</td>
-                                            <td>100</td>
-                                            <td>250.00</td>
-                                            <td>
-                                                <span class="badge badge-sm badge-primary">Normal</span>							</td>
-                                        </tr></tbody>
-                                    </table></div></div><div class="row align-items-center pt-3"><div class="col-sm-12 col-md-4"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 15 entries</div></div><div class="col-sm-12 col-md-8 text-right dataTables_pager"><div class="dataTables_paginate paging_full_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item first disabled" id="DataTables_Table_0_first"><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=medicines#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link"><i class="fa fa-angle-double-left"></i></a></li><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=medicines#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link"><i class="fa fa-angle-left"></i></a></li><li class="paginate_button page-item active"><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=medicines#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=medicines#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=medicines#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link"><i class="fa fa-angle-right"></i></a></li><li class="paginate_button page-item last" id="DataTables_Table_0_last"><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=medicines#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0" class="page-link"><i class="fa fa-angle-double-right"></i></a></li></ul></div></div></div></div>
+                                            <tbody>
+                                                @foreach($inventory_mdcn as $list)
+                                                    <tr role="row" class="odd">
+                                                        <td>1</td>
+                                                        <td>
+                                                            <p class="text-primary mb-0">{{$list->medc_name}}</p>
+                                                            <p class="mb-0">{{$list->medc_generic}}</p>
+                                                        </td>
+                                                        <td>{{$list->medc_company}}</td>
+                                                        <th>{{$list->medc_unit}}</th>
+                                                        <td>{{$list->medc_unitpacking}}</td>
+                                                        <td>{{$list->medc_category}}</td>
+                                                        <td>{{$list->medc_storebox}}</td>
+                                                        <td>{{$list->medc_reorderlevel}}</td>
+                                                        <td>100.00</td>
+                                                        <td><span class="badge badge-sm badge-primary">Normal</span></td>
+                                                        <td class="table-action">
+                                                            <div class="dropdown d-inline-block">
+                                                                <a class="text-primary edit dropdown-toggle" data-toggle="dropdown"><i class="ti-more"></i></a>
+                                                                <ul class="dropdown-menu dropdown-menu-right export-button">
+                                                                    <li><a href="{{route('Inventory_Medicines.show',$list->id)}}"><i class="ti-layout-media-center-alt pr-2"></i>İncele</a></li>
+                                                                    <li><a href="{{route('Inventory_Medicines.edit',$list->id)}}"><i class="ti-pencil-alt pr-2"></i>Düzenle</a></li>
+                                                                </ul>
+                                                            </div>
+                                                            <button value="{{$list->id}}" class="table-delete text-danger delete" data-toggle="tooltip" title="" data-original-title="Sil" id="del_mdcn<?php del_mdcn(1); ?>">
+                                                                <i class="ti-trash font-16"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row align-items-center pt-3">
+                                <div class="col-sm-12 col-md-10">
+                                    
+                                    <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Toplam: {{ $inventory_mdcn->lastPage() }} Sayfa<br>Toplam {{$inventory_mdcn->total()}} İlaç Listesinden {{$inventory_mdcn->count()}} Kayıt Gösteriliyor</div>
+                                </div>
+                                <div class="col-sm-12 col-md-2 text-right dataTables_pager">
+                                   {{$inventory_mdcn->links()}}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -276,6 +190,13 @@
             </div>
             <script>
                 $(document).ready(function(){
+                    var del="@php function del_mdcn($id){return $id; } @endphp";
+                    var orgin=window.location.origin;
+                    $("#del_mdcn,del").click(function () {
+                       var del_id=$(this).val();
+                      
+                        $("#del_form").get(0).setAttribute("action",orgin+"/Inventory_Medicines/"+del_id);
+                    });
 
                     $("#medicinefile").on('change', function(e) {
                         if (e.target.files.length > 0) {
@@ -285,7 +206,30 @@
                 });
             
             </script>
-        
+            <!--- Delete Modal--->
+            <div id="delete-card" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Silme İşlemini Doğrulayınız...</h5>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="delete-card-ttl mb-0">Belirtilen İlacı Silmek İstediğinizden Emin Misiniz?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <form action="" class="delete-card-button" method="post" id="del_form">
+                                @csrf
+                                @method("DELETE")
+                                <input type="hidden" value="" class="delete-id" name="id">
+                              
+                                <button type="submit" class="btn btn-danger" name="delete">Sil</button>
+                            </form>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
