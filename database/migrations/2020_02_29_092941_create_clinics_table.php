@@ -21,6 +21,7 @@ class CreateClinicsTable extends Migration
             $table->string('c_phone_2')->varchar(20)->nullable();
             $table->string('c_email')->varchar(30)->unique()->nullable();
             $table->integer('status')->nullable();
+            $table->text('adress1')->nullable();
             $table->timestamps();
         });
     }

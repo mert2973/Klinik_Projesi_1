@@ -15,7 +15,7 @@ class CreateClinicNotesAdvicesTable extends Migration
     {
         Schema::create('clinic_notes_advices', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('appointments_id');
+            $table->integer('apt_notes_adv_id');
             $table->string('notes_advices')->nullable();
             $table->timestamps();
         });

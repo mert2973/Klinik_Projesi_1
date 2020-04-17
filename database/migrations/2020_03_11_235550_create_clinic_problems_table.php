@@ -15,7 +15,7 @@ class CreateClinicProblemsTable extends Migration
     {
         Schema::create('clinic_problems', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('appointments_id');
+            $table->integer('apt_problmes_id');
             $table->string('problems')->nullable();
             $table->timestamps();
         });
