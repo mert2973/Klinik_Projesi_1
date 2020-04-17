@@ -119,9 +119,10 @@
                                                     <span class="input-group-text"><i class="ti-user"></i></span>
                                                 </div>
                                                 <select name="gender" class="custom-select">
+                                                    <option value="" > Seçiniz </option>
                                                     <option value="Erkek"   @if($the_doctor->gender=="Erkek") selected="" @endif>Erkek</option>
-                                                    <option value="Kadın" @if($the_doctor->gender=="Kadın") selected="" @endif>Kadın</option>
-                                                    <option value="Diğer"  @if($the_doctor->gender=="Diğer") selected="" @endif>Diğer</option>
+                                                    <option value="Kadın"   @if($the_doctor->gender=="Kadın") selected="" @endif>Kadın</option>
+                                                    <option value="Diğer"   @if($the_doctor->gender=="Diğer") selected="" @endif>Diğer</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -136,8 +137,10 @@
                                                     @if($the_doctor->gender=="Erkek")
                                                         <img class="img-thumbnail" src="{{asset('css_js_img/dr_resim.jpg')}}" alt="">
                                                         <input type="hidden" name="doctor[picture]" value="media-1771205195e049ca8ee997.jpg">
+                                                    @elseif($the_doctor->gender=="Kadın")
+                                                        <td class="table-img"><img class="img-thumbnail rounded" src="{{asset('css_js_img/doktors_img/media-14789594495e049ca8efcdf.jpg')}}" alt="Image"></td>
                                                     @else
-                                                        <img class="img-thumbnail" src="{{asset('css_js_img/doktors_img/media-14789594495e049ca8efcdf.jpg')}}" alt="">
+                                                        <td class="table-img"><img class="img-thumbnail rounded" src="{{asset('css_js_img/doktors_img/a.jpg')}}" alt="Image"></td>
                                                     @endif
                                                   
                                                 </div>
@@ -153,7 +156,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-calendar"></i></span>
                                                 </div>
-                                                <input type="text"  name="date_of_birth" class="form-control bg-white " value="{{$the_doctor->date_of_birth}}" placeholder="Select Date of Birth . . ."  autocomplete="off" required="" id="datepicker">
+                                                <input type="text"  name="date_of_birth" class="form-control bg-white " value="{{$the_doctor->date_of_birth}}" placeholder="Select Date of Birth . . ."  autocomplete="off"  id="datepicker">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -394,174 +397,47 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach($doctor_apt_time as $apt_time)
                                         <tr>
-                                            <td>Pazartesi</td>
-                                            <td>
-                                                <input type="time" name="pzt_before_begin" value="" class="form-control m-0">
+                                            <td>@if($apt_time->day==1)
+                                                    {{"Pazartesi"}}
+                                                @elseif($apt_time->day==2)
+                                                    {{"Salı"}}
+                                                @elseif($apt_time->day==3)
+                                                    {{"Çarşamba"}}
+                                                @elseif($apt_time->day==4)
+                                                    {{"Perşembe"}}
+                                                @elseif($apt_time->day==5)
+                                                    {{"Cuma"}}
+                                                @elseif($apt_time->day==6)
+                                                    {{"Cumartesi"}}
+                                                @elseif($apt_time->day==7)
+                                                    {{"Pazar"}}
+                                                @endif
                                             </td>
                                             <td>
-                                                <input type="time" name="pzt_before_end" value="" class="form-control m-0">
+                                                <input type="time" name="appointment_dr[time][{{$apt_time->day}}][before_lunch_begin]" value="{{$apt_time->bfr_lunch_begin}}" class="form-control m-0" @if($apt_time->holiday==1) readonly="readonly" @endif>
                                             </td>
                                             <td>
-                                                <input type="time" name="pzt_after_begin" value="" class="form-control m-0">
+                                                <input type="time" name="appointment_dr[time][{{$apt_time->day}}][before_lunch_end]" value="{{$apt_time->bfr_lunch_end}}" class="form-control m-0" @if($apt_time->holiday==1) readonly="readonly" @endif>
                                             </td>
                                             <td>
-                                                <input type="time" name="pzt_after_end" value="" class="form-control m-0">
+                                                <input type="time" name="appointment_dr[time][{{$apt_time->day}}][after_lunch_begin]" value="{{$apt_time->aftr_lunch_begin}}" class="form-control m-0" @if($apt_time->holiday==1) readonly="readonly" @endif>
                                             </td>
                                             <td>
-                                                <input type="text" name="pzt_slot_time" value="" class="form-control m-0">
+                                                <input type="time" name="appointment_dr[time][{{$apt_time->day}}][after_lunch_end]" value="{{$apt_time->aftr_lunch_end}}" class="form-control m-0" @if($apt_time->holiday==1) readonly="readonly" @endif>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="appointment_dr[time][{{$apt_time->day}}][slot_time]" value="{{$apt_time->range_time}}" class="form-control m-0" @if($apt_time->holiday==1) readonly="readonly" @endif>
                                             </td>
                                             <td class="text-center">
                                                 <div class="custom-control custom-checkbox d-inline-block">
-                                                    <input type="checkbox" name="pzt_holiday" class="custom-control-input doctor-time" id="time-1" value="1">
-                                                    <label class="custom-control-label" for="time-1"></label>
+                                                    <input type="checkbox" name="appointment_dr[time][{{$apt_time->day}}][holiday]" class="custom-control-input doctor-time" @if($apt_time->holiday==1) checked @endif id="time-{{$apt_time->day}}" >
+                                                    <label class="custom-control-label" for="time-{{$apt_time->day}}"></label>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>Salı</td>
-                                            <td>
-                                                <input type="time" name="sali_before_begin" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="sali_before_end" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="sali_after_begin" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="sali_after_end" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="sali_slot_time" value="" class="form-control m-0">
-                                            </td>
-                                            <td class="text-center">
-                                                <div class="custom-control custom-checkbox d-inline-block">
-                                                    <input type="checkbox" name="sali_holiday" class="custom-control-input doctor-time" id="time-2" value="1">
-                                                    <label class="custom-control-label" for="time-2"></label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Çarşamba</td>
-                                            <td>
-                                                <input type="time" name="crs_beforo_begin" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="crs_beforo_end" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="crs_after_begin" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="crs_after_end" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="crs_slot_time" value="" class="form-control m-0">
-                                            </td>
-                                            <td class="text-center">
-                                                <div class="custom-control custom-checkbox d-inline-block">
-                                                    <input type="checkbox" name="crs_holiday" class="custom-control-input doctor-time" id="time-3" value="1">
-                                                    <label class="custom-control-label" for="time-3"></label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Perşembe</td>
-                                            <td>
-                                                <input type="time" name="pers_before_begin" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="pers_before_end" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="pers_after_begin" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="pers_after_end" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="pers_slot_time" value="" class="form-control m-0">
-                                            </td>
-                                            <td class="text-center">
-                                                <div class="custom-control custom-checkbox d-inline-block">
-                                                    <input type="checkbox" name="" class="custom-control-input doctor-time" id="time-4" value="1">
-                                                    <label class="custom-control-label" for="time-4"></label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cuma</td>
-                                            <td>
-                                                <input type="time" name="cuma_before_begin" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="cuma_before_end" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="cuma_after_begin" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="cuma_after_end" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="cuma_slot_time" value="" class="form-control m-0">
-                                            </td>
-                                            <td class="text-center">
-                                                <div class="custom-control custom-checkbox d-inline-block">
-                                                    <input type="checkbox" name="cuma_holiday" class="custom-control-input doctor-time" id="time-5" value="1">
-                                                    <label class="custom-control-label" for="time-5"></label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cumartesi</td>
-                                            <td>
-                                                <input type="time" name="cmt_before_begin" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="cmt_before_end" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="cmt_after_" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="" value="" class="form-control m-0">
-                                            </td>
-                                            <td class="text-center">
-                                                <div class="custom-control custom-checkbox d-inline-block">
-                                                    <input type="checkbox" name="" class="custom-control-input doctor-time" id="time-6" value="1">
-                                                    <label class="custom-control-label" for="time-6"></label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pazar</td>
-                                            <td>
-                                                <input type="time" name="doctor[time][0][st1]" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="doctor[time][0][et1]" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="doctor[time][0][st2]" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="time" name="doctor[time][0][et2]" value="" class="form-control m-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="doctor[time][0][slot]" value="" class="form-control m-0">
-                                            </td>
-                                            <td class="text-center">
-                                                <div class="custom-control custom-checkbox d-inline-block">
-                                                    <input type="checkbox" name="doctor[time][0][holiday]" class="custom-control-input doctor-time" id="time-0" value="1">
-                                                    <label class="custom-control-label" for="time-0"></label>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -657,7 +533,8 @@
                                             <div class="ui-datepicker-group ui-datepicker-group-middle">
                                                 <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix">
                                                     <div class="ui-datepicker-title"><span class="ui-datepicker-month">March</span>&nbsp;<span class="ui-datepicker-year">2020</span></div>
-                                                </div><table class="ui-datepicker-calendar">
+                                                </div>
+                                                <table class="ui-datepicker-calendar">
                                                     <thead>
                                                     <tr>
                                                         <th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th>
@@ -711,7 +588,9 @@
                                                         <td class=" ui-datepicker-week-end undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">28</a></td>
                                                     </tr>
                                                     <tr>
-                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">29</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">30</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">31</a></td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr></tbody></table></div><div class="ui-datepicker-group ui-datepicker-group-last"><div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-right"><a class="ui-datepicker-next ui-corner-all" data-handler="next" data-event="click" title="Next"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a><div class="ui-datepicker-title"><span class="ui-datepicker-month">April</span>&nbsp;<span class="ui-datepicker-year">2020</span></div></div>
+                                                        <td class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span class="ui-state-default">29</span></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">30</a></td><td class=" undefined" data-handler="selectDay" data-event="click" data-month="2" data-year="2020"><a class="ui-state-default" href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=doctor/edit&amp;id=1#">31</a></td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr></tbody></table>
+                                            </div><div class="ui-datepicker-group ui-datepicker-group-last">
+                                                <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-right"><a class="ui-datepicker-next ui-corner-all" data-handler="next" data-event="click" title="Next"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a><div class="ui-datepicker-title"><span class="ui-datepicker-month">April</span>&nbsp;<span class="ui-datepicker-year">2020</span></div></div>
                                                 <table class="ui-datepicker-calendar">
                                                     <thead>
                                                     <tr>
