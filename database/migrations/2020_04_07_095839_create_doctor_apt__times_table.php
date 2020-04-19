@@ -14,7 +14,7 @@ class CreateDoctorAptTimesTable extends Migration
     public function up()
     {
         Schema::create('doctor_apt_times', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->autoIncrement();
             $table->integer("doctor_id");
             $table->integer("day")->comment("1:monday, 7:sunday")->nullable();
             $table->dateTime("bfr_lunch_begin")->comment("time")->nullable();
