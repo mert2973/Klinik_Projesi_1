@@ -14,7 +14,7 @@ class CreateGeneralInfosTable extends Migration
     public function up()
     {
         Schema::create('general_infos', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->autoIncrement();
             //$table->integer('masterDR_and_clinics_id');
             $table->string('city')->varchar(15)->nullable();
             $table->string('country')->varchar(20)->nullable();

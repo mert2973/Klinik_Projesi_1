@@ -14,7 +14,7 @@ class CreatemasterDrandClinicsTable extends Migration
     public function up()
     {
         Schema::create('masterDr_and_Clinics', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->autoIncrement();
             $table->integer('master_dr_id');
             $table->integer('clinic_id');
            // $table->integer('staff_usr_id');

@@ -14,7 +14,7 @@ class CreateMedicalHistoriesTable extends Migration
     public function up()
     {
         Schema::create('medical_histories', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->autoIncrement();
             $table->integer('patient_id');
             $table->tinyInteger('diabetes');
             $table->tinyInteger('heart_problems');

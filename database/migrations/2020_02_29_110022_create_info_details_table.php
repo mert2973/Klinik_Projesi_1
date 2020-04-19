@@ -14,7 +14,7 @@ class CreateInfoDetailsTable extends Migration
     public function up()
     {
         Schema::create('info_details', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->autoIncrement();
             $table->string('facebook_link')->varchar(100)->nullable();
             $table->string('instegram_link')->varchar(100)->nullable();
             $table->string('twitter_link')->varchar(100)->nullable();
