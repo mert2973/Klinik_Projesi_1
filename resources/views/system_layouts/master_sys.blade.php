@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -8,6 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Klinik</title>
     <link rel="icon" type="image/x-icon" href="http://pepdev.com/theme-preview/klinikal/public/uploads/media-16557374875e049cf2688e3.png">
+   
+    <!-- extra proje haricinde eklenen scripts --->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+    <!--End extra proje haricinde eklenen scripts --->
+    
     <!-- Include css files -->
     <link rel="stylesheet" type="text/css" href="{{asset('css_js_img/style.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css_js_img/chart.min.css')}}">
@@ -23,14 +27,15 @@
      
       <script type="text/javascript" id="zsiqscript" defer="" src="{{asset('css_js_img/widget')}}" ></script>
     <script async="" src="{{asset('css_js_img/analytics.js')}}"></script>
-    <script type="text/javascript" src="{{asset('css_js_img/jquery-ui.multidatespicker.min.js')}}"></script>
+    <script type="text/javascript" src="{{--asset('css_js_img/jquery-ui.multidatespicker.min.js')--}}"></script>
     <script type="text/javascript" src="{{asset('css_js_img/vendor.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('css_js_img/admin.js')}}"></script>
     
     <script type="text/javascript" src="{{asset('css_js_img/summernote/summernote-bs4.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('css_js_img/summernote/klinikal.summernote.js')}}"></script>
+    
 
-
+    
     <script type="text/javascript" src="{{--asset('css_js_img/floatbutton_8a683_.js')--}}"></script> <!-- invoice için eklenmişti-->
     
   
@@ -67,9 +72,13 @@
     <!--End. icons--->
     <link rel="stylesheet" href="{{asset('css_js_img/my_css_js/my_style.css')}}">
     <script type="text/javascript" src="{{asset('css_js_img/my_css_js/my_js.js')}}"></script>
+    
+    <link rel="stylesheet" type="text/css" href="{{url('DateTimePicker/jquery.datetimepicker.css')}}"/>
 </head>
 
 <body style="">
+
+
 <!-- wrapper -->
 <div class="wrapper ">
   <div id="main-wrapper" class=" menu-dark">
@@ -79,15 +88,16 @@
   </div>
 </div>
 
-
-
 <script type="text/javascript" src="{{--asset('js/app.js')--}}"></script>
 
-
-
-
+<script type="text/javascript" src="{{asset('css_js_img/invoice.js')}}"></script>
 <script type="text/javascript" src="{{asset('css_js_img/appointment.js')}}"></script>
 <script type="text/javascript" src="{{asset('css_js_img/Chart.min.js')}}"></script>
+
+<script src="{{--url('DateTimePicker/jquery.js')--}}"></script>
+<script src="{{url('DateTimePicker/node_modules/php-date-formatter/js/php-date-formatter.min.js')}}"></script>
+<script src="{{url('DateTimePicker/node_modules/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
+<script src="{{url('DateTimePicker/jquery.datetimepicker.js')}}"></script>
 
 
 <script type="text/javascript" src="{{--asset('css_js_img/wmsliteapi.js')--}}"></script>
@@ -100,6 +110,7 @@
 
 
 <script>
+   
     ctx = document.getElementById("appointment-chart").getContext("2d")
     gradient = ctx.createLinearGradient(0, 0, 0, 240);
     gradient.addColorStop(0, Chart.helpers.color('#0abb87').alpha(1).rgbString());
@@ -236,18 +247,7 @@
 <div role="status" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div>
 <input type="file" multiple="multiple" class="dz-hidden-input" accept="image" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 
-<!--
-<div class="zsiq_floatmain zsiq_theme1 siq_bR" style="visibility: hidden; display: block;">
-    <div id="zsiq_float" class="zsiq_float " style="font-family:inherit">
-        <div class="zsiq_flt_rel"><em id="zsiq_agtpic" class="zsiq_user siqico-chat"></em>
-            <div id="titlediv" class="zsiq_cnt"><div id="zsiq_maintitle" class="zsiq_ellips" title="We&#39;re Online!">We're Online!</div>
-                <p id="zsiq_byline" class="zsiq_ellips" title="How may I help you today?">How may I help you today?</p>
-            </div>
-            <em id="zsiq_unreadcnt" class="zsiq_unrdcnt" style="display: none;"></em>
-            <em id="zsiq_avcall" class="zsiqmin_unrdcnt zsiq_unrdcnt siqico-mincall" style="display: none;"></em>
-        </div>
-    </div>
-</div> -->
+
 
 <style id="zsiqcustomcss">
     
@@ -259,15 +259,6 @@
     }
 </style>
 
-<!-- kaldırılınca chat penceresi açılıyor
-<div class="zls-sptwndw  siqembed siqtrans siqhide zsiq-mobhgt siq_rht zsiq_size2" embedtheme="1"
-     style="visibility: hidden; top: -10000px; display: block;">
-    <div id="siqcht" class="zls-prelative">
-        <iframe id="siqiframe" seamless="seamless" height="460" width="100%" scrolling="no"
-                src="{{--asset('css_js_img/saved_resource.html')--}}">
-        </iframe>
-    </div>
-</div>  -->
 
 <script>
     $(document).ready(function () {
@@ -303,9 +294,14 @@
 </script>
 <script>
     $( function() {
-        $( "#datepicker" ).datepicker({dateFormat:"dd/mm/yy"});
-        
+        $( "#datepicker" ).datepicker({
+            dateFormat:"yy-mm-dd"
+        });
+        $( ".datepicker" ).datepicker({dateFormat:"dd-mm-YY"});
     } );
 </script>
+
+
+
 </body>
 </html>

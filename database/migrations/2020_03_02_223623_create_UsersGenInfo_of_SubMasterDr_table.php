@@ -14,7 +14,7 @@ class CreateUsersGenInfoofSubMasterDrTable extends Migration
     public function up()
     {
         Schema::create('UsersGenInfo_of_SubMasterDr', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->autoIncrement();
             $table->integer('user_id');
             $table->integer('masterDr_and_clinic_id');
             $table->integer('general_info_id');

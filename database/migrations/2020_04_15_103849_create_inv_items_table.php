@@ -14,7 +14,7 @@ class CreateInvItemsTable extends Migration
     public function up()
     {
         Schema::create('inv_items', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->autoIncrement();
             $table->integer("clinic_id");
             $table->string("itm_name");
             $table->text("itm_dscr");

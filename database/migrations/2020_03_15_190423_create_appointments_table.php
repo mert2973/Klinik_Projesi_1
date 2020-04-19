@@ -14,7 +14,7 @@ class CreateAppointmentsTable extends Migration
     public function up()
     {//['patients_id','doctors_id','apt_date','apt_time','apt_status','apt_reason'];
         Schema::create('appointments', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->autoIncrement();
             $table->integer('patients_id');
             $table->integer('doctors_id');
             $table->dateTime('apt_date')->nullable();

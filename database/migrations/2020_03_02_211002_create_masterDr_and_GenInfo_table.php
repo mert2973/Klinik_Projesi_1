@@ -14,7 +14,7 @@ class CreateMasterDrAndGenInfoTable extends Migration
     public function up()
     {
         Schema::create('masterDr_and_GenInfo', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->autoIncrement();
             $table->integer('masterDr_id');
             $table->integer('general_info_id');
            // $table->timestamps();

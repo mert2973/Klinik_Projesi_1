@@ -16,7 +16,7 @@ class CreateInvSaleItemsTable extends Migration
 
         Schema::create('inv_sale_items', function (Blueprint $table) {
 
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->autoIncrement();
             $table->integer("inv_sale_id");
            // $table->integer("apt_id")->nullable();
             $table->string("itm_name");

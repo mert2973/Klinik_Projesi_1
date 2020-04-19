@@ -14,7 +14,7 @@ class CreateClinicInvestigationsTable extends Migration
     public function up()
     {
         Schema::create('clinic_investigations', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->autoIncrement();
             $table->integer('apt_investigations_id');
             $table->string('investigations')->nullable();
 

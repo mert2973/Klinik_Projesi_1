@@ -4,6 +4,34 @@
  * @copyright 2019 Pepdev.
  */
 
+var origin=window.location.origin;
+ $(function() {
+            $( "#name" ).autocomplete({
+                minLength: 1,
+
+                //source:"{{'/autoComplete_patients_list'}}",
+                source: "autoComplete_patients_list",
+                select: function( event, get_id ) {
+                    event.preventDefault();
+                    $("#name").val('');
+                    $("#name").val(get_id.item.name);
+                    $("#surname").val(get_id.item.surname);
+                    $("#email").val(get_id.item.email);
+                    $("#phone").val(get_id.item.phone);
+                    $("#patient_id").val(get_id.item.id);
+
+                   // $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
+
+                    return false;
+                }
+            }).data("ui-autocomplete")._renderItem = function( ul, item ) {
+                return $( "<li class='ui-autocomplete-row list-group-item  list-group-item-action font-weight-bold p-10 text-capitalize'></li>" )
+                    .data( "item.autocomplete", item )
+                    .append( item.label )
+                    .appendTo( ul );
+            };
+        });
+
  $(document).ready(function () {
  	"use strict";
 
@@ -31,37 +59,56 @@
     }
 
     function createAppointmentPopover(event) {
-        var status = '';
+      /*  var status = '';
         if (event.status == '1') { status = 'Cancelled'; }
         else if (event.status == '2') { status = 'In Process'; }
         else if (event.status == '3') { status = 'Confirmed'; }
         else if (event.status == '4') { status = 'Completed'; }
-        else { status = 'New'; }
+        else { status = 'New'; } */
 
-        return '<div><span class="font-12">Date:</span> '+event.start.format($('.common_daterange_format').val())+' at '+event.time+' o\'clock</div>'+
-        '<div><span class="font-12">Doctor:</span> '+event.doctor+'</div><div><span class="font-12">Status:</span> <span>'+status+'</span></div>';
+        return '<div ><span class="font-12">Date:</span> '+event.start.format($('.common_daterange_format').val())+' at '+event.time+' o\'clock</div>'+
+        '<div><span class="font-12">Doctor:</span> '+event.doctor+'</div><div><span class="font-12">Status:</span> <span>'+event.status+'</span></div>';
     }
 
     function openAppointmentSidebar() {
         var ele = $(this), body = $('body');
         body.css('overflow', 'hidden');
         body.append('<div class="overlay"></div>');
-        setTimeout(function() { $('.appointmet-sidebar').css('right', '0'); }, 50);
+        setTimeout(function() {
+           $('.appointmet-sidebar').css('right', '0');
+         },10);
+         $('#apnt-info #apt_times').html("");
+         $('#doctors_list').val('');
+         id_dr=0;
     }
+    function openAppointmentSidebar_for_create(){
+      var ele = $(this), body = $('body');
+      body.css('overflow', 'hidden');
+      body.append('<div class="overlay"></div>');
+      setTimeout(function() {
+         $('.appointmet-sidebar_create').css('right', '0');
+       },10);
+    }
+
+
 
     function closeAppointmentSidebar() {
         $('body').css('overflow', 'visible');
         $('.appointmet-sidebar').css('right', '-450px');
+          $('.appointmet-sidebar_create').css('right', '-450px');
         $('#apnt-info input').val('');
         $('#apnt-info select').val('');
 
         $('#apnt-info .apnt-time').parent().show();
         $('#apnt-info .apnt-slot-time').attr('name', 'appointment[slot]');
         $('#apnt-info .apnt-time').attr('name', 'appointment[time]');
-        $('#apnt-info .apnt-slot>div').remove();
+       $('#apnt-info .apnt-slot>div').remove();
+        $('#apnt-info #apt_times').html(" ");
 
         setTimeout(function() { $('.overlay').remove(); }, 200);
+
     }
+
 
     function getAppointmentSlot(data) {
         $.ajax({
@@ -121,26 +168,117 @@
 
     $('body').on('click', '.appointment-sidebar', function () {
         openAppointmentSidebar();
+
     });
 
+    function doctors(dr_id=""){
+        //doctors_list
+
+        const http=new XMLHttpRequest();
+        http.open('GET','doctors_list',true);
+        http.onload=function(){
+          if(this.status==200){
+            let datam=JSON.parse(this.responseText);
+            let verim='<option>Doktor seçiniz</option>';
+            datam.forEach(item => {
+              if(item.user_id==dr_id){ var selected="selected" ; }else{ var selected="" ; }
+
+              verim +='<option  value="' +item.user_id+'"' + selected + '>'+
+                      item.name +" "+item.surname + "("+  item.department+")" + " - " + item.phone +
+                       '</option>'
+            });
+            $("#lst_dr").html(verim);
+            $('.lst_dr').html(verim);
+          }
+        };
+        http.send();
+    }
+
+
+  var id_dr;
+    $("#apt_time_info").show();
+    $("#doctors_list").on("change",function(){
+
+    //  alert("chk select: "+chk);
+
+       id_dr=  $(this).val();
+       $("#apt_times").hide();
+
+        $("#apt_time_info").show();
+
+
+          var my_time=function(t){
+          if(id_dr!=0){
+
+          var day=t.getDay();
+           let aa=""; var cnt=0;
+           $.get('doctor_apt_time',{the_dr_id:id_dr,day:day},
+
+           function(data){
+            let  itm=JSON.parse(data);
+
+             itm.forEach(itms => {
+               if(itms.holiday){
+                // disable_days=[];
+               }else {
+                 aa+="<div><input name='apt_time' type='radio' id='for_time"+cnt+"' value='"+itms+"'required>"+
+                 "<label for='for_time"+cnt+"'>"+itms+"</label> </div>";
+                 cnt++;
+               }
+
+             });
+
+             $("#apt_time_info").hide();
+             $("#apt_times").html(aa).show();
+
+           });
+
+
+       }else{
+         $("#apt_time_info").show();
+       }
+
+     }
+
+          $('#default_datetimepicker').datetimepicker({
+            //formatTime:'H:i',
+            format:'d-m-Y',
+            //formatDate:'d/m/Y',
+          //  formatDate:'d.m.Y',
+            timepicker:false,
+            onChangeDateTime:my_time,
+            onShow:my_time,
+            dayOfWeekStart: 1,
+           disabledWeekDays: [0],
+          // allowTimes:times
+           //inline:true
+          });
+    });
 
     $('#calendar').fullCalendar({
-        events: path.concat('dashbaordappointment'),
-        header: {left: 'prev,next today',center: 'title',right: 'listDay,listWeek,month'},
-        views: {listDay: { buttonText: 'Today' },listWeek: { buttonText: 'Week' }},
+        events: path.concat('/events_calendar'), // {{url('/events_calendar')}}
+        editable:true,
+        selectable:true,
+        header:{
+         left:'prev,next today',
+         center:'title',
+         right:'month,agendaWeek,agendaDay'
+       },
+        //header: {left: 'prev,next today',center: 'title',right: 'listDay,listWeek,month'},
+      //  views: {listDay: { buttonText: 'Today' },listWeek: { buttonText: 'Week' }},
         lazyFetching: true,
-        loading: function (isLoading, view) {
-            var ele = $('#calendar').parent('.panel-body');
-            if (isLoading) {
-                $(ele).block({
-                    message: '<div class="font-16"><div class="ti-reload spinner mr-2 d-inline-block"></div>Loading ...</div>',
-                    overlayCSS: {backgroundColor: '#fff',opacity: 0.8,cursor: 'wait'},
-                    css: {border: 0,padding: '10px 15px',color: '#fff',width: 'auto',backgroundColor: '#333'},
-                });
-            } else {
-                ele.unblock()
-            }
-        },
+          loading: function (isLoading, view) {
+              var ele = $('#calendar').parent('.panel-body');
+              if (isLoading) {
+                  $(ele).block({
+                      message: '<div class="font-16"><div class="ti-reload spinner mr-2 d-inline-block"></div>Yükleniyor ...</div>',
+                      overlayCSS: {backgroundColor: '#fff',opacity: 0.8,cursor: 'wait'},
+                      css: {border: 0,padding: '10px 15px',color: '#fff',width: 'auto',backgroundColor: '#333'},
+                  });
+              } else {
+                  ele.unblock()
+              }
+          },
         defaultDate: moment().format("YYYY-MM-DD"),
         eventLimit: true,
         eventMouseover: function (event, jsEvent) {
@@ -154,35 +292,47 @@
         eventMouseout: function (event, jsEvent, view) {
             $(this).popover('dispose');
         },
-        eventClick: function (event, jsEvent, view) {
-            $('#apnt-info .apnt-id').val(event.id);
-            $('#apnt-info .patient-name').val(event.title);
-            $('#apnt-info .patient-mail').val(event.email);
-            $('#apnt-info .patient-mobile').val(event.mobile);
-            $('#apnt-info .apnt-doctor').val(event.doctor_id);
-            $('#apnt-info .apnt-department').val(event.department_id);
-            $('#apnt-info .apnt-date').val(event.start.format($('.common_daterange_format').val()));
-            $('#apnt-info .apnt-time').val(event.time);
-            $('#apnt-info .apnt-slot-time').val(event.slot);
-            $('#apnt-info .apnt-status').val(event.status);
 
-            createAppointmentDate();
+        eventClick: function (event, jsEvent, view) {
+          $('#apnt-info .apnt-id').val(event.apt_id);
+          $('#apnt-info .patient-name').val(event.title);
+          $('#apnt-info .patient-mail').val(event.email);
+          $('#apnt-info .patient-mobile').val(event.mobile);
+          $('#apnt-info .apnt-doctor').val(event.doctor_id);
+          $('#apnt-info .patient_id').val(event.patient_id);
+          $('#apnt-info .patient_name').val(event.p_name);
+          $('#apnt-info .patient_surname').val(event.p_surname);
+          $('#apnt-info .apnt-doctor_name').val(event.doctor);
+          $('#apnt-info .apnt-department').val(event.department_id);
+          $('#apnt-info .apnt-date').val(event.start.format($('.common_daterange_format').val()));
+          $('#apnt-info .apnt-time').val(event.time);
+          $('#apnt-info .apnt-slot-time').val(event.slot);
+          $('#apnt-info .apnt-status').val(event.status);
+          $('#apt_sidebar_form').get(0).setAttribute('action', origin+"/Appointments/"+event.apt_id);
+            //createAppointmentDate();
+            var dr_id=event.doctor_id;
+            doctors(dr_id);
+            //doctors_apt(dr_id);
             openAppointmentSidebar();
         },
         dayClick: function (date, event, view) {
             if (date.format('YYYY-MM-DD') >= new moment().format('YYYY-MM-DD')) {
-                openAppointmentSidebar();
+              //  openAppointmentSidebar();
+                  openAppointmentSidebar_for_create();
+                  doctors();
             }
             return false;
         }
     });
+
+
 
     $('#apnt-info .apnt-doctor').on('change', function () {
         $('#apnt-info .apnt-date').datepicker('destroy');
         $('#apnt-info .apnt-date').val('');
 
         $('#apnt-info .apnt-time').parent().show();
-        $('#apnt-info .apnt-slot-time').attr('name', 'appointment[slot]');
+      $('#apnt-info .apnt-slot-time').attr('name', 'appointment[slot]');
         $('#apnt-info .apnt-time').attr('name', 'appointment[time]');
 
         createAppointmentDate();

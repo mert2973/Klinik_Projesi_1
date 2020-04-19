@@ -15,8 +15,8 @@ function roundNumber(number, decimals) {
             numString += ".";
         }
         var cutoff = numString.lastIndexOf(".") + decimals;
-        var d1 = Number(numString.substring(cutoff, cutoff + 1)); 
-        var d2 = Number(numString.substring(cutoff + 1, cutoff + 2)); 
+        var d1 = Number(numString.substring(cutoff, cutoff + 1));
+        var d2 = Number(numString.substring(cutoff + 1, cutoff + 2));
         if (d2 >= 5) {
             if (d1 == 9 && cutoff > 0) {
                 while (cutoff > 0 && (d1 == 9 || isNaN(d1))) {
@@ -105,7 +105,7 @@ function update_price() {
             tax_amount = roundNumber(ele.find('.invoice-tax-rate').val() * price * 0.01, 2);
             ele.find('.single-tax-price').val(tax_amount);
             tax += Number($(this).find('input.invoice-tax-rate').val()) * price * 0.01;
-            
+
         });
         price = roundNumber(price, 2);
         tax_price = roundNumber(tax, 2);
@@ -148,8 +148,8 @@ function item_html(count) {
     '<input type="hidden" class="item-price">'+
     '</td>' +
     '<td>' +
-    '<a class="badge badge-warning badge-sm badge-pill add-taxes m-1">Add Taxes</a>' +
-    '<a class="badge badge-danger badge-sm badge-pill delete m-1">Delete</a>' +
+    '<a class="badge badge-warning badge-sm badge-pill add-taxes m-1">Vergi Ekle</a>' +
+    '<a class="badge badge-danger badge-sm badge-pill delete m-1">Sil</a>' +
     '</td>' +
     '</tr>';
 
@@ -162,11 +162,12 @@ function item_html(count) {
 
 function initAutocomplete() {
     $(".item-name").autocomplete({
-        source: path.concat('item/search'),
-        minLength: 2,
+        source: path.concat('/inv_items'),
+        minLength: 1,
         focus: function() { return false; },
         select: function( event, ui ) {
-            var ele = $(this).parents('tr');
+
+          var ele = $(this).parents('tr');
             ele.find(".item-name").val(ui.item.label);
             ele.find(".item-descr").val(ui.item.description);
             ele.find(".item-cost" ).val(roundNumber(ui.item.price, 2));
@@ -186,15 +187,21 @@ $(document).ready(function () {
     $(".paid-amount").on('blur', update_balance);
 
     $(".patient-doctor").autocomplete({
-        source: path.concat('doctor/search'),
-        minLength: 2,
-        focus: function() {return false;},
+        source: path.concat('/search_a_doctor'),
+        minLength: 1,
+       // focus: function() {return false;},
         select: function( event, ui ) {
-            $('.patient-doctor').val(ui.item.label);
+            $('.patient-doctor').val(ui.item.name+" "+ui.item.surname);
             $('.patient-doctor-id').val(ui.item.id);
             return false;
         }
-    });
+    }).data("ui-autocomplete")._renderItem = function( ul, item ) {
+        return $( "<li class='ui-autocomplete-row list-group-item  list-group-item-action font-weight-bold pl-10 pb-2 pt-2 text-capitalize'></li>" )
+            .data( "item.autocomplete", item )
+            .append( item.label )
+            .appendTo( ul );
+    };
+
 
     $('.invoice-items').on('click', '.add-items', function () {
         if($(".item-row").length === 0) {
@@ -217,7 +224,7 @@ $(document).ready(function () {
         });
         $('#addTax').modal('show');
     });
-    
+
     $('#addTax').on('hidden.bs.modal', function (e) {
         $('.tax-modal-open').removeClass('tax-modal-open');
         $("#addTax input").prop("checked", false);
@@ -225,12 +232,12 @@ $(document).ready(function () {
 
     $('body').on('click', '.add-modal-taxes', function () {
         $('.tax-modal-open p').remove();
-        
+
         var ele_target  = $('.tax-modal-open').parents('.item-row'),
         price = ele_target.find('.item-cost').val() * ele_target.find('.item-quantity').val(),
         count = ele_target.find('.item-name').attr('name').split('[')[2];
         count = parseInt(count.split(']')[0]);
-        
+
         $("input:checkbox[name=modaltax]:checked").each(function(index, element){
             var ele = $(this), name = ele.siblings("label").text(), id = ele.val(), rate = ele.data('rate'),
             tax_amount = roundNumber(rate * price * 0.01, 2);
@@ -238,7 +245,7 @@ $(document).ready(function () {
             $('.tax-modal-open').prepend('<p class="badge badge-light badge-sm badge-pill">'+
                 name+
                 '<input type="text" class="single-tax-price" name="invoice[item]['+count+'][tax]['+index+'][tax_price]" value="'+tax_amount+'" readonly>'+
-                '<input type="hidden" class="invoice-tax-id" name="invoice[item]['+count+'][tax]['+index+'][id]" value="'+id+'">'+ 
+                '<!--<input type="hidden" class="invoice-tax-id" name="invoice[item]['+count+'][tax]['+index+'][id]" value="'+id+'">-->'+
                 '<input type="hidden" name="invoice[item]['+count+'][tax]['+index+'][name]" value="'+name+'">' +
                 '<input type="hidden" class="invoice-tax-rate" name="invoice[item]['+count+'][tax]['+index+'][rate]" value="' +rate+'">' +
                 '</p>');
@@ -264,3 +271,23 @@ $(document).ready(function () {
 
     initAutocomplete();
 });
+
+$(document).ready(function () {
+    $(".src-patient").autocomplete({
+        source: path.concat('/autoComplete_patients_list'),
+        minLength: 1,
+        focus: function() {return false;},
+        select: function( event, ui ) {
+            $('.patient-name').val(ui.item.name+" "+ui.item.surname);
+            $('.patient-id').val(ui.item.id);
+            $('.patient-mail').val(ui.item.email);
+            $('.patient-mobile').val(ui.item.phone);
+            return false;
+        }
+    }).data("ui-autocomplete")._renderItem = function( ul1, item1 ) {
+        return $( "<li class='ui-autocomplete-row list-group-item  list-group-item-action font-weight-bold pl-10 pb-2 pt-2 text-capitalize'></li>" )
+            .data( "item.autocomplete", item1 )
+            .append( item1.label )
+            .appendTo( ul1 );
+    };
+})

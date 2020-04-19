@@ -14,7 +14,7 @@ class CreateInventoryMedicinesTable extends Migration
     public function up()
     {
         Schema::create('inventory_medicines', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->autoIncrement();
             $table->integer("clinic_id");
             $table->string("medc_name");
             $table->string("medc_category");

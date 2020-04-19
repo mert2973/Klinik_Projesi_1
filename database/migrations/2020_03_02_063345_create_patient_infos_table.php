@@ -14,7 +14,7 @@ class CreatePatientInfosTable extends Migration
     public function up()
     {
         Schema::create('patient_infos', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->autoIncrement();
             $table->integer('patient_id');
             $table->string('city')->varchar(15)->nullable();
             $table->string('country')->varchar(20)->nullable();

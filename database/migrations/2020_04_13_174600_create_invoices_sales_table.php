@@ -72,7 +72,7 @@ class CreateInvoicesSalesTable extends Migration
         **/
         Schema::create('invoices_sales', function (Blueprint $table) {
 
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->autoIncrement();
             $table->integer('patient_id');
             $table->integer("doctor_id");
 
