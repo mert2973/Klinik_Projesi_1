@@ -112,6 +112,7 @@ class Invoice_Items extends Controller
      */
     public function destroy($id)
     {
-        //
+        Inv_Items::where("id",$id)->delete();
+        return redirect()->back()->with("success","Başarıyla Silinmiştir...");
     }
 }

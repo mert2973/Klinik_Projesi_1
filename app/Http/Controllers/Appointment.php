@@ -11,6 +11,7 @@ use App\clinicNotes_advices;
 use App\DoctorApt_Time;
 use App\events;
 use App\Prescriptions;
+use App\Teeth_Process;
 use Carbon\Carbon;
 use http\Header;
 use http\Url;
@@ -94,7 +95,7 @@ class Appointment extends Controller
             'patient_id'=>$items['patient_id'],
             'start'=>$items['apt_date'],
             'end'=>$items['apt_date_end'],
-            'time'=>$items['apt_time'],
+            'time'=>Carbon::parse($items['apt_time'])->format("H:i"),
             'status'=>$items['apt_status'],
             'reason'=>$items['apt_reason'],
             'title'=>$items['p_name']." ".$items['p_surname'] ,
@@ -189,6 +190,7 @@ class Appointment extends Controller
             $investigations = Clinic_Investigations::where('apt_investigations_id', $dr_with_ptn->id)->pluck('investigations', 'id')->toArray();
             $notes_advices = clinicNotes_advices::where('apt_notes_adv_id', $dr_with_ptn->id)->pluck('notes_advices', 'id')->toArray();
             $prescriptions=Prescriptions::where("apt_id",$apt_id)->get();
+           // $teeth_processes=Teeth_Process::where("apt_id",$apt_id)->get();
 
             if($dr_with_ptn!=null){
                 $date= Carbon::parse($dr_with_ptn->apt_date)->format("d/m/Y H:m");
@@ -231,6 +233,7 @@ class Appointment extends Controller
                     $investigations = Clinic_Investigations::where('apt_investigations_id', $dr_with_patient->id)->pluck('investigations', 'id')->toArray();
                     $notes_advices = clinicNotes_advices::where('apt_notes_adv_id', $dr_with_patient->id)->pluck('notes_advices', 'id')->toArray();
                     $prescriptions=Prescriptions::where("apt_id",$apt_id)->get();
+                    $teeth_processes=Teeth_Process::where("apt_id",$apt_id)->get();
 
                     $doctor_id = $dr_with_patient->doctors_id;
                     if ( $dr_with_patient == null ) {
@@ -241,7 +244,7 @@ class Appointment extends Controller
                         $date = Carbon::parse($dt)->format('d-m-Y');
                         return view('pages.Appointment_Edit',
                             compact('all_doctors', 'doctor_id', 'dr_with_patient', 'problems', 'observations', 'diagnosis',
-                                'investigations', 'notes_advices',"prescriptions",'date'));
+                                'investigations', 'notes_advices',"prescriptions","teeth_processes",'date'));
                     }
                 }else{
                     return redirect()->back()->with("warning","Kayıt Bulunamadı");
@@ -262,7 +265,7 @@ class Appointment extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $apt_id){
-
+       // return $request->all();
 
         // $apt_url= url("")."/Appointments";    //http://klinik.com:8080
         //return url()->previous();
@@ -459,6 +462,42 @@ class Appointment extends Controller
                     }
 
                     /*****End clinic notes advices ******/
+
+                /****Teeth Processes *****/
+                $teeth_arr=array();
+                if(!empty($request->tooth_record)){
+                    foreach ($request->tooth_record as $tt){
+                        Teeth_Process::where("id",$tt["id"])->update([
+                            "prc_name"=>$tt["name"],
+                            "piece"=>$tt["piece"],
+                            "exp_prc"=>$tt["exp"],
+                            "teeth_num"=>$tt["tooth"],
+                        ]);
+                        $teeth_arr[]=$tt["id"]; //set at array all exist ids which at web side
+                    }
+                }
+                $teeth_data= Teeth_Process::where("apt_id",$apt_id)->get();
+                if($teeth_data!=null){ // if exist data at db
+                    foreach ($teeth_data as $dd){
+                        if(in_array($dd->id,$teeth_arr)==false){
+                            Teeth_Process::where("id",$dd->id)->delete();
+                        }
+                    }
+                }
+
+                if(!empty($request->teeth["tooth"])){
+                    foreach ( $request->teeth["tooth"] as $value){
+                        Teeth_Process::create([
+                            "apt_id"=>$apt_id,
+                            "prc_name"=>$value["name"],
+                            "piece"=>$value["piece"],
+                            "exp_prc"=>$value["exp"],
+                            "teeth_num"=>$value["tooth"],
+
+                        ]);
+                    }
+                }
+                /****End. Teeth Processes *****/
 
                 /**** Prescripton *****/
                 $pres_arr=array();

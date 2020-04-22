@@ -13,6 +13,21 @@ class Inventory_Medicine extends Controller
         $this->middleware("auth");
     }
 
+    public function autocomplete_medicine(){
+        $clinic_id= Auth::user()->the_clinic_id();
+
+        $trm=$_GET["term"];
+        $mdc=Inventory_Medicines::where("medc_name","like","%".$trm."%")->where("clinic_id",$clinic_id)->get();
+        $datas=array();
+        foreach ($mdc as $list){
+            $data["id"]=$list["id"];
+            $data["value"]=$list["medc_name"];
+            $data["label"]=$list["medc_name"]." ".$list["medc_company"];
+            array_push($datas,$data);
+        }
+        echo  json_encode($datas);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -72,7 +87,8 @@ class Inventory_Medicine extends Controller
      */
     public function show($id)
     {
-        return view("pages.Inv_Medicine_View");
+        $inv_mdcn= Inventory_Medicines::where("id",$id)->first();
+        return view("pages.Inv_Medicine_View",compact("inv_mdcn"));
     }
 
     /**

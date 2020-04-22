@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class Supplier extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("auth");
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +21,8 @@ class Supplier extends Controller
     public function index()
     {
         $clinic_id=Auth::user()->the_clinic_id();
-       $suppliers= Suppliers::where("clinic_id",$clinic_id)->get();
-        return view("pages.Suppliers",compact($suppliers));
+       $suppliers= Suppliers::where("clinic_id",$clinic_id)->paginate(10);
+        return view("pages.Suppliers",compact("suppliers"));
     }
 
     /**
@@ -38,7 +43,15 @@ class Supplier extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $clinic_id=Auth::user()->the_clinic_id();
+      Suppliers::create([
+         "clinic_id"=>$clinic_id,
+         "spp_name"=>$request->name,
+         "spp_email"=>$request->email,
+         "spp_phone"=>$request->phone,
+         "spp_adress"=>$request->address,
+      ]);
+      return redirect()->back()->with("success","Eklemiş Olduğunuz Tedarikçi Bilgilieri, Başarıyla Kaydedilmiştir");
     }
 
     /**
@@ -49,7 +62,7 @@ class Supplier extends Controller
      */
     public function show($id)
     {
-        //
+        return view("pages.Supplier_View");
     }
 
     /**
@@ -58,9 +71,16 @@ class Supplier extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,Request $request) // Edit With Update
     {
-        //
+
+        Suppliers::where("id",$id)->update([
+            "spp_name"=>$request->name,
+            "spp_email"=>$request->email,
+            "spp_phone"=>$request->phone,
+            "spp_adress"=>$request->address,
+        ]);
+        return redirect()->back()->with("success","Değişiklikler, Sisteme Başarıyla Kaydedilmiştir");
     }
 
     /**
@@ -83,6 +103,7 @@ class Supplier extends Controller
      */
     public function destroy($id)
     {
-        //
+       Suppliers::where("id",$id)->delete();
+       return redirect()->back()->with("success","İlgili Tedarikçi Bilgileri Başarıyla Silinmiştir");
     }
 }
