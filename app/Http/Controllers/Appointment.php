@@ -10,7 +10,10 @@ use App\Clinic_Problems;
 use App\clinicNotes_advices;
 use App\DoctorApt_Time;
 use App\events;
+use App\Patients;
 use App\Prescriptions;
+use App\product_history;
+use App\Product_Stocks;
 use App\Teeth_Process;
 use Carbon\Carbon;
 use http\Header;
@@ -180,6 +183,7 @@ class Appointment extends Controller
      */
     public function show($apt_id)
     {
+
         if($apt_id!=null){
             $doctor_with_his_her_patient= Auth::user()->doctor_with_his_patients();
             $dr_with_ptn= $doctor_with_his_her_patient->where('id',$apt_id)->first();
@@ -190,11 +194,11 @@ class Appointment extends Controller
             $investigations = Clinic_Investigations::where('apt_investigations_id', $dr_with_ptn->id)->pluck('investigations', 'id')->toArray();
             $notes_advices = clinicNotes_advices::where('apt_notes_adv_id', $dr_with_ptn->id)->pluck('notes_advices', 'id')->toArray();
             $prescriptions=Prescriptions::where("apt_id",$apt_id)->get();
-           // $teeth_processes=Teeth_Process::where("apt_id",$apt_id)->get();
+            $teeth_processes=Teeth_Process::where("apt_id",$apt_id)->get();
 
             if($dr_with_ptn!=null){
                 $date= Carbon::parse($dr_with_ptn->apt_date)->format("d/m/Y H:m");
-                return view('pages.Appointment_View',compact('dr_with_ptn',"date","problems","observations","diagnosis","investigations","investigations","notes_advices","prescriptions"));
+                return view('pages.Appointment_View',compact('dr_with_ptn',"date","problems","observations","diagnosis","investigations","investigations","notes_advices","prescriptions","teeth_processes"));
             }else{
                 echo "Kayıt incelemesi için doktor veya hasta kaydı bulunamadı. Yönlendiriliyorsunuz...";
                 return header('refresh:3;url=/Appointments');
@@ -265,7 +269,8 @@ class Appointment extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $apt_id){
-       // return $request->all();
+      //  return $request->all();
+    //   return $request->tooth_record[0]["itm_id"];
 
         // $apt_url= url("")."/Appointments";    //http://klinik.com:8080
         //return url()->previous();
@@ -304,9 +309,8 @@ class Appointment extends Controller
                         'apt_reason' => $request->apt_rsn,
                     ]);
                         $Appointments_cahanges_success=1;
-
                 }
-                $chk_if_exist = Appointments::where(['doctors_id' => $new_doctor_id, 'patients_id' => $request->patient_id])->where("apt_date","=",$date)->first();
+                $chk_if_exist = Appointments::where(['doctors_id' => $new_doctor_id, 'patients_id' => $request->patient_id])->where("id","!=",$apt_id)->where("apt_date","=",$date)->first();
                 // return $chk_if_exist = Appointments::where(['apt_date'=>$date])->first();
                 if ( $chk_if_exist == null ) { //if not exist same patient infos at another doctor page
                     Appointments::where(['id'=>$apt_id])->update([//, 'patients_id' => $patient_id, 'doctors_id' => $previous_doctor_id
@@ -469,11 +473,19 @@ class Appointment extends Controller
                     foreach ($request->tooth_record as $tt){
                         Teeth_Process::where("id",$tt["id"])->update([
                             "prc_name"=>$tt["name"],
+                            "itm_id"=>$tt["itm_id"],
                             "piece"=>$tt["piece"],
+                            "itm_type"=>$tt["type"],
                             "exp_prc"=>$tt["exp"],
                             "teeth_num"=>$tt["tooth"],
                         ]);
                         $teeth_arr[]=$tt["id"]; //set at array all exist ids which at web side
+                        /*--update teeth of product--*/
+                      /* $data_product= Product_Stocks::where("id",$tt["itm_id"])->first();
+                        Product_Stocks::where("id",$tt["itm_id"])->update([
+                            "have_products"=>($data_product->have_products-$tt["piece"]),
+                        ]); */
+                        /*--End.update teeth of product--*/
                     }
                 }
                 $teeth_data= Teeth_Process::where("apt_id",$apt_id)->get();
@@ -485,16 +497,50 @@ class Appointment extends Controller
                     }
                 }
 
-                if(!empty($request->teeth["tooth"])){
+                if(!empty($request->teeth["tooth"])){ //for new line
                     foreach ( $request->teeth["tooth"] as $value){
+                        if(empty($value["itm_id"])){
+                            return redirect()->back()->with("warning","Yapılan işlemler sayfasında İşlem Adı Bilgisi Alınamadı, Lütfen Açılan Listeden BirSeçim Yapınız!");
+                        }
                         Teeth_Process::create([
                             "apt_id"=>$apt_id,
                             "prc_name"=>$value["name"],
+                            "itm_id"=>$value["itm_id"],
                             "piece"=>$value["piece"],
+                            "itm_type"=>$value["type"],
                             "exp_prc"=>$value["exp"],
                             "teeth_num"=>$value["tooth"],
-
                         ]);
+
+                        /*___*/
+                        /*---update parent table of product---*/
+                       /* $data_product0=Product_Stocks::where(["id"=>$value["itm_id"],"type"=>0])->first();
+                        if($data_product0!=null){
+                            Product_Stocks::where(["id"=>$value["itm_id"],"type"=>0])->update([
+                                "have_products"=>($data_product0->have_products-$value["piece"]),
+                            ]);
+                        }  */
+                        /*---End.update parent table of product---*/
+                        $data_product1=Product_Stocks::where(["id"=>$value["itm_id"],"type"=>0])->first(); //as updated
+                        $data_his_product=product_history::where(["apt_id"=>$apt_id,"product_id"=>$value["itm_id"]])->first();
+                        if($data_his_product!=null){
+                            /* product_history::where(["apt_id"=>$apt_id,"product_id"=>$value["itm_id"]])->update([
+                                "process_date" =>Carbon::now(),
+                                "sold"=>($data_his_product->sold+$value["piece"]),
+                                "remaining"=>($data_his_product->remaining-$value["piece"]),
+                            ]); */
+                        }elseif($data_his_product==null){ //$data_his_product->sold+
+                           /* product_history::create([
+                                "apt_id"=>$apt_id,
+                                "process_date" =>Carbon::now(),
+                                "product_id"=>$value["itm_id"],
+                                "ptn_id"=>$request->patient_id,
+                                "Explanation"=>$request->patient_name,
+                                "sold"=>$value["piece"],
+                                "remaining"=>$data_product1->have_products
+                            ]);*/
+                        }
+                        /*____*/
                     }
                 }
                 /****End. Teeth Processes *****/

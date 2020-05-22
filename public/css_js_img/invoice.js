@@ -130,12 +130,13 @@ function item_html(count) {
     var item_html = '<tr class="item-row">'+
     '<td class="">'+
     '<textarea name="invoice[item]['+count+'][name]" class="item-name" required></textarea>'+
+    '<input type="hidden" name="invoice[item]['+count+'][itm_id]" class="item_id" required>'+
     '</td>'+
     '<td class="invoice-item">'+
     '<textarea name="invoice[item]['+count+'][descr]" class="item-descr"></textarea>'+
     '</td>'+
     '<td class="">'+
-    '<textarea type="text" name="invoice[item]['+count+'][quantity]" class="item-quantity" required>1</textarea>'+
+    '<input type="number" name="invoice[item]['+count+'][quantity]" value="1" class="item-quantity h-300" style="padding-bottom: 15px" required>'+
     '</td>'+
     '<td class="">'+
     '<textarea type="text" name="invoice[item]['+count+'][cost]" class="item-cost" required></textarea>'+
@@ -159,16 +160,37 @@ function item_html(count) {
         $(".item-row:last").after(item_html);
     }
 }
-
+/*
 function initAutocomplete() {
     $(".item-name").autocomplete({
         source: path.concat('/inv_items'),
+       // source: '/get_medicine',
         minLength: 1,
         focus: function() { return false; },
         select: function( event, ui ) {
 
           var ele = $(this).parents('tr');
-            ele.find(".item-name").val(ui.item.label);
+            ele.find(".item-name").val(ui.item.name);
+            ele.find(".item-descr").val(ui.item.description);
+            ele.find(".item-cost" ).val(roundNumber(ui.item.price, 2));
+            ele.find(".item-total-price" ).val(roundNumber(ui.item.price,2));
+            ele.find(".item-price" ).val(roundNumber(ui.item.price,2));
+            update_price();
+            return false;
+        }
+    });
+}  */
+function initAutocomplete() {
+    $(".item-name").autocomplete({
+      source: path.concat('/get_medicine'),
+        //source: '/get_medicine',
+        minLength: 1,
+        focus: function() { return false; },
+        select: function( event, ui ) {
+
+            var ele = $(this).parents('tr');
+            ele.find(".item-name").val(ui.item.name);
+            ele.find(".item_id").val(ui.item.id);
             ele.find(".item-descr").val(ui.item.description);
             ele.find(".item-cost" ).val(roundNumber(ui.item.price, 2));
             ele.find(".item-total-price" ).val(roundNumber(ui.item.price,2));
@@ -223,13 +245,26 @@ $(document).ready(function () {
             $('#addTax').find('#inv-taxes-'+id).prop('checked', true)
         });
         $('#addTax').modal('show');
+
     });
+
+
 
     $('#addTax').on('hidden.bs.modal', function (e) {
         $('.tax-modal-open').removeClass('tax-modal-open');
         $("#addTax input").prop("checked", false);
     });
-
+    /***seperate the record proces from new process(items) **/
+    var chk_tax_items=0;
+    $("body").on("click",".RCD",function () {
+        chk_tax_items=1;
+        // alert("RC itm :" + chk_tax_items);
+    });
+    $(".new_itm").on("click",function () {
+        chk_tax_items*=0;
+       // alert("new itm :"+chk_tax_items);
+    });
+    /***End.seperate the record proces from new process(items) **/
     $('body').on('click', '.add-modal-taxes', function () {
         $('.tax-modal-open p').remove();
 
@@ -241,14 +276,25 @@ $(document).ready(function () {
         $("input:checkbox[name=modaltax]:checked").each(function(index, element){
             var ele = $(this), name = ele.siblings("label").text(), id = ele.val(), rate = ele.data('rate'),
             tax_amount = roundNumber(rate * price * 0.01, 2);
+            if(chk_tax_items==0){// if it is a new item
+                $('.tax-modal-open').prepend('<p class="badge badge-light badge-sm badge-pill">'+
+                    name+
+                    '<input type="text" class="single-tax-price" name="invoice[item]['+count+'][tax]['+index+'][tax_price]" value="'+tax_amount+'" readonly>'+
+                    '<!--<input type="hidden" class="invoice-tax-id" name="invoice[item]['+count+'][tax]['+index+'][id]" value="'+id+'">-->'+
+                    '<input type="hidden" name="invoice[item]['+count+'][tax]['+index+'][name]" value="'+name+'">' +
+                    '<input type="hidden" class="invoice-tax-rate" name="invoice[item]['+count+'][tax]['+index+'][rate]" value="' +rate+'">' +
+                    '</p>');
+            }
+            if(chk_tax_items==1){ //if it a record
+                $('.tax-modal-open').prepend('<p class="badge badge-light badge-sm badge-pill">'+
+                    name+
+                    '<input type="text" class="single-tax-price" name="invoice[item_record]['+count+'][tax]['+index+'][tax_price]" value="'+tax_amount+'" readonly>'+
+                    '<!--<input type="hidden" class="invoice-tax-id" name="invoice[item]['+count+'][tax]['+index+'][id]" value="'+id+'">-->'+
+                    '<input type="hidden" name="invoice[item_record]['+count+'][tax]['+index+'][name]" value="'+name+'">' +
+                    '<input type="hidden" class="invoice-tax-rate" name="invoice[item_record]['+count+'][tax]['+index+'][rate]" value="' +rate+'">' +
+                    '</p>');
+            }
 
-            $('.tax-modal-open').prepend('<p class="badge badge-light badge-sm badge-pill">'+
-                name+
-                '<input type="text" class="single-tax-price" name="invoice[item]['+count+'][tax]['+index+'][tax_price]" value="'+tax_amount+'" readonly>'+
-                '<!--<input type="hidden" class="invoice-tax-id" name="invoice[item]['+count+'][tax]['+index+'][id]" value="'+id+'">-->'+
-                '<input type="hidden" name="invoice[item]['+count+'][tax]['+index+'][name]" value="'+name+'">' +
-                '<input type="hidden" class="invoice-tax-rate" name="invoice[item]['+count+'][tax]['+index+'][rate]" value="' +rate+'">' +
-                '</p>');
         });
 
         update_price();
@@ -263,6 +309,7 @@ $(document).ready(function () {
         } else {
             toastr.error('One row is compulsory for invoice.', 'Warning');
         }
+        update_price();
         bind();
         return false;
     });
@@ -291,3 +338,83 @@ $(document).ready(function () {
             .appendTo( ul1 );
     };
 })
+
+$(document).ready(function () {
+
+   $("body").click(function () {
+     var dr_id = $(".chk_dr_id").val();
+     var ptn_id = $(".patient-id").val();
+      var ab= $("#check_ptn_items_button").val();
+       if(dr_id!="" && ptn_id!="" && ab=="open"){
+         // alert("ok");
+          $.get({url:"/chk_ptn_extra_items"},{ptn_id:ptn_id,dr_id:dr_id},function (data) {
+            //  alert(data);
+            let data_all= JSON.parse(data);
+             data_all.forEach(itms=>{
+               if(itms.chk=="true"){
+                   $("#add_ptn_items").removeClass("disabled").val("active");
+               } else{
+                   $("#add_ptn_items").addClass("disabled").val("disabled");
+               }
+             });
+          });
+       }
+     });
+
+    $("#add_ptn_items").click(function () {
+        var chk=$(this).val();
+        if(chk=="active"){
+            var say=1;
+            var dr_id = $(".chk_dr_id").val();
+            var ptn_id = $(".patient-id").val();
+            $.get({url:"/add_ptn_item_proceseses"},{dr_id:dr_id,ptn_id:ptn_id},
+                function (datam) {
+                    let html="";
+                    let all_data=JSON.parse(datam);
+                    all_data.forEach(items2=>{
+
+                                html+="<tr class='item-row new_lines_delete' >"+
+                                    "<input type='hidden' name='invoice[item_record]["+say+"][prc_tooth_id]' value='"+items2.id+"'>"+
+                                    "<input type='hidden' name='invoice[item_record]["+say+"][itm_id]' value='"+items2.itm_id+"'>"+
+                                    "<td>"+
+                                    " <textarea name='invoice[item_record]["+say+"][name]' class='item-name ui-autocomplete-input ' required='' readonly autocomplete='off'>"+items2.itm_name+"</textarea> "+
+                                    "</td>"+
+                                    "<td class=''>"+
+                                    "<textarea name='invoice[item_record]["+say+"][descr]' class='item-descr' readonly>"+items2.apt_date+"</textarea> "+ /* items2.itm_dscr*/
+                                    "</td>"+
+                                    "<td class=''>" +
+                                    "<input type='number' name='invoice[item_record]["+say+"][quantity]' value='"+items2.piece+"' class='item-quantity  h-300' style='padding-bottom: 15px' readonly required='' id='click"+say+"'>" +
+                                    "</td>"+
+                                    "<td class=''>" +
+                                    "<textarea type='text' name='invoice[item_record]["+say+"][cost]' class='item-cost' readonly required=''>"+  roundNumber(items2.itm_cost, 2)+"</textarea>" +
+                                    "</td>"+
+                                    "<td class='invoice-tax'>" +
+                                    "<input type='hidden' name='invoice[item_record]["+say+"][taxprice]' class='item-tax-price' value='0' readonly=''>" +
+                                    "</td>" +
+                                    "<td class=''>"+
+                                    "<textarea type='text' name='invoice[item_record]["+say+"][price]' class='item-total-price' required='' readonly='readonly'></textarea>"+
+                                    "<input type='hidden' class='item-price'>"+
+                                    "</td>" +
+                                    "<td>" +
+                                    "<a class='badge badge-warning badge-sm badge-pill add-taxes RCD m-1'>Vergi Ekle</a>" +
+                                    "<a class='badge badge-danger badge-sm badge-pill delete m-1' >Sil</a>" +
+                                    "</td></tr>";
+                                // $(".item-name").val(items2[0].itm_name);
+                                say++;
+                       });
+                    $("#new_line").after(html);
+                    update_price();
+
+            });
+
+            $("#check_ptn_items_button").val("close");
+            $("#add_ptn_items").addClass("disabled").val("disabled");
+        }else{
+            alert("Hasta Adı ve Doktor Adı Seçildiğinde, Hasta'ya Ait hizmetler bulunursa Buton Aktif Olacaktır!");
+        }
+    });
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+});

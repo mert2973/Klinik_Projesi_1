@@ -8,8 +8,10 @@ use App\Clinic_Investigations;
 use App\Clinic_Observations;
 use App\Clinic_Problems;
 use App\clinicNotes_advices;
+use App\invoices_sales_history;
 use App\Patient_Infos;
 use App\Prescriptions;
+use App\Teeth_Process;
 use Illuminate\Http\Request;
 use App\Patients;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +25,7 @@ class Patient extends Controller
     {
       $this->middleware('auth');
      // $this->middleware('Yetkili_Doktor');
+
     }
 
     public function autoComplete_patients(Patients $pt){
@@ -137,6 +140,7 @@ class Patient extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id,Doctor $dr)//Patient_View
     {
         $list_doctors= $dr->all_doctors();
@@ -155,7 +159,7 @@ class Patient extends Controller
         /****End. clinic notes****/
 
         $problems=array(); $observations=array(); $diagnosis=array(); $investigations=array(); $notes_advices=array();
-        $prescriptions=array();
+        $prescriptions=array(); $teeth_processes=array();
         foreach ($list_appointment2 as $apt_idd) {
             $problems[] = Clinic_Problems::where('apt_problmes_id', $apt_idd->id)->get();
             $observations[] = Clinic_Observations::where('apt_observations_id', $apt_idd->id)->get();
@@ -163,12 +167,15 @@ class Patient extends Controller
             $investigations[] = Clinic_Investigations::where('apt_investigations_id', $apt_idd->id)->get();
             $notes_advices[] = clinicNotes_advices::where('apt_notes_adv_id', $apt_idd->id)->get();
             $prescriptions[]=Prescriptions::where("apt_id",$apt_idd->id)->get();
+            $teeth_processes[]=Teeth_Process::where("apt_id",$apt_idd->id)->get();
         }
-
+     //return $teeth_processes;
+      $inv_sales_history= invoices_sales_history::where("ptn_id",$id)->get();
        // return  $prescriptions;
         return view('pages.Patient_View',compact('the_patient_infos','list_appointment',"list_doctors",
-                       'list_appointment2',"list_appointment_grpDR_id"))
-            ->with(["problems"=>$problems,"observations"=>$observations,"diagnosis"=>$diagnosis,"investigations"=>$investigations,"notes_advices"=>$notes_advices,"prescriptions"=>$prescriptions]);
+                       'list_appointment2',"list_appointment_grpDR_id","inv_sales_history"))
+            ->with(["problems"=>$problems,"observations"=>$observations,"diagnosis"=>$diagnosis,"investigations"=>$investigations,"notes_advices"=>$notes_advices,
+                "prescriptions"=>$prescriptions,"teeth_processes"=>$teeth_processes]);
 
     }
 

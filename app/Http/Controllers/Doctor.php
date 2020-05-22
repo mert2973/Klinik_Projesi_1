@@ -142,6 +142,7 @@ class Doctor extends Controller
       return view('pages.Doctor_Edit',compact('the_doctor',"doctor_apt_time"));
     }
     function update_doctor_info(Request $request){
+       // return $request->all();
         $doctor_id=$request->dr_id;
         User::where(['id'=>$doctor_id])->update([
             "name"=>$request->name,
@@ -175,12 +176,14 @@ class Doctor extends Controller
             "twitter_link" => $request-> twitter_link,
             "instegram_link" => $request-> instagram_link,
         ]);
+
         for($i=1;$i<=7;$i++){
             if(!empty($request->appointment_dr['time'][$i]["holiday"])){
                 $holiday=1;
             }else{
                 $holiday=0;
             }
+           //return $request->appointment_dr['time'][$i]["slot_time"];
             DoctorApt_Time::where(["doctor_id"=>$request->dr_id,"day"=>$i])->update([
                 "bfr_lunch_begin"=>$request->appointment_dr['time'][$i]["before_lunch_begin"],
                 "bfr_lunch_end"=>$request->appointment_dr['time'][$i]["before_lunch_end"],

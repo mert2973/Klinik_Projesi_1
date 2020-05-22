@@ -62,14 +62,15 @@ Route::prefix('/')->group(function () {
    Route::get('/doctor_apt_time','Appointment@doctor_apt_time');
 
    Route::resource("Sales_Invoices","InvoicesOf_Sales");
-   Route::post("add_payment_history","InvoicesOf_Sales@payment_history");
+   Route::get("add_ptn_item_proceseses","InvoicesOf_Sales@add_ptn_item_proceseses");
+   Route::get("chk_ptn_extra_items","InvoicesOf_Sales@chk_ptn_extra_items");
+   Route::post("add_payment_history_for_sale","InvoicesOf_Sales@payment_history");
+   Route::post("add_payment_history_for_purchase","Order_Management@payment_history");
 
-    Route::get('Invoices_Purchase',function (){
-        return view('pages.Invoices_Purchase');
-    });
-    Route::get('Invoice_Purchase_Add',function (){
-        return view('pages.Invoice_Purchase_Add');
-    });
+  Route::resource('Invoices_Purchase',"InvoicesOf_Purchase");
+  Route::resource('Order_Management',"Order_Management");
+  Route::resource('Casing',"Casing");
+
 
 
    Route::get('/Prescription',function (){
@@ -80,7 +81,9 @@ Route::prefix('/')->group(function () {
    });
 
     /**** Satın alma ******/
-   Route::resource('Inventory_Medicines','Inventory_Medicine');// Products - Urunler
+   Route::resource('Product_Stocks','Product_Stock');// Products - Urunler
+   Route::get('get_medicine','Product_Stock@autocomplete_medicine');// Products - Urunler
+
    Route::get("Purchase",function (){
       return view("pages.Purchase");
    });

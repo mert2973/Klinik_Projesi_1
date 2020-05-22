@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Order_Managements;
+use App\order_mng_history;
 use App\Suppliers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,7 +64,12 @@ class Supplier extends Controller
      */
     public function show($id)
     {
-        return view("pages.Supplier_View");
+       // return $id;
+       // $data=$om->order_mng_with_history_payment()->get();
+       // $mng_with_payment= $data->where("supplier_id",$id);
+        $supplier=Suppliers::where("id",$id)->first();
+        $mng_with_payment=order_mng_history::where("supplier_id",$id)->get();
+        return view("pages.Supplier_View",compact("mng_with_payment","supplier"));
     }
 
     /**

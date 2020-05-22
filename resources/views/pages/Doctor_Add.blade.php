@@ -144,7 +144,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ti-calendar"></i></span>
                                                 </div>
-                                                <input type="text" id="user-dob" name="date_of_birth" class="form-control bg-white hasDatepicker" value="" placeholder="Select Date of Birth . . ." readonly="" autocomplete="off" required="">
+                                                <input type="text" id="user-dob" name="date_of_birth" class="form-control bg-white hasDatepicker datetimepicker_1" value="" placeholder="Doğum tarihi . . ." readonly="" autocomplete="off" required="">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -152,10 +152,10 @@
                                             <div class="input-group">
                                                 <div class="input-group-prepend"><span class="input-group-text"><i class="ti-layers-alt"></i></span></div>
                                                 <select name="department" class="custom-select" required="">
-                                                    <option value="Jinekoloji"> Jinekoloji</option>
+                                                    <option value="Cerrah"> Cerrah </option>
                                                     <option value="Ortoloji"> Ortoloji</option>
                                                     <option value="Dermatolog"> Dermatolog</option>
-                                                    <option value="Anestezi"> Anestezi</option>
+                                                    <option value="Diş"> Diş Doktoru</option>
                                                     <option value="Ayurveda"> Ayurveda</option>
                                                     <option value="Patoloji"> Patoloji</option>
                                                     <option value="Radyoloji"> Radiology</option>
@@ -685,6 +685,22 @@
             </script>
             <!-- Footer -->
     
+            <script>
+                $(document).ready(function () {
+                    $('.datetimepicker_1').datetimepicker({
+                        timepicker:false,
+                        formatTime:'H:i',
+                        format:"d/m/Y", // format değiştirilirse Carbon hata verebilir
+                        formatDate:'d.m.Y',
+                        // onChangeDateTime:logic,
+                        //onShow:logic,
+                        dayOfWeekStart: 1,
+                        // disabledWeekDays: [0],
+
+                    });
+                });
+    
+            </script>
         </div>
     </div>
     @endsection

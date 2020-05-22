@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CasingDB extends Model
+class Casings extends Model
 {
-    protected $table="casing";
-  protected $fillable=["service_name","currency","cs_desrciption","cs_phone"];
+    protected $table="casings";
+  protected $fillable=["clinic_id","service_name","branch_name","currency","cs_description","cs_phone"];
 }

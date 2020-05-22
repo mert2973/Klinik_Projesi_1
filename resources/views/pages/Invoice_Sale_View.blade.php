@@ -10,6 +10,14 @@
     </script>
 <div class="page-wrapper">
     <div class="page-body">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                    <span aria-hidden="true" style="line-height: 0.6">&times;</span>
+                </button>
+                <strong>{{ session('success') }}</strong>
+            </div>
+        @endif
         <div class="page-title">
             <div class="row align-items-center">
                 <div class="col-sm-6">
@@ -70,13 +78,13 @@
                                                 <td class="text">Fatura No</td>
                                                 <td class="text w-min-130">
                                                 @if($id_inv<10)
-                                                    {{"INV-0000"}}{{$id_inv}}
+                                                    {{"SF-0000"}}{{$id_inv}}
                                                 @elseif($id_inv<100)
-                                                  {{"INV-000"}}{{$id_inv}}
+                                                  {{"SF-000"}}{{$id_inv}}
                                                 @elseif($id_inv<1000)
-                                                   {{"INV-00"}}{{$id_inv}}
+                                                   {{"SF-00"}}{{$id_inv}}
                                                 @elseif($id_inv>=10000 || $id_inv<=10000)
-                                                    {{"INV-"}}{{$id_inv}}
+                                                    {{"SF-"}}{{$id_inv}}
                                                 @endif
                                                 </td>
                                             </tr>
@@ -97,10 +105,7 @@
                                                 <td class="text">Son Ödeme Tarihi</td>
                                                 <td class="text w-min-130">{{$date_due}}</td>
                                             </tr>
-                                            <tr>
-                                                <td class="text">Ödenecek Tutar(kalan Ödeme)</td>
-                                                <td class="text w-min-130 font-weight-bold">{{$sales_inv_sub["due"]}} {{"TL"}}</td>
-                                            </tr>
+                                         
                                             <tr>
                                                 <td class="text">Ödeme Tipi</td>
                                                 <td class="text w-min-130">{{$sales_inv_sub["method"]}}</td>
@@ -141,7 +146,7 @@
                                 </tr>
                                 @endforeach
                                 <tr class="total">
-                                    <td rowspan="5" colspan="3" class="blank">
+                                    <td rowspan="6" colspan="3" class="blank">
                                     </td>
                                     <td class="title">Ara Toplam</td>
                                     <td class="value">{{$sales_inv_sub["subtotal"]}} TL</td>
@@ -166,6 +171,10 @@
                                 <tr class="total">
                                     <td class="title">Ödenen</td>
                                     <td class="value">{{$sales_inv_sub["paid"]}} TL</td>
+                                </tr>
+                                <tr class="total">
+                                    <td class="title">Kalan</td>
+                                    <td class="value">{{$sales_inv_sub["due"]}} {{"TL"}}</td>
                                 </tr>
                                
                                 </tbody>
@@ -196,30 +205,34 @@
                         <div class="panel panel-default">
                             <div class="panel-head">
                                 <div class="panel-title">
-                                    <span class="panel-title-text">Payment History</span>
+                                    <span class="panel-title-text">Ödeme Geçmişi</span>
                                 </div>
                                 <div class="panel-action">
-                                    <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#addPayment"><i class="ti-wallet mr-1"></i> Add Payment</a>
+                                    <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#addPayment"><i class="ti-wallet mr-1"></i> Ödeme Ekle</a>
                                 </div>
                             </div>
-                            <div class="panel-body table-responsive">
+                            <div class="panel-body table-responsive pl-2 pr-2">
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Method</th>
-                                        <th>Amount</th>
+                                        <th>Ödeme Tarihi</th>
+                                        <th>Ödeme Tipi</th>
+                                        <th>Ödenen</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @php $payments=""; @endphp
+                                    @foreach($history_payment as $payments)
+                                        @php $date=Carbon\Carbon::parse($payments->paid_date)->format("d/m/Y H:i"); @endphp
                                     <tr>
-                                        <td>03-01-2020</td>
-                                        <td>Cash Payments</td>
-                                        <td>$12.40</td>
+                                        <td class="pl-1">{{$date}}</td>
+                                        <td>{{$payments->method}}</td>
+                                        <td>{{$payments->debt}} TL</td><!-- paid-->
                                     </tr>
+                                    @endforeach
                                     <tr>
-                                        <td colspan="2" class="text-right">Total</td>
-                                        <td>$ 12.4</td>
+                                        <td colspan="2" class="text-right">Toplam Ödeme</td>
+                                        <td>{{$sales_inv_sub["paid"]}} TL</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -251,43 +264,57 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Add Payments</h5>
+                        <h5 class="modal-title">Ödeme Ekle</h5>
                         <button type="button" class="close" data-dismiss="modal">×</button>
                     </div>
-                    <form action="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=addpayment" method="post" siq_id="autopick_106">
+                    <form action="{{url("add_payment_history_for_sale")}}" method="post" ><!-- siq_id="autopick_106" -->
+                        @csrf
                         <div class="modal-body">
+                            <input type="hidden" name="payment[names]" value="{{$sales_inv_sub["p_name"]}} {{$sales_inv_sub["p_surname"]}}">
+                                <div class="form-group">
+                                    <label class="col-form-label">Hesap Seçiniz</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text"><i class="ti-credit-card"></i></span></div>
+                                        <select name="payment[casing]" class="custom-select" required="">
+                                            <option value="">Hesap Seçiniz</option>
+                                            @foreach($casings as $csh)
+                                                <option value="{{$csh->id}}">{{$csh->service_name."/".$csh->branch_name."/".$csh->currency}} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                    
                             <div class="form-group">
-                                <label class="col-form-label">Payment Method</label>
+                                <label class="col-form-label">Ödeme Tipi</label>
                                 <select name="payment[method]" class="custom-select" required="">
-                                    <option value="">Payment Method</option>
-                                    <option value="1">Bank Transfer</option>
-                                    <option value="2">Cash Payments</option>
-                                    <option value="3">Credit card payments</option>
-                                    <option value="4">Cheque</option>
-                                    <option value="5">Direct debit payments</option>
-                                    <option value="6">Digital currencies</option>
-                                    <option value="7">Paypal</option>
+                                    <option value="Banka Transferi">Banka Transferi</option>
+                                    <option value="Nakit Ödeme">Nakit Ödeme</option>
+                                    <option value="Kredi Kartı Ödemesi">Kredi Kartı Ödemesi</option>
+                                    <!--<option value="4">Cheque</option> -->
+                                    <option value="Otomatik Ödeme">Otomatik Ödeme</option>
+                                    <option value="Dijital Para ödemesi">Dijital Para ödemesi</option>
+                                    <option value="Paypal">Paypal</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label">Amount ($)</label>
-                                <input type="text" class="form-control" name="payment[amount]" value="110" placeholder="Amount" required="">
+                                <label class="col-form-label">Ödenecek Miktar(TL)</label>
+                                <input type="text" class="form-control" name="payment[paid]" value="" placeholder="Amount" required="">
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label">Payment Date</label>
-                                <input type="text" class="form-control date hasDatepicker" name="payment[date]" value="21-02-2020" placeholder="Payment Date" required="" id="dp1582289978851">
+                                <label class="col-form-label">Ödeme Tarihi</label>
+                                <input type="text" class="form-control date hasDatepicker" name="payment[date]" value="" placeholder="Payment Date" required="" id="default1_datetimepicker"><!-- id="dp1582289978851" -->
                             </div>
-                            <input type="hidden" name="payment[invoice]" value="1">
-                            <input type="hidden" name="payment[email]" value="support@pepdev.com">
-                            <input type="hidden" name="_token" value="a37c23e576049c2e86e5b09056b820f5a205da8c448f38e15ab09d2fa1edf3b588681a537df8abc56c1ff242dbef8129443905deb043c1d1166301b083bf52e8">
+                            <input type="hidden" name="payment[id]" value="{{$id_inv}}">
+                            
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" name="submit" class="btn btn-primary"><i class="ti-save-alt pr-2"></i> Save</button>
+                            <button type="submit" name="submit" class="btn btn-primary"><i class="ti-save-alt pr-2"></i> Kaydet</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+       
         <!-- Attach File Modal -->
         <div id="attach-file" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -431,11 +458,25 @@
         </div>
         
         <!-- include summernote css/js-->
-        <link href="./Invoice_View _ Klinikal Hospital_files/summernote-bs4.css" rel="stylesheet">
+      <!--  <link href="./Invoice_View _ Klinikal Hospital_files/summernote-bs4.css" rel="stylesheet">
         <script type="text/javascript" src="./Invoice_View _ Klinikal Hospital_files/summernote-bs4.min.js"></script>
-        <script type="text/javascript" src="./Invoice_View _ Klinikal Hospital_files/klinikal.summernote.js"></script>
+        <script type="text/javascript" src="./Invoice_View _ Klinikal Hospital_files/klinikal.summernote.js"></script> -->
     
     
     </div>
 </div>
+    <script>
+        $(document).ready(function () {
+            $('#default1_datetimepicker').datetimepicker({
+                formatTime:'H:i',
+                format:"d-m-Y H:i",
+                formatDate:'d.m.Y',
+                // onChangeDateTime:logic,
+                //onShow:logic,
+                dayOfWeekStart: 1,
+                disabledWeekDays: [0],
+            });
+        });
+
+    </script>
 @endsection

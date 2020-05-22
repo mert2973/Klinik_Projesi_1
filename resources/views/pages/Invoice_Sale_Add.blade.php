@@ -1,5 +1,6 @@
 @extends('system_layouts.master_sys')
 @section('icerik')
+    @php $invoice_sale_add=1; @endphp
     <script>
         $(document).ready(function () {
             // $('#Pharmacy_Rotate').addClass('rotate') ;
@@ -47,7 +48,6 @@
             <form action="{{route('Sales_Invoices.store')}}" method="post" ><!-- siq_id="autopick_8816" --->
                 @csrf
                 <div class="panel panel-default">
-                  
                     <input type="hidden" name="invoice[id]" value="">
                     <input type="hidden" name="invoice[appointment_id]" value="">
                     <div class="panel-body">
@@ -57,8 +57,8 @@
                                     <label class="col-form-label">Hasta Adı <span class="form-required">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend"><span class="input-group-text"><i class="ti-user"></i></span></div>
-                                        <input type="text" name="invoice[name]" class="form-control patient-name ui-autocomplete-input src-patient" value="" placeholder="Hasta adını giriniz . . ." required="" autocomplete="off">
-                                        <input type="hidden" name="invoice[patient_id]" class="form-control patient-id" value="">
+                                        <input type="text" name="invoice[name]" class="form-control patient-name ui-autocomplete-input src-patient " value="" placeholder="Hasta adını giriniz . . ." required="" autocomplete="off">
+                                        <input type="hidden" name="invoice[patient_id]" class="form-control patient-id " value="">
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                     <label class="col-form-label">Email Adresi <span class="form-required">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend"><span class="input-group-text"><i class="ti-email"></i></span></div>
-                                        <input type="text" name="invoice[email]" class="form-control patient-mail" value="" readonly required placeholder="Hasta email adresi . . .">
+                                        <input type="text" name="invoice[email]" class="form-control patient-mail" value="" required="" required placeholder="Hasta email adresi . . .">
                                     </div>
                                 </div>
                             </div>
@@ -85,9 +85,10 @@
                                     <label class="col-form-label">Doktor</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend"><span class="input-group-text"><i class="ti-heart-broken"></i></span></div>
-                                        <input type="text" name="invoice[doctor]" class="form-control patient-doctor ui-autocomplete-input" value=""
-                                               placeholder="Doktor adını giriniz . . ."  autocomplete="off">
-                                        <input type="hidden" name="invoice[doctor_id]" class="form-control patient-doctor-id" value="" readonly="">
+                                        <input type="text" name="invoice[doctor]" class="form-control patient-doctor ui-autocomplete-input chk_dr" value=""
+                                               placeholder="Doktor adını giriniz . . ."  autocomplete="off" required="">
+                                        <input type="hidden" name="invoice[doctor_id]" class="form-control patient-doctor-id chk_dr_id" value="" readonly="">
+                            
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +101,7 @@
                                                 <i class="ti-calendar"></i>
                                             </span>
                                         </div>
-                                        <input type="date" name="invoice[invoicedate]" class="form-control " value="" required placeholder="Fatura tarihi"  >
+                                        <input type="text" name="invoice[invoicedate]" class="form-control default1_datetimepicker" value="" required placeholder="Fatura tarihi"  >
                                     </div>
                                 </div>
                                 
@@ -110,24 +111,39 @@
                                     <label class="col-form-label">Son Ödeme Tarihi <span class="form-required">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend"><span class="input-group-text"><i class="ti-calendar"></i></span></div>
-                                        <input type="date" name="invoice[duedate]" class="form-control date hasDatepicker" value="" required placeholder="Son Ödeme Tarihi" >
+                                        <input type="text" name="invoice[duedate]" class="form-control default1_datetimepicker" value="" required placeholder="Son Ödeme Tarihi" >
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-form-label">Hesap Seçiniz</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text"><i class="ti-credit-card"></i></span></div>
+                                        <select name="invoice[casing]" class="custom-select" required="">
+                                            <option value="">Hesap Seçiniz</option>
+                                            @foreach($casings as $csh)
+                                                <option value="{{$csh->id}}">{{$csh->service_name."/".$csh->branch_name."/".$csh->currency}} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="col-form-label">Ödeme Şekli</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend"><span class="input-group-text"><i class="ti-credit-card"></i></span></div>
                                         <select name="invoice[method]" class="custom-select" required="">
+                                            <option value="">Seçiniz</option>
                                             <option value="Banka Transferi">Banka Transferi</option>
                                             <option value="Nakit Ödeme">Nakit Ödeme</option>
                                             <option value="Kredi Kartı Ödemesi">Kredi Kartı Ödemesi</option>
-                                            <!--<option value="4">Cheque</option> -->
                                             <option value="Otomatik Ödeme">Otomatik Ödeme</option>
                                             <option value="Dijital Para ödemesi">Dijital Para ödemesi</option>
                                             <option value="Paypal">Paypal</option>
                                         </select>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -155,14 +171,19 @@
                                     <div class="input-group">
                                         <div class="input-group-prepend"><span class="input-group-text"><i class="ti-check-box"></i></span></div>
                                         <select name="invoice[inv_status]" class="custom-select" required="">
-                                            <option value="Draft">Draft</option>
-                                            <option value="Published">Published</option>
+                                            <option value="Draft">Taslak</option>
+                                            <option value="Published">Onaylandı</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="invoice-items table-responsive pt-3 pb-5">
+                 
+                        <div class="invoice-items table-responsive  pb-5">
+                            <button type="button" value="disabled" class="btn btn-sm btn-success font-weight-bold disabled"
+                                    data-toggle="tooltip" data-placement="top" title="Hastanın Randevu Sırasında Almış Olduğu Hizmetleri Faturalandır"
+                                    id="add_ptn_items" >Alınan Hizmetleri Listele</button>
+                                    <input type="hidden" value="open" id="check_ptn_items_button" >
                             <table class="table-input">
                                 <thead>
                                 <tr>
@@ -175,19 +196,21 @@
                                     <th></th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr class="item-row">
+                                <tbody >
+                                <tr id="new_line" class="collapse"></tr>
+                                <tr class="item-row" >
                                     <td class="">
                                         <textarea name="invoice[item][0][name]" class="item-name ui-autocomplete-input" required="" autocomplete="off"></textarea>
+                                        <input type="hidden" name="invoice[item][0][itm_id]" class="item_id">
                                     </td>
                                     <td class="invoice-item">
                                         <textarea name="invoice[item][0][descr]" class="item-descr"></textarea>
                                     </td>
                                     <td class="">
-                                        <textarea type="text" name="invoice[item][0][quantity]" class="item-quantity" required="">1</textarea>
+                                        <input type="number" name="invoice[item][0][quantity]" class="item-quantity form-control h-300" style="padding-bottom: 15px" value="1" required="" >
                                     </td>
                                     <td class="">
-                                        <textarea type="text" name="invoice[item][0][cost]" class="item-cost" required=""></textarea>
+                                        <textarea type="text" name="invoice[item][0][cost]" class="item-cost " required="" ></textarea>
                                     </td>
                                     <td class="invoice-tax">
                                         <input type="hidden" name="invoice[item][0][taxprice]" class="item-tax-price" value="0" readonly="">
@@ -197,10 +220,12 @@
                                         <input type="hidden" class="item-price">
                                     </td>
                                     <td>
-                                        <a class="badge badge-warning badge-sm badge-pill add-taxes m-1">Vergi Ekle</a>
+                                        <a class="badge badge-warning badge-sm badge-pill add-taxes m-1 new_itm" >Vergi Ekle</a>
                                         <a class="badge badge-danger badge-sm badge-pill delete m-1">Sil</a>
                                     </td>
                                 </tr>
+                                
+                                
                                 <tr>
                                     <td colspan="3" class="p-2">
                                         <div class="add-items d-inline-block">
@@ -260,7 +285,13 @@
                                         <label>Ödenen</label>
                                     </td>
                                     <td colspan="2" class="total-value">
-                                        <input type="text" name="invoice[paid]" class="form-transparent paid-amount" value="">
+                                        <input type="number" name="invoice[paid]" class="form-transparent paid-amount @error('odeme') is-invalid @enderror" required value="">
+                                        @error('odeme')
+                                       <span class="text-danger" >
+                                       <strong> {{-- $message --}}</strong>
+                                           <script>alert("Lütfen Geçerli Bir Ödeme Giriniz")</script>
+                                      </span>
+                                        @enderror
                                     </td>
                                 </tr>
                                 <tr>
@@ -276,6 +307,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -308,61 +340,30 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Tax</h5>
+                            <h5 class="modal-title">Vergi</h5>
                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-body">
                             <div class="custom-control custom-checkbox custom-checkbox-1 mb-3">
-                                <input type="checkbox" class="custom-control-input" id="inv-taxes-1" value="1" data-rate="5" data-name="VAT" name="modaltax">
-                                <label class="custom-control-label" for="inv-taxes-1">VAT (5%)</label>
+                                <input type="checkbox" class="custom-control-input" id="inv-taxes-1" value="1" data-rate="0" data-name="VAT" name="modaltax">
+                                <label class="custom-control-label" for="inv-taxes-1">KDV (0%)</label>
                             </div>
                             <div class="custom-control custom-checkbox custom-checkbox-1 mb-3">
-                                <input type="checkbox" class="custom-control-input" id="inv-taxes-2" value="2" data-rate="7.5" data-name="VAT" name="modaltax">
-                                <label class="custom-control-label" for="inv-taxes-2">VAT (7.5%)</label>
+                                <input type="checkbox" class="custom-control-input" id="inv-taxes-2" value="2" data-rate="1" data-name="VAT" name="modaltax">
+                                <label class="custom-control-label" for="inv-taxes-2">KDV (1%)</label>
                             </div>
                             <div class="custom-control custom-checkbox custom-checkbox-1 mb-3">
-                                <input type="checkbox" class="custom-control-input" id="inv-taxes-3" value="3" data-rate="10" data-name="VAT" name="modaltax">
-                                <label class="custom-control-label" for="inv-taxes-3">VAT (10%)</label>
+                                <input type="checkbox" class="custom-control-input" id="inv-taxes-3" value="3" data-rate="8" data-name="VAT" name="modaltax">
+                                <label class="custom-control-label" for="inv-taxes-3">KDV (8%)</label>
                             </div>
                             <div class="custom-control custom-checkbox custom-checkbox-1 mb-3">
-                                <input type="checkbox" class="custom-control-input" id="inv-taxes-4" value="4" data-rate="2.5" data-name="GST" name="modaltax">
-                                <label class="custom-control-label" for="inv-taxes-4">GST (2.5%)</label>
+                                <input type="checkbox" class="custom-control-input" id="inv-taxes-4" value="4" data-rate="18" data-name="GST" name="modaltax">
+                                <label class="custom-control-label" for="inv-taxes-4">KDV (18%)</label>
                             </div>
-                            <div class="custom-control custom-checkbox custom-checkbox-1 mb-3">
-                                <input type="checkbox" class="custom-control-input" id="inv-taxes-5" value="5" data-rate="5" data-name="GST" name="modaltax">
-                                <label class="custom-control-label" for="inv-taxes-5">GST (5%)</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-checkbox-1 mb-3">
-                                <input type="checkbox" class="custom-control-input" id="inv-taxes-6" value="6" data-rate="7.5" data-name="GST" name="modaltax">
-                                <label class="custom-control-label" for="inv-taxes-6">GST (7.5%)</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-checkbox-1 mb-3">
-                                <input type="checkbox" class="custom-control-input" id="inv-taxes-7" value="7" data-rate="10" data-name="GST" name="modaltax">
-                                <label class="custom-control-label" for="inv-taxes-7">GST (10%)</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-checkbox-1 mb-3">
-                                <input type="checkbox" class="custom-control-input" id="inv-taxes-8" value="8" data-rate="12" data-name="GST" name="modaltax">
-                                <label class="custom-control-label" for="inv-taxes-8">GST (12%)</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-checkbox-1 mb-3">
-                                <input type="checkbox" class="custom-control-input" id="inv-taxes-9" value="9" data-rate="15" data-name="GST" name="modaltax">
-                                <label class="custom-control-label" for="inv-taxes-9">GST (15%)</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-checkbox-1 mb-3">
-                                <input type="checkbox" class="custom-control-input" id="inv-taxes-10" value="10" data-rate="18" data-name="GST" name="modaltax">
-                                <label class="custom-control-label" for="inv-taxes-10">GST (18%)</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-checkbox-1 mb-3">
-                                <input type="checkbox" class="custom-control-input" id="inv-taxes-11" value="11" data-rate="18" data-name="Vat" name="modaltax">
-                                <label class="custom-control-label" for="inv-taxes-11">Vat (18%)</label>
-                            </div>
-                            <div class="custom-control custom-checkbox custom-checkbox-1 mb-3">
-                                <input type="checkbox" class="custom-control-input" id="inv-taxes-12" value="12" data-rate="0" data-name="GST" name="modaltax">
-                                <label class="custom-control-label" for="inv-taxes-12">GST (0%)</label>
-                            </div>
+                            
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary btn-pill add-modal-taxes">Add Taxes</button>
+                            <button type="button" class="btn btn-primary btn-pill add-modal-taxes " >Vergi Ekle</button>
                         </div>
                     </div>
                 </div>
@@ -371,4 +372,27 @@
         
         </div>
     </div>
+
+
+    <script>
+        $(document).ready(function () {
+          
+            
+            $(".chk_dr").keydown(function () {
+                $(".chk_dr_id").val("");
+                $("#add_ptn_items").addClass("disabled").val("disabled");
+                $(".new_lines_delete").remove();
+                $("#check_ptn_items_button").val("open");
+            });
+            $(".src-patient").keydown(function () {
+                $(".patient-id").val("");
+                $("#add_ptn_items").addClass("disabled").val("disabled");
+                $(".new_lines_delete").remove();
+                $("#check_ptn_items_button").val("open");
+            });
+        })
+
+    </script>
+    
+    
 @endsection

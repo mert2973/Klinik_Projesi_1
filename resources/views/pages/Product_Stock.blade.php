@@ -5,10 +5,10 @@
         $(document).ready(function () {
           // $('#Pharmacy_Rotate').addClass('rotate') ;
            $('#Account_active').addClass('active') ;
-           $('#Inventory_Medicines_text').addClass('text-white') ;
+           $('#Product_Stocks_text').addClass('text-white') ;
         });
     </script>
-    
+ 
     <div class="page-wrapper">
         <div class="page-body">
             @if (session('success'))
@@ -22,12 +22,12 @@
             <div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h2 class="page-title-text d-inline-block">Tıbbi İlaçlar</h2>
+                        <h2 class="page-title-text d-inline-block">Ürünler</h2>
                         <div class="breadcrumbs d-inline-block">
                             <ul>
                                 <li><a href="http://pepdev.com/theme-preview/klinikal/admin/">Dashboard</a></li>
                                 <i class="fa fa-angle-right font-12 ml-2" ></i>
-                                <span class="ml-2">Tıbbi İlaçlar</span>
+                                <span class="ml-2">Ürünler</span>
                             </ul>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                                 <li><a href="#" class="copy"><i class="ti-layers pr-2"></i>Copy</a></li>
                             </ul>
                         </div>
-                        <a href="{{route('Inventory_Medicines.create')}}" class="btn btn-primary btn-sm"><i class="ti-plus pr-2"></i> Yeni İlaç Ekle</a>
+                        <a href="{{route('Product_Stocks.create')}}" class="btn btn-primary btn-sm"><i class="ti-plus pr-2"></i> Yeni Ürün Ekle</a>
                     </div>
                    
                 </div>
@@ -81,40 +81,30 @@
                                         <thead>
                                         <tr role="row">
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column ascending" style="width: 10px;">#</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Medicine: activate to sort column ascending" style="width: 100px;">İlaç Bilgisi</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Company: activate to sort column ascending" style="width: 71px;">Şirket Bilgisi</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Unit: activate to sort column ascending" style="width: 24px;">İlaç Birimi</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Unit/Packing: activate to sort column ascending" style="width: 76px;">Birim/Paket</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Category: activate to sort column ascending" style="width: 57px;">Kategori</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Storebox: activate to sort column ascending" style="width: 54px;">Saklama Kutusu</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Reorderlevel: activate to sort column ascending" style="width: 76px;">Sipariş Düzeyi</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Live Stock: activate to sort column ascending" style="width: 37px;">Şimdiki Stok Adeti</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 57px;">Durum</th>
-                                            <th></th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Medicine: activate to sort column ascending" style="width: 100px;">Ürün Adı</th>
+                                           <!-- <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Company: activate to sort column ascending" style="width: 150px;">Tedarikçi Adı</th> -->
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Live Stock: activate to sort column ascending" style="width: 100px;">Stok Adeti</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 100px;">Durum</th>
+                                            <th style="width: 30px;"></th>
                                         </tr>
                                         </thead>
                                             <tbody>
-                                                @foreach($inventory_mdcn as $list)
-                                                    <tr role="row" class="odd">
-                                                        <td>1</td>
+                                                @foreach($products as $list)
+                                                    <tr role="row" class="odd " >
+                                                        <td>1</td >
                                                         <td>
-                                                            <p class="text-primary mb-0">{{$list->medc_name}}</p>
-                                                            <p class="mb-0">{{$list->medc_generic}}</p>
+                                                            <p class="text-primary mb-0">{{$list->product_name}}</p>
+                                                            <p class="mb-0">{{$list->product_note}}</p>
                                                         </td>
-                                                        <td>{{$list->medc_company}}</td>
-                                                        <th>{{$list->medc_unit}}</th>
-                                                        <td>{{$list->medc_unitpacking}}</td>
-                                                        <td>{{$list->medc_category}}</td>
-                                                        <td>{{$list->medc_storebox}}</td>
-                                                        <td>{{$list->medc_reorderlevel}}</td>
-                                                        <td>100.00</td>
+                                                   
+                                                        <td>{{$list->have_products}}</td>
                                                         <td><span class="badge badge-sm badge-primary">Normal</span></td>
                                                         <td class="table-action">
                                                             <div class="dropdown d-inline-block">
                                                                 <a class="text-primary edit dropdown-toggle" data-toggle="dropdown"><i class="ti-more"></i></a>
                                                                 <ul class="dropdown-menu dropdown-menu-right export-button">
-                                                                    <li><a href="{{route('Inventory_Medicines.show',$list->id)}}"><i class="ti-layout-media-center-alt pr-2"></i>İncele</a></li>
-                                                                    <li><a href="{{route('Inventory_Medicines.edit',$list->id)}}"><i class="ti-pencil-alt pr-2"></i>Düzenle</a></li>
+                                                                    <li><a href="{{route('Product_Stocks.show',$list->id)}}"><i class="ti-layout-media-center-alt pr-2"></i>İncele</a></li>
+                                                                    <li><a href="{{route('Product_Stocks.edit',$list->id)}}"><i class="ti-pencil-alt pr-2"></i>Düzenle</a></li>
                                                                 </ul>
                                                             </div>
                                                             <button value="{{$list->id}}" class="table-delete text-danger delete" data-toggle="tooltip" title="" data-original-title="Sil" id="del_mdcn<?php del_mdcn(1); ?>">
@@ -130,10 +120,10 @@
                             <div class="row align-items-center pt-3">
                                 <div class="col-sm-12 col-md-10">
                                     
-                                    <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Toplam: {{ $inventory_mdcn->lastPage() }} Sayfa<br>Toplam {{$inventory_mdcn->total()}} İlaç Listesinden {{$inventory_mdcn->count()}} Kayıt Gösteriliyor</div>
+                                    <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Toplam: {{ $products->lastPage() }} Sayfa<br>Toplam {{$products->total()}} İlaç Listesinden {{$products->count()}} Kayıt Gösteriliyor</div>
                                 </div>
                                 <div class="col-sm-12 col-md-2 text-right dataTables_pager">
-                                   {{$inventory_mdcn->links()}}
+                                   {{$products->links()}}
                                 </div>
                             </div>
                         </div>
@@ -195,7 +185,7 @@
                     $("#del_mdcn,del").click(function () {
                        var del_id=$(this).val();
                       
-                        $("#del_form").get(0).setAttribute("action",orgin+"/Inventory_Medicines/"+del_id);
+                        $("#del_form").get(0).setAttribute("action",orgin+"/Product_Stocks/"+del_id);
                     });
 
                     $("#medicinefile").on('change', function(e) {

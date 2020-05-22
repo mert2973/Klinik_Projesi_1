@@ -18,13 +18,15 @@ class Clinics extends Model
             ->select("*")->selectRaw("invs.id");
     }
     public function Invoices_Sales_View() { // some attributes made hidden at patient model
-
      return $a=  $this->hasMany("App\Patients","clinic_id")
             ->join("invoices_sales as invs","invs.patient_id","=","patients.id")
-
             ->select("*")->selectRaw("invs.id");
-
             //->join("users as usr","usr.id","=","invs.doctor_id")
-
+    }
+    public function Order_Managements_View() { // some attributes made hidden at patient model
+        return $a=  $this->hasMany("App\Suppliers","clinic_id")
+            ->join("order_managements as om","om.supplier_id","=","suppliers.id");
+           // ->select("*")->selectRaw("om.id");
+        //->join("users as usr","usr.id","=","invs.doctor_id")
     }
 }

@@ -102,11 +102,11 @@
                                                     <td class="table-action">
                                                         <div class="dropdown d-inline-block">
                                                            
-                                                            <a href="{{route("Sales_Invoices.show",$inv["id"])}}" class="text-primary edit" data-toggle="tooltip" title="" target="_blank" data-original-title="View">
+                                                            <a href="{{route("Sales_Invoices.show",$inv["id"])}}" class="text-primary edit" data-toggle="tooltip" title="" target="_blank" data-original-title="İncele">
                                                                 <i class="ti-layout-media-center-alt"></i>
                                                             </a>
                                                         </div>
-                                                        <button class="table-delete text-danger delete" type="hidden" data-toggle="tooltip" title="" data-original-title="Delete"
+                                                        <button class="table-delete text-danger delete" type="hidden" data-toggle="tooltip" title="" data-original-title="Sil"
                                                                 value="{{$inv["id"]}}" id="del_inv_sale<?php del_inv_sales(1) ?>"> <i class="ti-trash font-16"></i>
                                                         </button>
                                                     </td>
@@ -269,4 +269,6 @@
            });
        });
    </script>
+   
+
 @endsection

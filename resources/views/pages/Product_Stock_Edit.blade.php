@@ -5,7 +5,7 @@
         $(document).ready(function () {
             // $('#Pharmacy_Rotate').addClass('rotate') ;
             $('#Account_active').addClass('active') ;
-            $('#Inventory_Medicines_text').addClass('text-white') ;
+            $('#Product_Stocks_text').addClass('text-white') ;
         });
     </script>
 
@@ -27,7 +27,7 @@
                             <ul>
                                 <li><a href="{{url("Dashboard")}}">Dashboard</a></li>
                                 <i class="fa fa-angle-right font-12 ml-2" ></i>
-                                <span><a class="text-linkedin" href="{{route('Inventory_Medicines.index')}}">Stok/İlaçlar</a></span>
+                                <span><a class="text-linkedin" href="{{route('Product_Stocks.index')}}">Stok/İlaçlar</a></span>
                                 <i class="fa fa-angle-right font-12 ml-2" ></i>
                                 <span>İlaç Bilgilerini Düzenle</span>
                             </ul>
@@ -37,7 +37,7 @@
                 </div>
             </div>
     
-            <form action="{{route('Inventory_Medicines.update',$inv_mdcn->id)}}" method="post" enctype="multipart/form-data"><!-- siq_id="autopick_2179"-->
+            <form action="{{route('Product_Stocks.update',$inv_mdcn->id)}}" method="post" enctype="multipart/form-data"><!-- siq_id="autopick_2179"-->
                 @csrf
                 @method("PUT")
                 <div class="panel panel-default">

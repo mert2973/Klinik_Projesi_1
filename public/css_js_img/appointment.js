@@ -10,7 +10,7 @@ var origin=window.location.origin;
                 minLength: 1,
 
                 //source:"{{'/autoComplete_patients_list'}}",
-                source: "autoComplete_patients_list",
+                source: "/autoComplete_patients_list",
                 select: function( event, get_id ) {
                     event.preventDefault();
                     $("#name").val('');
@@ -66,8 +66,8 @@ var origin=window.location.origin;
         else if (event.status == '4') { status = 'Completed'; }
         else { status = 'New'; } */
 
-        return '<div ><span class="font-12">Date:</span> '+event.start.format($('.common_daterange_format').val())+' at '+event.time+' o\'clock</div>'+
-        '<div><span class="font-12">Doctor:</span> '+event.doctor+'</div><div><span class="font-12">Status:</span> <span>'+event.status+'</span></div>';
+        return '<div ><span class="font-12">Tarih:</span> '+event.start.format($('.common_daterange_format').val())+' <span class="pl-4"> '+event.time+'</span> </div>'+
+        '<div><span class="font-12">Doktor:</span> '+event.doctor+'</div><div><span class="font-12">Durum:</span> <span>'+event.status+'</span></div> ';
     }
 
     function openAppointmentSidebar() {
@@ -117,7 +117,7 @@ var origin=window.location.origin;
             data: { date: data.date, department: data.department, day: data.day, doctor: data.doctor, _token: $('.s_token').val() },
             error: function () {
                 $('.appointment-loading').hide();
-                $('.apnt-slot').append('<div class="font-14 text-danger">Error occured during connection.</div> ');
+                $('.apnt-slot').append('<div class="font-14 text-danger">Bağlantı Hatası Oluştu.</div> ');
             },
             success: function (response) {
                 $('#apnt-info .apnt-slot>div').remove();
@@ -175,7 +175,7 @@ var origin=window.location.origin;
         //doctors_list
 
         const http=new XMLHttpRequest();
-        http.open('GET','doctors_list',true);
+        http.open('GET','/doctors_list',true);
         http.onload=function(){
           if(this.status==200){
             let datam=JSON.parse(this.responseText);
@@ -202,17 +202,16 @@ var origin=window.location.origin;
     //  alert("chk select: "+chk);
 
        id_dr=  $(this).val();
+
        $("#apt_times").hide();
 
         $("#apt_time_info").show();
-
-
           var my_time=function(t){
           if(id_dr!=0){
 
           var day=t.getDay();
            let aa=""; var cnt=0;
-           $.get('doctor_apt_time',{the_dr_id:id_dr,day:day},
+           $.get('/doctor_apt_time',{the_dr_id:id_dr,day:day},
 
            function(data){
             let  itm=JSON.parse(data);
@@ -256,6 +255,7 @@ var origin=window.location.origin;
     });
 
     $('#calendar').fullCalendar({
+        lang:"tr",
         events: path.concat('/events_calendar'), // {{url('/events_calendar')}}
         editable:true,
         selectable:true,
@@ -282,18 +282,21 @@ var origin=window.location.origin;
         defaultDate: moment().format("YYYY-MM-DD"),
         eventLimit: true,
         eventMouseover: function (event, jsEvent) {
+            var id=event.apt_id;
             $(this).popover({
                 container: '#calendar',
                 html: true,
-                title: event.title,
+                title: "<div class='row' ><div class='col-lg-8'>"+event.title +"</div><div class='col-lg-4'><a href='/Appointments/"+id+"/edit' class='ti-pencil-alt pl-4 '></a></div></div>",
                 content: createAppointmentPopover(event),
             }).popover('toggle');
         },
-        eventMouseout: function (event, jsEvent, view) {
-            $(this).popover('dispose');
-        },
+
+        /* eventMouseout: function (event, jsEvent, view) {
+             $(this).popover('dispose');
+         }, */
 
         eventClick: function (event, jsEvent, view) {
+            $(this).popover('dispose');
           $('#apnt-info .apnt-id').val(event.apt_id);
           $('#apnt-info .patient-name').val(event.title);
           $('#apnt-info .patient-mail').val(event.email);
@@ -316,6 +319,7 @@ var origin=window.location.origin;
             openAppointmentSidebar();
         },
         dayClick: function (date, event, view) {
+
             if (date.format('YYYY-MM-DD') >= new moment().format('YYYY-MM-DD')) {
               //  openAppointmentSidebar();
                   openAppointmentSidebar_for_create();
@@ -323,9 +327,17 @@ var origin=window.location.origin;
             }
             return false;
         }
+
     });
 
-
+     $("html").on("mouseup", function (e) {
+         var l = $(e.target);
+         if (l[0].className.indexOf("popover") == -1) {
+             $(".popover").each(function () {
+                 $(this).popover("hide");
+             });
+         }
+     });
 
     $('#apnt-info .apnt-doctor').on('change', function () {
         $('#apnt-info .apnt-date').datepicker('destroy');

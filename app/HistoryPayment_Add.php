@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class HistoryPayment_Add extends Model
 {
     protected $table="history_payment_add";
-    protected $fillable=["inv_sale_id","method","paid","paid_date"];
+    protected $fillable=["inv_id","type_inv","last_cash_balance","names","debt","credit","method","casing_id","paid_date"];
     public $timestamps=false;
+
 }

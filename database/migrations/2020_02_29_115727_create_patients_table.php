@@ -22,6 +22,7 @@ class CreatePatientsTable extends Migration
             $table->string('p_email')->varchar(30);
             $table->string('p_phone')->varchar(15);
             $table->tinyInteger('status')->default(1);
+            $table->integer('total_dept')->default(0)->comment("borçlu");
 
             $table->timestamps();
         });

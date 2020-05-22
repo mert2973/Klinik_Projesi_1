@@ -71,13 +71,13 @@
                                         @foreach($invoice_items as $itms)
                                         <tr role="row" class="odd">
                                             <td>{{$i++}}</td>
-                                            <td class="text-primary">{{$itms->itm_name}}</td>
-                                            <td>{{$itms->itm_cost}}</td>
-                                            <td>{{$itms->itm_dscr}}</td>
+                                            <td class="text-primary">{{$itms->product_name}}</td>
+                                            <td>{{$itms->item_cost}}</td>
+                                            <td>{{$itms->product_note}}</td>
                                             <td class="table-action">
-                                                <a class="text-primary edit edit-item" data-name="Physiotherapy" data-description="{{$itms->itm_dscr}}" data-id="1"
-                                                   data-price="{{$itms->itm_cost}}" data-currency="0" data-toggle="tooltip" title="" data-original-title="Edit"><i class="ti-pencil-alt"></i></a>
-                                                <button type="button" class="table-delete text-danger delete" data-toggle="tooltip" title="" data-original-title="Delete">
+                                                <a class="text-primary edit edit-item" data-name="Physiotherapy" data-description="{{$itms->product_note}}" data-id="1"
+                                                   data-price="{{$itms->item_cost}}" data-currency="0" data-toggle="tooltip" title="" data-original-title="Edit"><i class="ti-pencil-alt"></i></a>
+                                                <button type="button" value="{{$itms->id}}" class="table-delete text-danger delete" data-toggle="tooltip" title="" data-original-title="Delete" id="del_itm<?php del_itm_fnc(1); ?>">
                                                     <i class="ti-trash font-16"></i>
                                                 </button>
                                             </td>
@@ -170,23 +170,33 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Confirm Delete</h5>
+                            <h5 class="modal-title">Silme İşlemini Onayla</h5>
                             <button type="button" class="close" data-dismiss="modal">×</button>
                         </div>
                         <div class="modal-body">
-                            <p class="delete-card-ttl mb-0">Are you sure you want to delete?</p>
+                            <p class="delete-card-ttl mb-0">Simek İstediğinizden Emin misiniz?</p>
                         </div>
                         <div class="modal-footer">
-                            <form action="" class="delete-card-button" method="" siq_id="autopick_5894">
-                                <input type="hidden" value="" class="delete-id" name="id">
-                                <input type="hidden" name="_token" value="">
-                                <button type="submit" class="btn btn-danger" name="delete">Delete</button>
+                            <form action="" class="delete-card-button" method="post" id="del_form"><!--siq_id="autopick_5894"-->
+                            @csrf
+                                @method("DELETE")
+                                <button type="submit" class="btn btn-danger" name="delete">Sil</button>
                             </form>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+      $(document).ready(function () {
+         var id="<?php function del_itm_fnc($id){return $id;} ?>";
+         $("#del_itm,id").click(function () {
+             var org_itm=window.location.origin;
+            var get_id=$(this).val();
+            $("#del_form").get(0).setAttribute("action",org_itm+"/St_Invoice_Items/"+get_id);
+         });
+      });
+    </script>
 @endsection

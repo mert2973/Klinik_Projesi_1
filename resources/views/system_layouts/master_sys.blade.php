@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-   
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Klinik</title>
@@ -11,11 +11,27 @@
     <!-- extra proje haricinde eklenen scripts --->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
     <!--End extra proje haricinde eklenen scripts --->
+
+    <!---  typhead (multi value in textbox) ---->
+       @if(!empty($appointment_edit))
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css">-->
+        <link rel="stylesheet" href="{{asset('css_js_img/typehead/dist/bootstrap-tagsinput.css')}}">
+        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/themes/github.css" >-->
+        <link rel="stylesheet" href="{{asset('css_js_img/typehead/assets/app.css')}}">
+        @endif
+    <!--- End. typhead (multi value in textbox) ---->
     
     <!-- Include css files -->
     <link rel="stylesheet" type="text/css" href="{{asset('css_js_img/style.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css_js_img/chart.min.css')}}">
+    <!-- full calendar for turkish (not more)--->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css" />
+    <!--End. full calendar for turkish (not more)--->
     <link rel="stylesheet" type="text/css" href="{{asset('css_js_img/fullcalendar.min.css')}}">
+    
+    
+    
     <link rel="stylesheet" type="text/css" href="{{asset('css_js_img/summernote/summernote-bs4.css')}}">
     <link rel="stylesheet" type="text/css" href="{{--asset('css_js_img/floatbutton_34175_.css')--}}"> <!-- invoice için eklenmişti-->
 
@@ -34,7 +50,12 @@
     <script type="text/javascript" src="{{asset('css_js_img/summernote/summernote-bs4.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('css_js_img/summernote/klinikal.summernote.js')}}"></script>
     
+  <!-- full calendar for turkish (not more)--->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/lang/tr.js"></script>
+    <!--End full calendar for turkish --->
 
+    
     
     <script type="text/javascript" src="{{--asset('css_js_img/floatbutton_8a683_.js')--}}"></script> <!-- invoice için eklenmişti-->
     
@@ -74,10 +95,20 @@
     <script type="text/javascript" src="{{asset('css_js_img/my_css_js/my_js.js')}}"></script>
     
     <link rel="stylesheet" type="text/css" href="{{url('DateTimePicker/jquery.datetimepicker.css')}}"/>
+    
+    
 </head>
 
 <body style="">
-
+<style>
+    .setting-handle {
+        position: absolute;
+        top: 40%;
+        left: -40px;
+        width: 44px;
+        height: 54px;
+    }
+</style>
 
 <!-- wrapper -->
 <div class="wrapper ">
@@ -85,12 +116,18 @@
     @include('system_layouts.left_menu')
     @include('system_layouts.header')
     @yield('icerik')
+   
   </div>
 </div>
 
 <script type="text/javascript" src="{{--asset('js/app.js')--}}"></script>
-
+@if(!empty($invoice_sale_add))
 <script type="text/javascript" src="{{asset('css_js_img/invoice.js')}}"></script>
+@endif
+@if(!empty($order_management_add))
+<script type="text/javascript" src="{{asset('css_js_img/order_management.js')}}"></script>
+@endif
+
 <script type="text/javascript" src="{{asset('css_js_img/appointment.js')}}"></script>
 <script type="text/javascript" src="{{asset('css_js_img/Chart.min.js')}}"></script>
 
@@ -220,6 +257,7 @@
     
 </script>
 <!-- Footer -->
+<!--
 <script type="text/javascript">
     /*chat için */
     var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq ||
@@ -228,7 +266,7 @@
     s.src="https://salesiq.zoho.com/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);d.write("<div id='zsiqwidget'></div>");
   
  </script>
-<div id="zsiqwidget"></div>
+<div id="zsiqwidget"></div> -->
 <script>
     /*şimdilik bir işlevi yok
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -301,6 +339,22 @@
     } );
 </script>
 
+<script>
+    $(document).ready(function () {
+        $('.default1_datetimepicker').datetimepicker({
+            timepicker:false,
+            formatTime:'H:i',
+            format:"d-m-Y", // format değiştirilirse Carbon hata verebilir
+            formatDate:'d.m.Y',
+            // onChangeDateTime:logic,
+            //onShow:logic,
+            dayOfWeekStart: 1,
+            // disabledWeekDays: [0],
+
+        });
+    });
+
+</script>
 
 
 </body>

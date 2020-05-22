@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Inventory_Medicines;
+use App\product_history;
+use App\Product_Stocks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Inventory_Medicine extends Controller
+class Product_Stock extends Controller
 {
     public function __construct()
     {
@@ -15,14 +16,32 @@ class Inventory_Medicine extends Controller
 
     public function autocomplete_medicine(){
         $clinic_id= Auth::user()->the_clinic_id();
+        if(isset($_GET["order_request"])){
+            $trm=$_GET["order_request"];
+            $mdc=Product_Stocks::where("product_name","like","%".$trm."%")->where("clinic_id",$clinic_id)->get();
+        }
+        if(isset($_GET["term"])){
+            $trm=$_GET["term"];
+            $mdc=Product_Stocks::where("product_name","like","%".$trm."%")->where("clinic_id",$clinic_id)->where("have_products",">",0)->get();
+        }
+        //$trm=$_GET["term"];
 
-        $trm=$_GET["term"];
-        $mdc=Inventory_Medicines::where("medc_name","like","%".$trm."%")->where("clinic_id",$clinic_id)->get();
-        $datas=array();
+        $datas=array(); $a="";
         foreach ($mdc as $list){
             $data["id"]=$list["id"];
-            $data["value"]=$list["medc_name"];
-            $data["label"]=$list["medc_name"]." ".$list["medc_company"];
+            $data["value"]=$list["product_name"];
+            if($list["type"]==0){ //if type; 0:ürün, 1:Hizmet
+                $a="Ürün"."/Stok: ".$list["have_products"];
+            }else{
+                $a="Hizmet";
+            }
+            $data["label"]=$list["product_name"]."/".$a;
+
+            $data["name"]=$list["product_name"];
+            $data["price"]=$list["item_cost"];
+            $data["description"]=$list["product_note"];
+            $data["type"]=$list["type"];
+
             array_push($datas,$data);
         }
         echo  json_encode($datas);
@@ -36,8 +55,8 @@ class Inventory_Medicine extends Controller
     public function index()
     {
         $clnc_id=Auth::user()->the_clinic_id();
-        $inventory_mdcn= Inventory_Medicines::where("clinic_id",$clnc_id)->paginate(5);
-        return view("pages.Inventory_Medicines",compact("inventory_mdcn"));
+        $products= Product_Stocks::where(["clinic_id"=>$clnc_id,"type"=>0])->paginate(5);
+        return view("pages.Product_Stock",compact("products"));
     }
 
     /**
@@ -47,7 +66,7 @@ class Inventory_Medicine extends Controller
      */
     public function create()
     {
-        return view('pages.Inv_Medicine_Add');
+        return view('pages.Product_Stock_Add');
     }
 
     /**
@@ -61,19 +80,12 @@ class Inventory_Medicine extends Controller
       //return  $request->all();
 
         $clnc_id=Auth::user()->the_clinic_id();
-        Inventory_Medicines::create([
+        Product_Stocks::create([
             "clinic_id"=>$clnc_id,
-            "medc_name"=>$request->medc_name ,
-            "medc_category"=>$request-> medc_category,
-            "medc_company"=>$request->medc_company ,
-            "medc_generic"=>$request->medc_generic ,
-            "medc_group"=>$request->medc_group ,
-            "medc_unit"=>$request->medc_unit ,
-            "medc_unitpacking"=>$request->medc_unitpacking ,
-            "medc_storebox"=>$request->medc_storebox ,
-            "medc_minlevel"=>$request->medc_minlevel ,
-            "medc_reorderlevel"=>$request->medc_reorderlevel ,
-            "medc_note"=>$request->medc_note ,
+            "product_name"=>$request->product_name ,
+            "product_catgry"=>$request-> product_catgry,
+            "stock_code"=>$request->stock_code ,
+            "product_note"=>$request->product_note ,
         ]);
 
         return redirect()->back()->with("success","İlaç Bilgileri Başarıyla Sisteme Eklendi");
@@ -87,8 +99,9 @@ class Inventory_Medicine extends Controller
      */
     public function show($id)
     {
-        $inv_mdcn= Inventory_Medicines::where("id",$id)->first();
-        return view("pages.Inv_Medicine_View",compact("inv_mdcn"));
+        $inv_mdcn= Product_Stocks::where("id",$id)->first();
+        $product_history= product_history::where("product_id",$id)->get();
+        return view("pages.Product_Stock_View",compact("inv_mdcn","product_history"));
     }
 
     /**
@@ -99,8 +112,8 @@ class Inventory_Medicine extends Controller
      */
     public function edit($id)
     {
-       $inv_mdcn= Inventory_Medicines::where("id",$id)->first();
-        return view("pages.Inv_Medicine_Edit",compact("inv_mdcn"));
+       $inv_mdcn= Product_Stocks::where("id",$id)->first();
+        return view("pages.Product_Stock_Edit",compact("inv_mdcn"));
     }
 
     /**
@@ -113,7 +126,7 @@ class Inventory_Medicine extends Controller
     public function update(Request $request, $id)
     {
      //return  $request->all();
-        Inventory_Medicines::where("id",$id)->update([
+        Product_Stocks::where("id",$id)->update([
             "medc_name"=>$request->medc_name ,
             "medc_category"=>$request-> medc_category,
             "medc_company"=>$request->medc_company ,
@@ -137,7 +150,7 @@ class Inventory_Medicine extends Controller
      */
     public function destroy($id)
     {
-        Inventory_Medicines::where("id",$id)->delete();
+        Product_Stocks::where("id",$id)->delete();
 
         return redirect()->back()->with("success","Silme İşlemi Başarıyla Tamamlandı");
     }

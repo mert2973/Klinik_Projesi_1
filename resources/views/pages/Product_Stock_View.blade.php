@@ -5,7 +5,7 @@
         $(document).ready(function () {
             // $('#Pharmacy_Rotate').addClass('rotate') ;
             $('#Account_active').addClass('active') ;
-            $('#Inventory_Medicines_text').addClass('text-white') ;
+            $('#Product_Stocks_text').addClass('text-white') ;
         });
     </script>
     
@@ -14,12 +14,12 @@
             <div class="page-title">
                 <div class="row align-items-center">
                     <div class="col-sm-8">
-                        <h2 class="page-title-text d-inline-block">Medicine View</h2>
+                        <h2 class="page-title-text d-inline-block">Ürünü İncele </h2>
                         <div class="breadcrumbs d-inline-block">
                             <ul>
                                 <li><a href="http://pepdev.com/theme-preview/klinikal/admin/">Dashboard</a></li>
-                                <li><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=medicines">Medicines</a></li>
-                                <li>Medicine View</li>
+                                <li><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=medicines">Ürünler</a></li>
+                                <li>Ürünü İncele</li>
                             </ul>
                         </div>
                     </div>
@@ -35,12 +35,12 @@
                                 <span>A</span>
                             </div>
                             <div class="user-details text-center pt-3">
-                                <h3>Amoxicillin</h3>
+                                <h3>{{$inv_mdcn->product_name}}</h3>
                                 <ul class="v-menu text-left pt-3 nav d-block">
-                                    <li><a href="#medicine-info" class="active" data-toggle="tab"><i class="ti-info-alt"></i> <span>Medicine Info</span></a></li>
-                                    <li><a href="#medicine-stock" data-toggle="tab"><i class="ti-archive"></i> <span>Live Stock</span></a></li>
+                                    <li><a href="#medicine-info" class="active" data-toggle="tab"><i class="ti-info-alt"></i> <span>Ürün Bilgisi</span></a></li>
+                                    <li><a href="#medicine-stock" data-toggle="tab"><i class="ti-archive"></i> <span>Stok Durumu</span></a></li>
                                     <li><a href="#medicine-badstock" data-toggle="tab"><i class="ti-files"></i> <span>Bad Stock</span></a></li>
-                                    <li><a href="http://pepdev.com/theme-preview/klinikal/admin/index.php?route=medicine/edit&amp;id=15"><i class="ti-pencil-alt"></i> <span>Edit</span></a></li>
+                                    <li><a href="{{route('Product_Stocks.edit',$inv_mdcn->id)}}"><i class="ti-pencil-alt"></i> <span>Edit</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -51,59 +51,43 @@
                         <div class="tab-pane fade show active" id="medicine-info">
                             <div class="panel panel-default">
                                 <div class="panel-head">
-                                    <div class="panel-title">Medicine Info</div>
+                                    <div class="panel-title">Ürün Bilgileri</div>
                                 </div>
                                 <div class="panel-body">
                                     <div class="table-responsive">
                                         <table class="table table-striped patient-table">
                                             <tbody>
                                             <tr>
-                                                <td>Medicine Name</td>
-                                                <td>Amoxicillin</td>
+                                                <td>Ürün Adı</td>
+                                                <td>{{$inv_mdcn->product_name}}</td>
                                             </tr>
                                             <tr>
-                                                <td>company</td>
-                                                <td>Amoxicillin</td>
+                                                <td>Şirket</td>
+                                                <td>....</td>
                                             </tr>
                                             <tr>
-                                                <td>generic</td>
-                                                <td>Amoxicillin</td>
+                                                <td>Kategori</td>
+                                                <td>{{$inv_mdcn->product_catgry}}</td>
                                             </tr>
                                             <tr>
-                                                <td>unit</td>
-                                                <td>1</td>
+                                                <td>Kalan Miktar</td>
+                                                <td>{{$inv_mdcn->have_products}}</td>
                                             </tr>
                                             <tr>
-                                                <td>unitpacking</td>
-                                                <td>10</td>
+                                                <td>Toplam Satın Alınan</td>
+                                                <td>{{$inv_mdcn->total_till_now}}</td>
                                             </tr>
                                             <tr>
-                                                <td>medicine_group</td>
-                                                <td>Antibiotic</td>
+                                                <td>Ürün Fiayatı</td>
+                                                <td>{{$inv_mdcn->item_cost}}.00 TL</td>
                                             </tr>
                                             <tr>
-                                                <td>category</td>
-                                                <td>Capsule</td>
+                                                <td>Ürün Notu</td>
+                                                <td>{{$inv_mdcn->product_note}}</td>
                                             </tr>
                                             <tr>
-                                                <td>storebox</td>
-                                                <td>Box 8</td>
-                                            </tr>
-                                            <tr>
-                                                <td>minlevel</td>
-                                                <td>10</td>
-                                            </tr>
-                                            <tr>
-                                                <td>reorderlevel</td>
-                                                <td>50</td>
-                                            </tr>
-                                            <tr>
-                                                <td>note</td>
-                                                <td>Amoxicillin is a penicillin antibiotic that fights bacteria.</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Created Date</td>
-                                                <td>2019-12-31 10:15:25</td>
+                                                <td>Yapılan Son İşlem</td>
+                                                <td>{{Carbon\Carbon::parse($inv_mdcn->updated_at)->format("d/m/Y H:i")}}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -114,28 +98,56 @@
                         <div class="tab-pane fade" id="medicine-stock">
                             <div class="panel panel-default">
                                 <div class="panel-head">
-                                    <div class="panel-title">Live Stock</div>
+                                    <div class="panel-title">Stok Durumu</div>
                                 </div>
                                 <div class="panel-body">
                                     <div class="table-responsive stock-table">
                                         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                                            <div class="row align-items-center pb-3"><div class="col-sm-6 text-left"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="75">75</option><option value="-1">All</option></select> entries</label></div></div><div class="col-sm-6 text-right"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0"></label></div></div></div><div class="row"><div class="col-sm-12">
+                                            <div class="row align-items-center pb-3">
+                                                <div class="col-sm-6 text-left"><div class="dataTables_length" id="DataTables_Table_0_length">
+                                                        <label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm">
+                                                                <option value="10">10</option>
+                                                                <option value="25">25</option>
+                                                                <option value="50">50</option>
+                                                                <option value="75">75</option>
+                                                                <option value="-1">All</option>
+                                                            </select> entries</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 text-right">
+                                                    <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                                        <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
                                                    <!-- livestock-table dataTable --->
                                                     <table class="table table-middle table-bordered table-striped " id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                                         <thead>
-                                                        <tr role="row"><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column ascending" style="width: 0px;">#</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Batch: activate to sort column ascending" style="width: 0px;">Batch</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Expiry: activate to sort column ascending" style="width: 0px;">Expiry</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Purchase Price: activate to sort column ascending" style="width: 0px;">Purchase Price</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Sale Price: activate to sort column ascending" style="width: 0px;">Sale Price</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Qty: activate to sort column ascending" style="width: 0px;">Qty</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Sold: activate to sort column ascending" style="width: 0px;">Sold</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Live Stock: activate to sort column ascending" style="width: 0px;">Live Stock</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label=": activate to sort column ascending" style="width: 0px;"></th></tr>
+                                                        <tr role="row"><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column ascending" style="width: 30px;">#</th>
+                                                           <!-- <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Batch: activate to sort column ascending" style="width: 0px;">Batch</th> -->
+                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Expiry: activate to sort column ascending" style="width: 110px;">Tarih</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="" style="width: 100px;">Açıklama</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Qty: activate to sort column ascending" style="width: 40px;">Toplam Miktar</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Live Stock: activate to sort column ascending" style="width: 40px;">Satılan Miktar</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Purchase Price: activate to sort column ascending" style="width: 40px;">Kalan Miktar</th>
+                                                         
+                                                           
+                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label=": activate to sort column ascending" style="width: 100px;"></th>
+                                                        </tr>
                                                         </thead>
                                                         <tbody>
-                                                    
+                                                        @foreach($product_history as $list )
                                                         <tr role="row" class="odd">
-                                                            <td>1</td>
-                                                            <td class="batch text-primary">AMX0012</td>
-                                                            <td class="expiry text-danger">12-2020</td>
-                                                            <td>$120.00</td>
-                                                            <td>$130.00</td>
-                                                            <td class="qty">100.00</td>
-                                                            <td class="sold">0.00</td>
-                                                            <td class="available">100</td>
+                                                            <td>{{$list->id}}</td>
+                                                            <td class="batch text-primary">{{Carbon\Carbon::parse($list->process_date)->format("d/m/Y")}}</td>
+                                                            <td class="expiry text-danger">{{$list->Explanation}}</td>
+                                                            <td>{{$list->purchased}}</td>
+                                                            <td>{{$list->sold}}</td>
+                                                            <td>{{$list->remaining}}</td>
+                                                           
                                                             <td class="table-action">
                                                                 <div class="dropdown d-inline-block">
                                                                     <a class="text-primary edit dropdown-toggle" data-toggle="dropdown"><i class="ti-more"></i></a>
@@ -149,12 +161,21 @@
                                                                     <i class="ti-trash"></i><input type="hidden" value="16">
                                                                 </a>
                                                             </td>
-                                                        </tr></tbody>
-                                                        <tfoot>
+                                                        </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                       <!-- <tfoot>
                                                         <tr>
                                                             <th rowspan="1" colspan="1"></th>
-                                                            <th rowspan="1" colspan="1"></th><th rowspan="1" colspan="1"></th><th rowspan="1" colspan="1">$120</th><th rowspan="1" colspan="1">$130</th><th rowspan="1" colspan="1">100</th><th rowspan="1" colspan="1">0</th><th rowspan="1" colspan="1">100</th><th rowspan="1" colspan="1"></th></tr>
-                                                        </tfoot>
+                                                            <th rowspan="1" colspan="1"></th>
+                                                            <th rowspan="1" colspan="1"></th>
+                                                            <th rowspan="1" colspan="1">$120</th>
+                                                            <th rowspan="1" colspan="1">$130</th>
+                                                            <th rowspan="1" colspan="1">100</th>
+                                                   
+                                                            <th rowspan="1" colspan="1"></th>
+                                                        </tr>
+                                                        </tfoot> -->
                                                     </table>
                                                 </div>
                                             </div>
